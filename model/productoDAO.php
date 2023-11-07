@@ -21,7 +21,7 @@ final class productoDAO
     public static function getProductoById($id){
         
         $con = DataBase::connect();
-        $sql = "SELECT * FROM productos WHERE id = '$id'";
+        $sql = "SELECT * FROM productos WHERE id = ?";
 
         if ($resultado = $con->query($sql)) {
 
@@ -32,10 +32,13 @@ final class productoDAO
         }
     }
 
+    public static function editProduct(){
+
+
 
 }
 
-
+} 
 
 
 

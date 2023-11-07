@@ -8,6 +8,7 @@ class productoController{
 
     public function index(){
        include_once "views/cabecera.php";
+       include_once "views/home.php";
        $allProducts = productoDAO::getAllProducto();
 
         

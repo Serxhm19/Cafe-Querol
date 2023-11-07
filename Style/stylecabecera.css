@@ -1,3 +1,248 @@
-table, th, td {
-    border: 1px solid;
-  }
+/*----------------------------------------------------------------*/
+/*                           Header                               */
+/*----------------------------------------------------------------*/
+
+body {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+#Header1 {
+  width: 1440px;
+  height: 47px;
+  background-color: #D9D9D9;
+
+}
+
+#Header1 h2 {
+  font-family: DIN;
+  font-size: 15px;
+  padding-top: 15px;
+  padding-left: 30px;
+}
+
+.Header2 {
+  display: flex;
+  justify-content: center;
+  height: 38.8px;
+}
+
+.Header2 h3 {
+  font-family: DIN;
+  font-size: 12px;
+  padding-top: 14px;
+
+}
+
+.Header2 img {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  margin-top: 10px;
+
+
+}
+
+/*----------------------------------------------------------------*/
+/*                           Home.php                             */
+/*----------------------------------------------------------------*/
+
+.carousel {
+  height: 676px;
+}
+
+.carousel img {
+  height: 676px;
+  object-fit: cover;
+}
+
+.btn.btn-light {
+  width: 243px;
+  height: 40px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-family: DIN;
+  border-radius: 0%;
+  font-size: 14px;
+  border: 1px solid rgb(0, 0, 0);
+}
+
+.btn.btn-light:hover {
+  background-color: #333333;
+  color: white;
+
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.col-4 {
+  flex: 1;
+  text-align: center;
+}
+
+.category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.category img {
+  width: 395px;
+  /* Ajusta el ancho de la imagen según tus necesidades */
+  height: 395px;
+  /* Ajusta la altura proporcionalmente */
+  margin-bottom: 10px;
+  /* Añade un margen inferior entre la imagen y el botón */
+}
+
+.topVentas {
+  display: flex;
+  justify-content: center;
+}
+
+.topVentas h2 {
+  margin-top: 90px;
+  margin-bottom: 90px;
+  font-family: DIN;
+
+}
+
+.imagenestopVentas .card {
+  border: none;
+  /* Elimina los bordes de las tarjetas */
+  display: flex;
+  /* Utiliza flexbox para centrar vertical y horizontalmente */
+  flex-direction: column;
+  /* Asegura que los elementos se apilen verticalmente */
+  align-items: center;
+  /* Centra horizontalmente */
+  justify-content: center;
+  /* Centra verticalmente */
+  text-align: center;
+  /* Centra el texto horizontalmente */
+  font-family: DIN;
+}
+
+.imagenestopVentas .card h2 {
+  font-size: 22px;
+  font-family: DIN;
+  font-weight: bold;
+}
+
+.imagenestopVentas .card p {
+  font-size: 14px;
+  font-family: DIN;
+
+}
+
+.imagenestopVentas .card img {
+  width: 191px;
+  height: 191px;
+}
+
+.logoQuerol {
+  width: 1440px;
+  display: flex;
+  justify-content: center;
+}
+
+hr {
+  width: 1440px; /* Establece el ancho del hr a 1440px */
+  margin: 0 auto; /* Añade un margen automático a los lados, lo que centra horizontalmente el hr */
+  margin-bottom: 35px;
+  margin-top: 35px;
+  color: #777777;
+
+}
+
+
+.logoQuerol img {
+  width: 470px;
+  height: 149px;
+  margin-top: 30px;
+}
+
+.logoQuerol p {
+  font-size: 15px;
+  font-family: DIN;
+  text-align: center;
+  max-width: 796px;
+  justify-content: end;
+  margin-left: 190px;
+  margin-top: 30px;
+}
+
+.newsletter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.newsletter h3 {
+  font-size: 18px;
+  font-family: DIN;
+  font-weight: bold;
+}
+
+.newsletter input,
+.newsletter button {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
+
+}
+
+.newsletter input {
+  width: 180px;
+  font-size: 11px;
+  font-family: DIN;
+  height: 37px;
+  border-radius: 0%;
+  border: solid 1px #000000;
+}
+
+.newsletter button {
+  width: 120px;
+  font-size: 11px;
+  font-family: DIN;
+  height: 37px;
+  border-radius: 0%;
+  border: solid 1px #000000;
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+.privacy-checkbox {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.privacy-checkbox input,
+.privacy-checkbox p {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  font-family: DIN;
+  font-size: 14px;
+}
+
+.privacy-checkbox p a {
+  font-weight: bold;
+  text-decoration: none;
+  color: #777777;
+}
+
+
+
