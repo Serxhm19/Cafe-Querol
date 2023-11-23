@@ -25,6 +25,7 @@ body {
   display: flex;
   justify-content: center;
   height: 38.8px;
+
 }
 
 .Header2 h3 {
@@ -42,6 +43,47 @@ body {
 
 
 }
+
+/* Estilos para la barra de navegación */
+.header3 .navbar {
+  background-color: #000 !important;
+  /* Color de fondo negro */
+}
+
+/* Estilos para los enlaces de la barra de navegación */
+.header3 .navbar-nav .nav-link {
+  color: #fff !important;
+  /* Color del texto blanco */
+}
+
+/* Estilos para el botón de búsqueda */
+.header3 .navbar .btn-outline-success {
+  color: #fff;
+  /* Color del texto blanco */
+}
+
+/* Estilos para el campo de búsqueda */
+.header3 .navbar .form-control {
+  background-color: #fffefe;
+  /* Color de fondo gris oscuro */
+  color: #000000;
+  /* Color del texto blanco */
+  border-color: #333;
+  /* Color del borde gris oscuro */
+}
+
+.btn {
+  border-color: white;
+  color: white;
+
+}
+
+.btn:hover{
+  border-color: white;
+  color: white;
+}
+
+
 
 /*----------------------------------------------------------------*/
 /*                           Home.php                             */
@@ -151,8 +193,10 @@ body {
 }
 
 hr {
-  width: 1440px; /* Establece el ancho del hr a 1440px */
-  margin: 0 auto; /* Añade un margen automático a los lados, lo que centra horizontalmente el hr */
+  width: 1440px;
+  /* Establece el ancho del hr a 1440px */
+  margin: 0 auto;
+  /* Añade un margen automático a los lados, lo que centra horizontalmente el hr */
   margin-bottom: 35px;
   margin-top: 35px;
   color: #777777;
@@ -243,6 +287,3 @@ hr {
   text-decoration: none;
   color: #777777;
 }
-
-
-

@@ -6,6 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div class="footer">
+        <div class="RRSS">
+        <img src="img\icons\facebook.png" alt="Facebook">
+        <img src="img\icons\instagram.png" alt="Instagram">
+        </div>
+    </div>
 </body>
 </html>

@@ -1,0 +1,172 @@
+.HeaderCarrito {
+    width: 100%;
+    max-width: 1440px;
+    height: 57px;
+    background-color: #222222;
+    margin: 0 auto;
+    /* Centra el encabezado horizontalmente */
+}
+
+.HeaderCarrito img {
+    width: 140px;
+    margin-left: 90px;
+    margin-top: 3px;
+}
+
+body {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.steps-container {
+    max-width: 935px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.steps {
+    width: 100%;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.steps img {
+    max-width: 100%;
+    max-height: 100%;
+
+}
+
+hr {
+    width: 750px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.col-right-opc {
+    position: fixed;
+    top: 0;
+    right: 7.1%;
+    bottom: 0;
+    text-align: center;
+    border: 1px solid #dedede;
+    background: white;
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    width: 506px;
+    /* ajusta el ancho según tus necesidades */
+    max-width: calc(100% - 90px);
+    /* establece el ancho máximo relativo al 100% - 90px del margen izquierdo del encabezado */
+    box-shadow: -2px 0 7px 2px rgba(0, 0, 0, 0.20);
+    /* sombra solo en el lado izquierdo */
+}
+
+.col-left-opc {
+    position: relative;
+    width: 935px;
+}
+
+.detallesEnvio h2 {
+    font-family: 'ArialMT', sans-serif;
+    font-size: 25px;
+    color: #222222;
+    letter-spacing: 1.5px;
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 20px;
+}
+
+.detallesEnvio h3 {
+    width: 750px;
+    display: flex;
+    font-family: 'ArialMT', sans-serif;
+    font-size: 18px;
+    color: #222222;
+    letter-spacing: 1.5px;
+    text-align: left;
+    margin-top: 24px;
+    margin-left: auto;
+    /* Centra el texto */
+    margin-right: auto;
+    /* Centra el texto */
+}
+
+.detallesEnvio h4 {
+    font-family: 'ArialMT', sans-serif;
+    font-size: 16px;
+    color: #222222;
+    letter-spacing: 1.5px;
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 20px;
+}
+
+.detallesEnvio .icon-text-container {
+    display: flex;
+    align-items: center;
+    /* Alinea verticalmente la imagen con el texto */
+    justify-content: center;
+}
+
+.detallesEnvio img {
+    width: 17px;
+    height: 14px;
+    margin-right: 5px;
+    /* Ajusta el espacio entre la imagen y el texto según sea necesario */
+    margin-top: 18px;
+}
+
+.resumencompra hr {
+    width: 750px;
+    border: 1px solid black;
+    background-color: black;
+}
+
+.cartProducts {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+}
+
+.cartProducts img {
+    width: 47px;
+    /* Adjust the width as needed */
+    height: 47px;
+    display: flex;
+    text-align: left;
+    margin-left: auto;
+}
+
+.cartProducts .card-title {
+    width: 750px;
+    display: flex;
+    font-family: DIN;
+    font-size: 14px;
+    color: #222222;
+    text-align: left;
+}
+
+
+.cartProducts .price {
+    text-align: right;
+    font-family: DIN;
+    font-size: 14px;
+}
+
+.description{
+    font-size: 14px;
+    font-family: DIN;
+    color: #777777;
+    margin-bottom: 0px;
+}
+
