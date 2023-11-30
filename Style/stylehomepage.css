@@ -83,20 +83,37 @@ body {
   color: white;
 }
 
+.navbar-account{
+  margin-left: 10px;
+}
+
+.navbar-cart{
+  margin-left: 10px;
+}
 
 
 /*----------------------------------------------------------------*/
 /*                           Home.php                             */
 /*----------------------------------------------------------------*/
 
+/* Estilos para el carrusel */
 .carousel {
   height: 676px;
+  max-width: 1440px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .carousel img {
+  width: 100%;
   height: 676px;
   object-fit: cover;
 }
+
+
 
 .btn.btn-light {
   width: 243px;
@@ -107,7 +124,10 @@ body {
   border-radius: 0%;
   font-size: 14px;
   border: 1px solid rgb(0, 0, 0);
+  text-align: center;
+  line-height: 25px; /* Añadido para centrar el texto verticalmente */
 }
+
 
 .btn.btn-light:hover {
   background-color: #333333;
@@ -206,7 +226,7 @@ hr {
 
 .logoQuerol img {
   width: 470px;
-  height: 149px;
+  height: 170px;
   margin-top: 30px;
 }
 
@@ -280,10 +300,60 @@ hr {
   padding: 0;
   font-family: DIN;
   font-size: 14px;
+  margin-bottom: 30px;
 }
 
 .privacy-checkbox p a {
   font-weight: bold;
   text-decoration: none;
   color: #777777;
+}
+
+/*----------------------------------------------------------------*/
+/*                           footer.php                           */
+/*----------------------------------------------------------------*/
+
+footer {
+  background-color: #000000 !important;
+  color: white !important;
+  padding: 20px !important;
+  text-align: center !important;
+}
+
+.footer-up {
+  margin-bottom: 20px;
+}
+
+.footer-up ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-up ul li {
+  margin: 0 10px;
+}
+
+/* Establece estilos para las imágenes normales */
+.footer-up ul li .social-icon {
+  width: 30px;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Establece estilos para las imágenes en hover */
+.footer-up ul li .social-icon-hover {
+  width: 30px;
+  transition: transform 0.3s ease-in-out;
+  display: none;
+}
+
+/* Aplica el efecto de cambio en hover */
+.footer-up ul li:hover .social-icon {
+  display: none;
+}
+
+.footer-up ul li:hover .social-icon-hover {
+  display: inline-block;
+  transform: scale(1.2);
 }

@@ -18,8 +18,9 @@ final class productoDAO
         }
     }
 
-    public static function getProductoById($id){
-        
+    public static function getProductoById($id)
+    {
+
         $con = DataBase::connect();
         $sql = "SELECT * FROM productos WHERE id = ?";
 
@@ -32,13 +33,59 @@ final class productoDAO
         }
     }
 
-    public static function editProduct(){
+    public static function getProductoBebidas($categoria)
+    {
+        $con = DataBase::connect();
+        $sql = "SELECT * FROM productos WHERE ID_CATEGORIA = 1";
+    
+        $productos = array(); // Inicializamos un array para almacenar los productos
+    
+        if ($resultado = $con->query($sql)) {
+            while ($producto = $resultado->fetch_array()) {
+                $productos[] = $producto; // Agregamos cada producto al array
+            }
+            return $productos; // Devolvemos el array con todos los productos
+        } else {
+            return null; // Devolvemos null en caso de error en la consulta
+        }
+    }
+    
+    public static function getProductoAlimentacion($categoria)
+    {
+        $con = DataBase::connect();
+        $sql = "SELECT * FROM productos WHERE ID_CATEGORIA = 2";
+    
+        $productos = array(); // Inicializamos un array para almacenar los productos
+    
+        if ($resultado = $con->query($sql)) {
+            while ($producto = $resultado->fetch_array()) {
+                $productos[] = $producto; // Agregamos cada producto al array
+            }
+            return $productos; // Devolvemos el array con todos los productos
+        } else {
+            return null; // Devolvemos null en caso de error en la consulta
+        }
+    }
 
-
+    public static function getProductoPacks($categoria)
+    {
+        $con = DataBase::connect();
+        $sql = "SELECT * FROM productos WHERE ID_CATEGORIA = 3";
+    
+        $productos = array(); // Inicializamos un array para almacenar los productos
+    
+        if ($resultado = $con->query($sql)) {
+            while ($producto = $resultado->fetch_array()) {
+                $productos[] = $producto; // Agregamos cada producto al array
+            }
+            return $productos; // Devolvemos el array con todos los productos
+        } else {
+            return null; // Devolvemos null en caso de error en la consulta
+        }
+    }
+    
 
 }
-
-} 
 
 
 

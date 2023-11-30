@@ -43,11 +43,23 @@ body {
 
 }
 
-.breadcrumb {
-    font-style: none;
+
+/*----------------------------------------------------------------*/
+/*                           Carta                                */
+/*----------------------------------------------------------------*/
+.breadcrumb a {
+    text-decoration: none; 
+    color: black; 
+    font-size: 14px;
     font-family: DIN;
     margin-top: 10px;
 }
+
+.breadcrumb a:hover {
+    text-decoration: underline; 
+    color: rgb(0, 0, 0); 
+}
+
 
 .description {
     font-family: DIN;
@@ -248,13 +260,14 @@ body {
 }
 
 
+
 .card-title.description {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 1; /* Número de líneas a mostrar */
-    max-height: 1.2em; /* Altura máxima (1 línea * altura de línea) */
+    max-height: 1.2em; 
 }
 
 .card {

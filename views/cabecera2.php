@@ -34,7 +34,7 @@
     <div class="header3">
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#"><img src="img\IMGHome\logo_principal.png" alt="logo"></a>
+          <a class="navbar-brand" href="?controller=producto"><img src="img\IMGHome\logo_principal.png" alt="logo"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -43,16 +43,19 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="?controller=producto">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="?controller=producto&action=Carta">Carta</a>
               </li>
             </ul>
             <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
               <button class="btn" type="submit">Buscar</button>
             </form>
+            <a class="navbar-account" href="?controller=producto"><img src="img\icons\icon-account.png" alt="logo"></a>
+            <a class="navbar-cart" href="?controller=producto&action=Carrito"><img src="img\icons\icon-cart.png"
+                alt="logo"></a>
           </div>
         </div>
       </nav>

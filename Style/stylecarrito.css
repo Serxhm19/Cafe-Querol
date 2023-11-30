@@ -70,6 +70,18 @@ hr {
     /* sombra solo en el lado izquierdo */
 }
 
+.headerColRight .iconColRight img{
+    width: 30px;
+    height: 26px;
+    margin-top: 40px;
+}
+
+.headerColRight h1{
+    font-size: 25px;
+    font-family: DIN Regular;
+    margin-top: 20px;
+}
+
 .col-left-opc {
     position: relative;
     width: 935px;
@@ -170,3 +182,105 @@ hr {
     margin-bottom: 0px;
 }
 
+.contadorProductos{
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 10px;
+}
+
+.detallesEnvio2 img{
+    width: 17px;
+    height: 14px;
+    margin: 10px;
+}
+
+.detallesEnvio2 h4{
+    font-size: 14px;
+    font-family: DIN;
+    display: flex;
+    justify-content: left;
+    margin-top: 5px;
+    
+    
+}
+
+.headerColRight hr{
+    width: 475px;
+    border: 1px solid black;
+    background-color: black;
+
+}
+
+.Resumenpedido {
+    margin-bottom: 20px; 
+}
+
+.Resumenpedido img {
+    width: 100px; 
+    height: 100px;
+    margin-right: 15px;
+}
+
+.Resumenpedido .card-title {
+    text-align: left;
+    font-size: 18px; 
+    font-family: DIN;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.Resumenpedido .description {
+    text-align: left;
+    font-size: 14px; 
+    margin-bottom: 10px; 
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.Resumenpedido .price {
+    text-align: left;
+    font-size: 16px; 
+    margin-left: 10px;
+}
+
+.quantity-input {
+    max-width: 50px; /* Ajusta según sea necesario */
+}
+
+.remove-button {
+    width: 20px;
+    height: 20px;
+}
+
+/* Agrega estos estilos a tu archivo de estilo (stylecarrito.css) o donde sea apropiado */
+
+.quantity-input {
+    margin-bottom: 10px;
+}
+
+/* Ajusta el selector para apuntar a la imagen dentro de .remove-button */
+.remove-button img {
+    width: 25px;
+    height: 25px;
+}
+
+.form-control{
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+.card-text.totalPrice {
+    text-align: left;
+    margin-right: 15px;
+    font-size: 14px;
+    font-family: DIN;
+    margin-top: 10px;
+}
+
+.card-text.Resume{
+    text-align: left;
+    margin-left: 15px;
+    font-size: 14px;
+    font-family: DIN;
+    margin-top: 10px;
+}

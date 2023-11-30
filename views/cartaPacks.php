@@ -18,21 +18,28 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="?controller=producto">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Carta</li>
+                <li class="breadcrumb-item"><a href="?controller=producto&action=carta">Carta</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Packs</li>
             </ol>
         </nav>
     </section>
     <section class="description">
         <div class="description"></div>
-        <h2>CARTA</h2>
+        <h2>PACKS</h2>
         <p>
-            En la Cafetería Querol, hemos elaborado cuidadosamente una selección de delicias culinarias que se adaptan a
-            todos los gustos y momentos del día. Nuestra carta ha sido diseñada para complementar tu experiencia de
-            compra en Querol, brindándote una amplia variedad de opciones para satisfacer tu paladar mientras disfrutas
-            de un merecido descanso. Desde aromáticos cafés y tés hasta tentadoras opciones de bocadillos, dulces, etc.
-            Nuestra carta está repleta de sabores que te conquistarán. Permítenos deleitar tus sentidos y hacer que tu
-            visita a Querol sea aún más especial a través de nuestra exquisita oferta gastronómica.
+            En la Cafetería Querol, nos esforzamos por ofrecer una selección cuidadosa de opciones en la categoría de
+            packs,
+            diseñadas para satisfacer diversas preferencias y momentos del día. Hemos creado una lista pensada para
+            complementar
+            tu experiencia de degustación en Querol, brindándote combinaciones perfectas que realzarán cada momento.
+            Desde
+            paquetes que incluyen las mejores variedades de café hasta opciones que combinan delicias dulces y saladas,
+            nuestros
+            packs de cafetería están diseñados para conquistar tu paladar y hacer que cada visita a Querol sea una
+            experiencia
+            inolvidable.
         </p>
+
     </section>
     <section class="categories">
         <div class="row">
@@ -42,14 +49,12 @@
                     CATEGORIAS
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item"
-                            href="?controller=producto&action=bebidas">Bebidas</a></li>
-                    <li><a class="dropdown-item"
-                            href="?controller=producto&action=alimentacion">Alimentación</a>
+                    <li><a class="dropdown-item" href="?controller=producto&action=bebidas">Bebidas</a></li>
+                    <li><a class="dropdown-item" href="?controller=producto&action=alimentacion">Alimentación</a>
                     </li>
-                    <li><a class="dropdown-item"
-                            href="?controller=producto&action=packs">Packs</a></li>
+                    <li><a class="dropdown-item" href="?controller=producto&action=packs">Packs</a></li>
                 </ul>
+
 
             </div>
             <div class="categoriesdropdown col-9">
@@ -68,9 +73,10 @@
     <section>
         <div class="row allproducts">
             <?php
-            include 'model/allproducts.php';
+            include_once 'model/productoDAO.php';
+            $categoria = 3;
 
-            $productos = allproducts::getAllProducto();
+            $productos = productoDAO::getProductoPacks($categoria);
 
             $contador = 0;
             if ($productos && count($productos) > 0) {

@@ -1,45 +1,55 @@
 <?php include 'cabecera.php'; ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <body>
-    <div class="container">
-        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <section>
+
+        <div id="testimonials" class="carousel slide" data-bs-ride="carousel" data-bs-keyboard="true">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="img/IMGHome/conjunto-fresco-hermoso-taza-cafe-manana-relajacion.jpg" class="d-block w-100"
-                        alt="...">
+                    <img class="testimonial-img"
+                        src="img\IMGHome\conjunto-fresco-hermoso-taza-cafe-manana-relajacion.jpg" alt="dog-image">
                 </div>
                 <div class="carousel-item">
-                    <img src="img/IMGHome/conjunto-fresco-hermoso-taza-cafe-manana-relajacion.jpg" class="d-block w-100"
-                        alt="...">
+                    <img class="testimonial-img"
+                        src="img\IMGHome\liquido-espumoso-vertido-taza-cafe-acero-generado-ia.jpg" alt="lady-img">
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <!-- Carousel Buttons -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonials" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonials" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
+
         </div>
-        <div class="row mt-4">
-            <div class="col-md-12 col-sm-12 col-lg-4">
-                <div class="category">
-                    <img src="img/products/tazacafe.png" alt="tazacafe" class="img-fluid">
-                    <button type="button" class="btn btn-light mt-2">Bebidas</button>
-                </div>
+
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+    <div class="row mt-4">
+        <div class="col-md-12 col-sm-12 col-lg-4">
+            <div class="category">
+                <img src="img/products/tazacafe.png" alt="tazacafe" class="img-fluid">
+                <a href="?controller=producto&action=bebidas" class="btn btn-light mt-2">Bebidas</a>
             </div>
-            <div class="col-md-4 col-sm-12 col-lg-4">
-                <div class="category">
-                    <img src="img/products/muffinred.jpg" alt="muffin" class="img-fluid">
-                    <button type="button" class="btn btn-light mt-2">Alimentación</button>
-                </div>
+
+        </div>
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <div class="category">
+                <img src="img/products/muffinred.jpg" alt="muffin" class="img-fluid">
+                <a href="?controller=producto&action=alimentacion" class="btn btn-light mt-2">Alimentacion</a>
             </div>
-            <div class="col-md-4 col-sm-12 col-lg-4">
-                <div class="category">
-                    <img src="img/products/pack.png" alt="pack" class="img-fluid">
-                    <button type="button" class="btn btn-light mt-2">Packs</button>
-                </div>
+        </div>
+        <div class="col-md-4 col-sm-12 col-lg-4">
+            <div class="category">
+                <img src="img/products/pack.png" alt="pack" class="img-fluid">
+                <a href="?controller=producto&action=packs" class="btn btn-light mt-2">Packs</a>
             </div>
         </div>
     </div>
@@ -75,6 +85,7 @@
                                     <h2 class="card-text">
                                         <?= $producto['PRECIO'] . "€"; ?>
                                     </h2>
+
                                 </div>
                             </div>
                         </div>
@@ -135,9 +146,11 @@
             </label>
         </div>
     </div>
-
-
     </section>
 </body>
+<footer>
+    <?php include 'footer.php'; ?>
+</footer>
+
 
 </html>

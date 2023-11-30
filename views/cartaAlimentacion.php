@@ -18,21 +18,24 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="?controller=producto">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Carta</li>
+                <li class="breadcrumb-item"><a href="?controller=producto&action=carta">Carta</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Alimentación</li>
             </ol>
         </nav>
     </section>
     <section class="description">
         <div class="description"></div>
-        <h2>CARTA</h2>
+        <h2>ALIMENTACIÓN</h2>
         <p>
-            En la Cafetería Querol, hemos elaborado cuidadosamente una selección de delicias culinarias que se adaptan a
-            todos los gustos y momentos del día. Nuestra carta ha sido diseñada para complementar tu experiencia de
-            compra en Querol, brindándote una amplia variedad de opciones para satisfacer tu paladar mientras disfrutas
-            de un merecido descanso. Desde aromáticos cafés y tés hasta tentadoras opciones de bocadillos, dulces, etc.
-            Nuestra carta está repleta de sabores que te conquistarán. Permítenos deleitar tus sentidos y hacer que tu
-            visita a Querol sea aún más especial a través de nuestra exquisita oferta gastronómica.
+            En la Cafetería Querol, nos esforzamos por ofrecer una selección cuidadosa de opciones gastronómicas en la
+            categoría de alimentación, diseñadas para satisfacer diversos gustos y momentos del día. Hemos creado una
+            carta pensada para complementar tu experiencia de compra en Querol, brindándote una variedad de delicias que
+            te acompañarán en cualquier ocasión. Desde opciones saludables y nutritivas hasta tentadores manjares,
+            nuestra oferta gastronómica en la categoría de alimentación está diseñada para conquistar tu paladar.
+            Permítenos agasajar tus sentidos y hacer que cada visita a Querol sea aún más especial a través de nuestras
+            exquisitas propuestas alimenticias.
         </p>
+
     </section>
     <section class="categories">
         <div class="row">
@@ -42,14 +45,12 @@
                     CATEGORIAS
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item"
-                            href="?controller=producto&action=bebidas">Bebidas</a></li>
-                    <li><a class="dropdown-item"
-                            href="?controller=producto&action=alimentacion">Alimentación</a>
+                    <li><a class="dropdown-item" href="?controller=producto&action=bebidas">Bebidas</a></li>
+                    <li><a class="dropdown-item" href="?controller=producto&action=alimentacion">Alimentación</a>
                     </li>
-                    <li><a class="dropdown-item"
-                            href="?controller=producto&action=packs">Packs</a></li>
+                    <li><a class="dropdown-item" href="?controller=producto&action=packs">Packs</a></li>
                 </ul>
+
 
             </div>
             <div class="categoriesdropdown col-9">
@@ -68,9 +69,10 @@
     <section>
         <div class="row allproducts">
             <?php
-            include 'model/allproducts.php';
+            include_once 'model/productoDAO.php';
+            $categoria = 2;
 
-            $productos = allproducts::getAllProducto();
+            $productos = productoDAO::getProductoAlimentacion($categoria);
 
             $contador = 0;
             if ($productos && count($productos) > 0) {
