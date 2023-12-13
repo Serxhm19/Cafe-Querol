@@ -26,7 +26,7 @@
                 <?php
                 include_once("utils/Funciones.php");
                 // Llama a la función para contar productos en el carrito
-                $cantidadProductos = contarProductosEnCarrito();
+                $cantidadProductos = contarProductosEnCarrito2();
                 // Obtener los detalles del precio del carrito, envío y total usando la función
                 $precios = calcularPrecioTotal($_SESSION['cart']);
 
@@ -47,28 +47,16 @@
             <hr>
             <div class="Resumenpedido">
                 <?php
-
-                // Inicializar el precio total del carrito
-                $precioTotalCarrito = 0;
+                // Include the sumarPrecioPorId function
+                include_once("utils/Funciones.php");
 
                 // Verificar si hay productos en el carrito
                 if (!empty($_SESSION['cart'])) {
                     // Mostrar detalles de cada producto en el carrito
                     foreach ($_SESSION['cart'] as $producto) {
                         // Calcular el total del producto
-                        $totalProducto = calcularTotalProducto(
-                            isset($producto['price']) ? $producto['price'] : 0,
-                            isset($producto['quantity']) ? $producto['quantity'] : 0
-                        );
+                        $totalProducto = $producto['quantity'] * $producto['price'];
 
-                        // Sumar el total del producto al precio total del carrito
-                        $precioTotalCarrito += $totalProducto;
-                    }
-                }
-                // Verificar si hay productos en el carrito
-                if (!empty($_SESSION['cart'])) {
-                    // Mostrar detalles de cada producto en el carrito
-                    foreach ($_SESSION['cart'] as $producto) {
                         ?>
                         <div class="Resumenpedido row">
                             <div class="col-md-2">
@@ -110,8 +98,6 @@
                         <hr>
                         <?php
                     }
-                    ?>
-                    <?php
                 } else {
                     echo "<p class='text-center'>No hay productos en el carrito.</p>";
                 }
@@ -120,7 +106,7 @@
                 <div class="row">
                     <div class="col-md-10">
                         <p class="card-text Resume">
-                            Precio Total del Carrito:
+                            Total Pedido:
                         </p>
                     </div>
                     <div class="col-md-2">
@@ -132,7 +118,7 @@
                 <div class="row">
                     <div class="col-md-10">
                         <p class="card-text Resume">
-                            Precio del Envío:
+                            Envío:
                         </p>
                     </div>
                     <div class="col-md-2">
@@ -141,19 +127,18 @@
                         </p>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row finalPrice custom-background">
                     <div class="col-md-10">
-                        <p class="card-text Resume">
-                            Precio Total del Pedido:
+                        <p class="card-text Resume2">
+                            Total (IVA Incluido):
                         </p>
                     </div>
                     <div class="col-md-2">
-                        <p class="card-text totalPrice">
+                        <p class="card-text totalPrice2">
                             <?= number_format($precios['precioTotal'], 2) ?>€
                         </p>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -216,7 +201,16 @@
                     <hr>
                     <?php
                 }
+
                 ?>
+                <div class="direccionEnvio">
+                    <h1>Dirección de envío</h1>
+                    <!-- Recoger datos de la cuenta -->
+                    <hr>
+                </div>
+                <div class="btnPagar">
+                    <button type="button" class="btnPagar">Pagar</button>
+            </div>
                 <!-- Botón provisional para borrar el carrito -->
                 <form action="?controller=producto&action=deleteAllCart" method="post" class="text-center">
                     <button type="submit" class="btn btn-danger">Borrar Carrito</button>
@@ -230,7 +224,7 @@
 
 
         </div>
-
+    </div>
 </body>
 
 </html>

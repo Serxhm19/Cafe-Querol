@@ -55,6 +55,7 @@ class productoController
 
     }
 
+
     public function sel()
     {
         include_once 'config/parametros.php';

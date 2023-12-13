@@ -3,12 +3,10 @@
 /*----------------------------------------------------------------*/
 
 body {
-    max-width: 1440px;
     margin: 0 auto;
 }
 
 #Header1 {
-    width: 1440px;
     height: 47px;
     background-color: #D9D9D9;
 
@@ -52,12 +50,14 @@ body {
     color: black; 
     font-size: 14px;
     font-family: DIN;
-    margin-top: 10px;
+    margin-top: 20px;
+    margin-left: 20px;
 }
 
 .breadcrumb a:hover {
     text-decoration: underline; 
     color: rgb(0, 0, 0); 
+    
 }
 
 
@@ -68,6 +68,7 @@ body {
 .description h2 {
     font-size: 20px;
     text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
 
 }
 
@@ -75,9 +76,9 @@ body {
 .description p {
     font-size: 15px;
     font-family: DIN;
-    text-align: center;
-    width: auto;
-    margin-left: 50px;
+    text-align: left;
+    width: 1500px;
+    margin-left: 80px;
     margin-right: 50px;
 }
 
@@ -92,6 +93,10 @@ body {
     margin-bottom: 55px;
 
 
+}
+
+.cartaproducto:hover{
+    border: solid 1px #000000;
 }
 
 .categoriesdropdown .dropdown-menu {
@@ -140,7 +145,7 @@ body {
 
 .allproducts .card h2 {
     font-size: 22px;
-    font-family: DIN;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
 
@@ -233,6 +238,7 @@ body {
 .card .card-body {
     position: relative;
 }
+
 
 .card .btn-hover {
     position: absolute;

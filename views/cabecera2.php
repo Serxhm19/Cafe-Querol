@@ -54,8 +54,19 @@
               <button class="btn" type="submit">Buscar</button>
             </form>
             <a class="navbar-account" href="?controller=producto"><img src="img\icons\icon-account.png" alt="logo"></a>
-            <a class="navbar-cart" href="?controller=producto&action=Carrito"><img src="img\icons\icon-cart.png"
-                alt="logo"></a>
+            <a class="navbar-cart" href="?controller=producto&action=Carrito">
+              <img src="img\icons\carrito-de-compras.png" alt="logo">
+              <?php
+              include_once("utils/Funciones.php");
+              // Llamar a la función contarProductosEnCarrito() para obtener el número de productos
+              $numeroProductos = contarProductosEnCarrito();
+
+              // Mostrar el número de productos solo si es mayor que cero
+              if ($numeroProductos > 0) {
+                echo '<span class="cart-count">' . $numeroProductos . '</span>';
+              }
+              ?>
+            </a>
           </div>
         </div>
       </nav>

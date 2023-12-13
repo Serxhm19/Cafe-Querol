@@ -1,6 +1,5 @@
 .HeaderCarrito {
     width: 100%;
-    max-width: 1440px;
     height: 57px;
     background-color: #222222;
     margin: 0 auto;
@@ -14,7 +13,6 @@
 }
 
 body {
-    max-width: 1440px;
     margin: 0 auto;
 }
 
@@ -27,7 +25,7 @@ body {
 }
 
 .steps {
-    width: 100%;
+    width: 1180px;
     height: 55px;
     display: flex;
     justify-content: center;
@@ -43,23 +41,23 @@ body {
 }
 
 hr {
-    width: 750px;
+    width: 1000px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 100px;
 }
 
 
 .col-right-opc {
     position: fixed;
     top: 0;
-    right: 7.1%;
+    right: 0%;
     bottom: 0;
     text-align: center;
     border: 1px solid #dedede;
     background: white;
-    overflow: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
     width: 506px;
@@ -95,6 +93,7 @@ hr {
     text-align: center;
     margin-bottom: 0;
     margin-top: 20px;
+    width: 1185px;
 }
 
 .detallesEnvio h3 {
@@ -106,10 +105,8 @@ hr {
     letter-spacing: 1.5px;
     text-align: left;
     margin-top: 24px;
-    margin-left: auto;
-    /* Centra el texto */
+    margin-left: 115px;
     margin-right: auto;
-    /* Centra el texto */
 }
 
 .detallesEnvio h4 {
@@ -125,8 +122,8 @@ hr {
 .detallesEnvio .icon-text-container {
     display: flex;
     align-items: center;
-    /* Alinea verticalmente la imagen con el texto */
     justify-content: center;
+    width: 1185px;
 }
 
 .detallesEnvio img {
@@ -138,9 +135,12 @@ hr {
 }
 
 .resumencompra hr {
-    width: 750px;
-    border: 1px solid black;
-    background-color: black;
+    width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 100px;
 }
 
 .cartProducts {
@@ -173,6 +173,7 @@ hr {
     text-align: right;
     font-family: DIN;
     font-size: 14px;
+    width: 935px;
 }
 
 .description{
@@ -284,3 +285,54 @@ hr {
     font-family: DIN;
     margin-top: 10px;
 }
+
+.custom-background {
+    width: 475px;
+    text-align: left;
+    margin-left: 15px;
+    font-size: 14px;
+    font-family: DIN;
+    margin-top: 10px;
+    background-color: #EEEEEE;
+    justify-content: center;
+    align-items: center;
+}
+
+.direccionEnvio h1 {
+    width: 750px;
+    display: flex;
+    font-family: 'ArialMT', sans-serif;
+    font-size: 18px;
+    color: #222222;
+    letter-spacing: 1.5px;
+    text-align: left;
+    margin-top: 24px;
+    margin-left: 115px;
+    margin-right: auto;
+}
+
+.direccionEnvio hr {
+
+    margin-bottom: 10px;
+
+}
+.btnPagar {
+    font-family: 'DINPro', sans-serif;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 1px;
+    text-align: center;
+    line-height: 47px;
+    background: #E2001A;
+    border: 0;
+    height: 47px;
+    width: 750px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto; /* Añadir margen automático a la izquierda y derecha */
+}
+
+

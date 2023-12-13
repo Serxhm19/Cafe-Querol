@@ -42,13 +42,10 @@
                     CATEGORIAS
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item"
-                            href="?controller=producto&action=bebidas">Bebidas</a></li>
-                    <li><a class="dropdown-item"
-                            href="?controller=producto&action=alimentacion">Alimentación</a>
+                    <li><a class="dropdown-item" href="?controller=producto&action=bebidas">Bebidas</a></li>
+                    <li><a class="dropdown-item" href="?controller=producto&action=alimentacion">Alimentación</a>
                     </li>
-                    <li><a class="dropdown-item"
-                            href="?controller=producto&action=packs">Packs</a></li>
+                    <li><a class="dropdown-item" href="?controller=producto&action=packs">Packs</a></li>
                 </ul>
 
             </div>
@@ -68,16 +65,17 @@
     <section>
         <div class="row allproducts">
             <?php
-            include 'model/allproducts.php';
-
-            $productos = allproducts::getAllProducto();
+            $productos = productoDAO::getAllProductoCarta();
 
             $contador = 0;
             if ($productos && count($productos) > 0) {
                 foreach ($productos as $producto) {
+                    // Formatea el precio con comas en lugar de puntos
+                    $precioFormateado = number_format($producto['PRECIO'], 2, ',', '.');
+
                     ?>
-                    <div class="col-2 mb-3 position-relative"> <!-- Agregamos margen inferior y posición relativa -->
-                        <div class="card">
+                    <div class="col-2 mb-3 position-relative">
+                        <div class="card cartaproducto">
                             <img src="<?= $producto['IMG']; ?>" class="card-img-top" alt="Imagen del producto">
                             <div class="card-body">
                                 <p class="card-title name">
@@ -87,7 +85,7 @@
                                     <?= $producto['DESCRIPCION']; ?>
                                 </p>
                                 <h2 class="card-text price">
-                                    <?= $producto['PRECIO'] . "€"; ?>
+                                    <?= $precioFormateado . " €"; ?>
                                 </h2>
                                 <form action="?controller=producto&action=sel" method="post">
                                     <input type="hidden" name="product_id" value="<?= $producto['ID_PRODUCTO']; ?>">
@@ -105,15 +103,15 @@
                     <?php
                     $contador++;
                     if ($contador % 5 === 0) {
-                        echo '<div class="w-100"></div>'; // Agrega un salto de línea cada 5 tarjetas
+                        echo '<div class="w-100"></div>';
                     }
                 }
             } else {
                 echo "<p>No se encontraron productos.</p>";
             }
             ?>
-
         </div>
+
         <hr>
         <!-- Newsletter Section -->
         <div class="newsletter mt-4">
@@ -137,8 +135,6 @@
                 </label>
             </div>
         </div>
-
-
     </section>
 </body>
 <?= require_once('footer.php') ?>

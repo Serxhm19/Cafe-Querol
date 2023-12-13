@@ -83,7 +83,44 @@ final class productoDAO
             return null; // Devolvemos null en caso de error en la consulta
         }
     }
+
+    public static function getAllProductoCarta()
+    {
+        $con = DataBase::connect();
+        $sql = "SELECT ID_PRODUCTO, IMG, PRECIO, NOMBRE_PRODUCTO, DESCRIPCION FROM productos";
+
+        $productos = array();
+
+        if ($result = $con->query($sql)) {
+            while ($row = $result->fetch_assoc()) {
+                $productos[] = $row;
+            }
+        }
+
+        $con->close();
+
+        return $productos;
+    }
+
+    public static function getAllProductoHome()
+    {
+        $con = DataBase::connect();
+        $sql = "SELECT IMG, PRECIO, NOMBRE_PRODUCTO FROM productos";
+
+        $productos = array();
+
+        if ($result = $con->query($sql)) {
+            while ($row = $result->fetch_assoc()) {
+                $productos[] = $row;
+            }
+        }
+
+        $con->close();
+
+        return $productos;
+    }
     
+   
 
 }
 
