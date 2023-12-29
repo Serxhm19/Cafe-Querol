@@ -26,6 +26,12 @@ class usuarioController
         include_once "views/admin.php";
     }
 
+    public function mispedidos()
+    {
+        include_once "views/pedidos.php";
+    }
+
+
     public function verificarCorreo()
     {
         include_once 'config/parametros.php';
@@ -310,8 +316,138 @@ VALUES (?, ?, ?, ?, ?, ?, 1)";
         }
     }
 
+    public function redirectToPage()
+    {
+        session_start();
 
+        // Verifica si hay una sesión iniciada
+        if (isset($_SESSION['email'])) {
+            // Si hay una sesión iniciada, redirige a la página de dashboard
+            header("Location: ?controller=usuario&action=dashboard");
+            exit();
+        } else {
+            // Si no hay una sesión iniciada, redirige a la página de inicio de sesión
+            header("Location: ?controller=usuario&action=login");
+            exit();
+        }
+    }
+
+    public function mostrarDatosCliente()
+    {
+        session_start();
+
+        // Verifica si hay una sesión iniciada
+        if (isset($_SESSION['email'])) {
+            // Datos de conexión a la base de datos
+            include_once 'config/db.php';
+
+            try {
+                // Conecta a la base de datos
+                $con = DataBase::connect();
+
+                // Consulta para obtener los datos del cliente
+                $sql = "SELECT NOMBRE, TELEFONO, DIRECCION, OTROS_CAMPOS FROM usuarios WHERE CORREO = ?";
+                $stmt = $con->prepare($sql);
+                $stmt->bind_param('s', $_SESSION['email']);
+                $stmt->execute();
+
+                // Obtiene los resultados
+                $result = $stmt->get_result();
+
+                // Verifica si se encontraron resultados
+                if ($result->num_rows > 0) {
+                    // Obtiene los datos del cliente
+                    $cliente = $result->fetch_assoc();
+
+                    // Incluye la vista para mostrar los datos del cliente
+                    include_once "views/dashboardData.php";
+                } else {
+                    // Si no se encontraron resultados, redirige a la página de inicio de sesión
+                    $this->redirectToPage();
+                }
+
+                // Cierra la conexión a la base de datos
+                $con->close();
+            } catch (Exception $e) {
+                // Maneja la excepción, por ejemplo, muestra un mensaje de error o redirige a una página de error
+                echo "Error: " . $e->getMessage();
+            }
+        } else {
+            // Si no hay una sesión iniciada, redirige a la página de inicio de sesión
+            $this->redirectToPage();
+        }
+    }
+
+    public function mostrarMisPedidos()
+    {
+        // Asegúrate de que el usuario esté autenticado
+        session_start();
+        if (!isset($_SESSION['email'])) {
+            header('Location: login.php');
+            exit;
+        }
+    
+        // Incluye la conexión a la base de datos y cualquier otra configuración necesaria
+        require_once 'conexion.php'; // Ajusta según tu configuración
+    
+        // Obtiene el ID del usuario
+        $idUsuario = 0;
+    
+        // Obtiene el correo electrónico de la sesión
+        $emailUsuario = $_SESSION['email'] ?? null;
+    
+        // Si el correo electrónico está definido, realiza la consulta
+        if ($emailUsuario) {
+            $sql = "SELECT ID_USUARIO FROM usuarios WHERE CORREO = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('s', $emailUsuario);
+    
+            // Ejecuta la consulta
+            if ($stmt->execute()) {
+                $result = $stmt->get_result();
+    
+                // Verifica si se obtuvo un resultado
+                if ($result && $result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    $idUsuario = $row['ID_USUARIO'];
+                } else {
+                    echo "No se encontró ningún usuario con el correo electrónico proporcionado.";
+                }
+            } else {
+                echo "Error en la consulta SQL: " . $stmt->error;
+            }
+    
+            // Cierra la consulta
+            $stmt->close();
+        } else {
+            echo "El índice 'email' no está definido en la sesión.";
+        }
+    
+        // Si se obtuvo el ID del usuario, realiza la consulta de pedidos
+        if ($idUsuario > 0) {
+            $sqlPedidos = "SELECT * FROM pedidos WHERE ID_USUARIO = ?";
+            $stmtPedidos = $conn->prepare($sqlPedidos);
+            $stmtPedidos->bind_param('i', $idUsuario);
+    
+            // Ejecuta la consulta de pedidos
+            if ($stmtPedidos->execute()) {
+                $resultPedidos = $stmtPedidos->get_result();
+    
+                // Incluye la vista correspondiente
+                require 'views/pedidos.php'; // Ajusta según tu estructura de archivos
+            } else {
+                echo "Error al obtener los pedidos: " . $stmtPedidos->error;
+            }
+    
+            // Cierra la conexión a la base de datos
+            $stmtPedidos->close();
+        }
+        
+        $conn->close();
+    }
+    
 }
+
 
 
 

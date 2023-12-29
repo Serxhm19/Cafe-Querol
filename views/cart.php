@@ -36,7 +36,7 @@
     </section>
     <section class="categories">
         <div class="row">
-            <div class="categoriesdropdown col-2">
+            <div class="categoriesdropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
                     CATEGORIAS
@@ -47,19 +47,7 @@
                     </li>
                     <li><a class="dropdown-item" href="?controller=producto&action=packs">Packs</a></li>
                 </ul>
-
-            </div>
-            <div class="categoriesdropdown col-9">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    ORDENAR
-                </button>
-                <ul class="dropdown-menu">
-                    <li><button class="dropdown-item" type="button">Ascendente</button></li>
-                    <li><button class="dropdown-item" type="button">Descendente</button></li>
-                    <li><button class="dropdown-item" type="button">Top ventas</button></li>
-                </ul>
-            </div>
+            </div>  
         </div>
     </section>
     <section>
@@ -71,28 +59,28 @@
             if ($productos && count($productos) > 0) {
                 foreach ($productos as $producto) {
                     // Formatea el precio con comas en lugar de puntos
-                    $precioFormateado = number_format($producto['PRECIO'], 2, ',', '.');
+                    $precioFormateado = number_format($producto->PRECIO, 2, ',', '.');
 
                     ?>
                     <div class="col-2 mb-3 position-relative">
                         <div class="card cartaproducto">
-                            <img src="<?= $producto['IMG']; ?>" class="card-img-top" alt="Imagen del producto">
+                            <img src="<?= $producto->IMG; ?>" class="card-img-top" alt="Imagen del producto">
                             <div class="card-body">
                                 <p class="card-title name">
-                                    <?= $producto['NOMBRE_PRODUCTO']; ?>
+                                    <?= $producto->NOMBRE_PRODUCTO; ?>
                                 </p>
                                 <p class="card-title description">
-                                    <?= $producto['DESCRIPCION']; ?>
+                                    <?= $producto->DESCRIPCION; ?>
                                 </p>
                                 <h2 class="card-text price">
                                     <?= $precioFormateado . " €"; ?>
                                 </h2>
                                 <form action="?controller=producto&action=sel" method="post">
-                                    <input type="hidden" name="product_id" value="<?= $producto['ID_PRODUCTO']; ?>">
-                                    <input type="hidden" name="product_name" value="<?= $producto['NOMBRE_PRODUCTO']; ?>">
-                                    <input type="hidden" name="product_price" value="<?= $producto['PRECIO']; ?>">
-                                    <input type="hidden" name="product_img" value="<?= $producto['IMG']; ?>">
-                                    <input type="hidden" name="product_description" value="<?= $producto['DESCRIPCION']; ?>">
+                                    <input type="hidden" name="product_id" value="<?= $producto->ID_PRODUCTO; ?>">
+                                    <input type="hidden" name="product_name" value="<?= $producto->NOMBRE_PRODUCTO; ?>">
+                                    <input type="hidden" name="product_price" value="<?= $producto->PRECIO; ?>">
+                                    <input type="hidden" name="product_img" value="<?= $producto->IMG; ?>">
+                                    <input type="hidden" name="product_description" value="<?= $producto->DESCRIPCION; ?>">
                                     <button type="submit" class="btn-hover add-to-cart-btn">
                                         Añadir al Carrito
                                     </button>
@@ -111,6 +99,7 @@
             }
             ?>
         </div>
+
 
         <hr>
         <!-- Newsletter Section -->

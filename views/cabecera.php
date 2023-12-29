@@ -56,7 +56,7 @@
               <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
               <button class="btn" type="submit">Buscar</button>
             </form>
-            <a class="navbar-account" href="?controller=producto"><img src="img\icons\icon-account.png" alt="logo"></a>
+            <a class="navbar-account" href="?controller=usuario&action=redirectToPage"><img src="img\icons\icon-account.png" alt="logo"></a>
             <a class="navbar-cart" href="?controller=producto&action=Carrito">
               <img src="img\icons\carrito-de-compras.png" alt="logo">
               <?php

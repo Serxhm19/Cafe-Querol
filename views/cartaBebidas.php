@@ -45,25 +45,14 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="?controller=producto&action=bebidas">Bebidas</a></li>
-                    <li><a class="dropdown-item"
-                            href="?controller=producto&action=filtrarPorCategoria&categoria=Alimentacion">Alimentación</a>
+                    <li><a class="dropdown-item" href="?controller=producto&action=Alimentacion">Alimentación</a>
                     </li>
-                    <li><a class="dropdown-item"
-                            href="?controller=producto&action=filtrarPorCategoria&categoria=Packs">Packs</a></li>
+                    <li><a class="dropdown-item" href=<li><a class="dropdown-item"
+                                href="?controller=producto&action=Packs">Alimentación</a>
+                            >Packs</a></li>
                 </ul>
 
 
-            </div>
-            <div class="categoriesdropdown col-9">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    ORDENAR
-                </button>
-                <ul class="dropdown-menu">
-                    <li><button class="dropdown-item" type="button">Ascendente</button></li>
-                    <li><button class="dropdown-item" type="button">Descendente</button></li>
-                    <li><button class="dropdown-item" type="button">Top ventas</button></li>
-                </ul>
             </div>
         </div>
     </section>
@@ -71,7 +60,7 @@
         <div class="row allproducts">
             <?php
             include_once 'model/productoDAO.php';
-            $categoria = 1;
+            $categoria = 2;
 
             $productos = productoDAO::getProductoBebidas($categoria);
 
@@ -79,25 +68,25 @@
             if ($productos && count($productos) > 0) {
                 foreach ($productos as $producto) {
                     ?>
-                    <div class="col-2 mb-3 position-relative"> <!-- Agregamos margen inferior y posición relativa -->
+                    <div class="col-2 mb-3 position-relative">
                         <div class="card">
-                            <img src="<?= $producto['IMG']; ?>" class="card-img-top" alt="Imagen del producto">
+                            <img src="<?= $producto->IMG; ?>" class="card-img-top" alt="Imagen del producto">
                             <div class="card-body">
                                 <p class="card-title name">
-                                    <?= $producto['NOMBRE_PRODUCTO']; ?>
+                                    <?= $producto->NOMBRE_PRODUCTO; ?>
                                 </p>
                                 <p class="card-title description">
-                                    <?= $producto['DESCRIPCION']; ?>
+                                    <?= $producto->DESCRIPCION; ?>
                                 </p>
                                 <h2 class="card-text price">
-                                    <?= $producto['PRECIO'] . "€"; ?>
+                                    <?= $producto->PRECIO . "€"; ?>
                                 </h2>
                                 <form action="?controller=producto&action=sel" method="post">
-                                    <input type="hidden" name="product_id" value="<?= $producto['ID_PRODUCTO']; ?>">
-                                    <input type="hidden" name="product_name" value="<?= $producto['NOMBRE_PRODUCTO']; ?>">
-                                    <input type="hidden" name="product_price" value="<?= $producto['PRECIO']; ?>">
-                                    <input type="hidden" name="product_img" value="<?= $producto['IMG']; ?>">
-                                    <input type="hidden" name="product_description" value="<?= $producto['DESCRIPCION']; ?>">
+                                    <input type="hidden" name="product_id" value="<?= $producto->ID_PRODUCTO; ?>">
+                                    <input type="hidden" name="product_name" value="<?= $producto->NOMBRE_PRODUCTO; ?>">
+                                    <input type="hidden" name="product_price" value="<?= $producto->PRECIO; ?>">
+                                    <input type="hidden" name="product_img" value="<?= $producto->IMG; ?>">
+                                    <input type="hidden" name="product_description" value="<?= $producto->DESCRIPCION; ?>">
                                     <button type="submit" class="btn-hover add-to-cart-btn">
                                         Añadir al Carrito
                                     </button>
@@ -108,15 +97,15 @@
                     <?php
                     $contador++;
                     if ($contador % 5 === 0) {
-                        echo '<div class="w-100"></div>'; // Agrega un salto de línea cada 5 tarjetas
+                        echo '<div class="w-100"></div>';
                     }
                 }
             } else {
                 echo "<p>No se encontraron productos.</p>";
             }
             ?>
-
         </div>
+
         <hr>
         <!-- Newsletter Section -->
         <div class="newsletter mt-4">

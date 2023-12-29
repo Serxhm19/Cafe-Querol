@@ -45,7 +45,7 @@ body {
 /*----------------------------------------------------------------*/
 /*                           Carta                                */
 /*----------------------------------------------------------------*/
-.breadcrumb a {
+.breadcrumb nav{
     text-decoration: none; 
     color: black; 
     font-size: 14px;
@@ -239,6 +239,12 @@ body {
     position: relative;
 }
 
+.cardhover:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s;
+    width: 270px;
+  }
+  
 
 .card .btn-hover {
     position: absolute;

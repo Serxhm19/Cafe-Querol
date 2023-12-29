@@ -82,7 +82,8 @@
                                 <!-- Input para sumar/restar cantidad -->
                                 <div class="quantity-input">
                                     <div class="form-outline">
-                                        <input min="1" max="" type="number" id="typeNumber" class="form-control" />
+                                        <input min="1" max="" type="number" name="productos[<?= $producto['id'] ?>][quantity]"
+                                            value="<?= $producto['quantity'] ?>" class="form-control" />
                                     </div>
                                 </div>
                                 <form method="post" action="?controller=producto&action=removeProduct">
@@ -208,13 +209,27 @@
                     <!-- Recoger datos de la cuenta -->
                     <hr>
                 </div>
-                <div class="btnPagar">
-                    <button type="button" class="btnPagar">Pagar</button>
-            </div>
+                <form action="?controller=producto&action=insertarDetallesPedido" method="post" class="text-center">
+                    <!-- Agrega campos ocultos para enviar detalles del carrito -->
+                    <?php foreach ($_SESSION['cart'] as $producto): ?>
+                        <input type="hidden" name="productos[<?= $producto['id'] ?>][id]" value="<?= $producto['id'] ?>">
+                        <input type="hidden" name="productos[<?= $producto['id'] ?>][name]" value="<?= $producto['name'] ?>">
+                        <input type="hidden" name="productos[<?= $producto['id'] ?>][quantity]"
+                            value="<?= $producto['quantity'] ?>">
+                        <input type="hidden" name="productos[<?= $producto['id'] ?>][price]" value="<?= $producto['price'] ?>">
+                        <!-- Agrega más campos según sea necesario, como imagen, descripción, etc. -->
+                    <?php endforeach; ?>
+
+                    <!-- Botón para enviar el formulario -->
+                    <button type="submit" class="btnPagar">Pagar</button>
+                </form>
+
+
                 <!-- Botón provisional para borrar el carrito -->
                 <form action="?controller=producto&action=deleteAllCart" method="post" class="text-center">
                     <button type="submit" class="btn btn-danger">Borrar Carrito</button>
                 </form>
+
                 <?php
             } else {
                 echo "<p class='text-center'>No hay productos en el carrito.</p>";

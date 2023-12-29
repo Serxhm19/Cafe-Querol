@@ -74,19 +74,29 @@
                         }
 
                         // Formatea el precio con comas en lugar de puntos
-                        $precioFormateado = number_format($producto['PRECIO'], 2, ',', '.');
+                        $precioFormateado = number_format($producto->PRECIO, 2, ',', '.');
 
                         ?>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-2 cardhover">
-                            <div class="card mb-4">
-                                <img src="<?= $producto['IMG']; ?>" class="card-img-top" alt="Imagen del producto">
+                        <div class="col-2 mb-3 position-relative">
+                            <div class="card cartaproducto">
+                                <img src="<?= $producto->IMG; ?>" class="card-img-top" alt="Imagen del producto">
                                 <div class="card-body">
-                                    <p class="card-title">
-                                        <?= $producto['NOMBRE_PRODUCTO']; ?>
+                                    <p class="card-title name">
+                                        <?= $producto->NOMBRE_PRODUCTO; ?>
                                     </p>
-                                    <h2 class="card-text">
+                                    <h2 class="card-text price">
                                         <?= $precioFormateado . " €"; ?>
                                     </h2>
+                                    <form action="?controller=producto&action=sel" method="post">
+                                        <input type="hidden" name="product_id" value="<?= $producto->ID_PRODUCTO; ?>">
+                                        <input type="hidden" name="product_name" value="<?= $producto->NOMBRE_PRODUCTO; ?>">
+                                        <input type="hidden" name="product_price" value="<?= $producto->PRECIO; ?>">
+                                        <input type="hidden" name="product_img" value="<?= $producto->IMG; ?>">
+                                        <input type="hidden" name="product_description" value="<?= $producto->DESCRIPCION; ?>">
+                                        <button type="submit" class="btn-hover add-to-cart-btn">
+                                            Añadir al Carrito
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -99,16 +109,17 @@
                 ?>
             </div>
 
+
         </div>
     </section>
     <section>
         <hr>
         <div class="row">
             <div class="logoQuerol">
-                <div class="col-2 col-md-3 col-sm-12">
+                <div class="col-2 col-md-3 col-sm-6">
                     <img src="img\IMGHome\logoquerol.webp" alt="logo">
                 </div>
-                <div class="col-10 col-md-9 col-sm-12">
+                <div class="col-10 col-md-9 col-sm-6">
                     <p>¡Bienvenido a la Cafetería Querol! En un mundo donde la moda y el estilo se combinan a la
                         perfección,
                         hemos creado un espacio que refleja la esencia de la tienda de zapatos Querol. En nuestra

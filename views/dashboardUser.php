@@ -77,14 +77,7 @@
     <div class="menumyaccount" id="cssmenu">
       <h3>Mi cuenta</h3>
       <ul>
-        <li>Mis datos
-          <ul class="submyaccount">
-            <li><i class="icon"></i><a href="https://www.querol.net/es/mi-cuenta" title="Datos acceso">Datos de
-                acceso</a></li>
-            <li><a href="https://www.querol.net/es/mi-cuenta" title="Datos acceso"><i class="icon"></i></a><a
-                href="https://www.querol.net/es/identidad" title="Datos Personales">Datos personales</a></li>
-          </ul>
-        </li>
+        <li>Mis datos</li>
         <li><a href="https://www.querol.net/es/historial-de-pedidos" title="Mis pedidos">Mis pedidos</a></li>
         <li><a href="?controller=usuario&action=CerrarSesion" title="Cerrar sesión">Cerrar sesión</a></li>
       </ul>
@@ -115,7 +108,6 @@
           <div class="form-group"> <span class="infoobligatorios"> * Campos obligatorios <input type="hidden"
                 name="tipo" value="email"> </span> <button type="submit" class="btn btn-primary">ENTRAR EN LA
               CUENTA</button>
-
           </div>
         </fieldset>
       </form>
@@ -142,6 +134,8 @@
       </form>
     </div>
   </div>
+
+  
 </body>
 
 </html>

@@ -11,9 +11,6 @@
 </head>
 
 <header>
-    <div id="Header1">
-        <h2>Café Querol | Tu cafeteria de confianza</h2>
-    </div>
     <section>
         <div class="row">
             <div class="Header2 col-4">
