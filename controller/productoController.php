@@ -55,8 +55,17 @@ class productoController
 
     }
 
+    public function crearProducto()
+    {
 
-    public function sel()
+        include_once "views/crearProducto.php";
+
+
+    }
+
+
+
+    public static function sel()
     {
         include_once 'config/parametros.php';
 
@@ -217,6 +226,9 @@ class productoController
                     $stmtDetallePedido->execute();
                 }
 
+                // Guardar el ID del último pedido en una cookie
+                setcookie('ultimo_pedido', $idPedido, time() + 3600, '/'); // La cookie expirará en 1 hora
+
                 // Commit de la transacción
                 $conn->commit();
 
@@ -242,6 +254,277 @@ class productoController
             $conn->close();
         }
     }
+
+    public static function mostrarUltimoPedido()
+    {
+        // Verifica si la cookie 'ultimo_pedido' está definida
+        if (isset($_COOKIE['ultimo_pedido'])) {
+            // Obtiene el valor de la cookie 'ultimo_pedido'
+            $ultimoPedidoInfo = $_COOKIE['ultimo_pedido'];
+    
+            return $ultimoPedidoInfo;
+        } else {
+            
+        }
+    }
+
+
+    public static function recuperarPedido($idPedido)
+    {
+        // Obtener detalles del pedido
+        $detallesPedido = productoController::obtenerDetallesDelPedido($idPedido);
+
+        // Verificar si hay detalles de pedido
+        if (!empty($detallesPedido)) {
+            // Recorrer los detalles del pedido y agregar cada producto al carrito
+            foreach ($detallesPedido as $detalle) {
+                $idProducto = $detalle['ID_PRODUCTO'];
+                $cantidad = $detalle['CANTIDAD'];
+
+                // Obtener los detalles del producto
+                $productoDetalles = productoController::obtenerDetallesProducto($idProducto);
+
+                // Verificar si se obtuvieron detalles del producto
+                if (!empty($productoDetalles)) {
+                    // Agregar producto al carrito
+                    self::agregarProductoAlCarrito($productoDetalles, $cantidad);
+                } else {
+                    // Manejar el caso en que no se obtuvieron detalles del producto
+                    echo "Error: No se encontraron detalles del producto con ID $idProducto.";
+                }
+            }
+
+            // Redirigir a la página del carrito o a donde sea necesario
+            header("Location: ?controller=producto&action=Carrito");
+            exit();
+        } else {
+            // Manejar el caso en que no haya detalles de pedido
+            echo "Error: No se encontraron detalles de pedido.";
+        }
+    }
+
+    public static function obtenerDetallesProducto($idProducto)
+    {
+        // Obtén la conexión a la base de datos y otras configuraciones necesarias
+        $conn = DataBase::connect(); // Ajusta según tu clase de conexión
+
+        // Inicializa un array para almacenar los detalles del producto
+        $detallesProducto = array();
+
+        // Consulta para obtener detalles del producto
+        $sql = "SELECT ID_PRODUCTO, NOMBRE_PRODUCTO, PRECIO, IMG, DESCRIPCION FROM productos WHERE ID_PRODUCTO = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $idProducto);
+
+        // Ejecuta la consulta
+        $stmt->execute();
+
+        // Obtiene el resultado de la consulta
+        $result = $stmt->get_result();
+
+        // Verifica si se obtuvo un resultado
+        if ($result) {
+            // Obtiene los detalles del producto
+            $detallesProducto = $result->fetch_assoc();
+        } else {
+            // Maneja el caso en que haya un problema con la consulta SQL
+            echo "Error en la consulta SQL: " . $stmt->error;
+        }
+
+        // Cierra la consulta y la conexión
+        $stmt->close();
+        $conn->close();
+
+        // Devuelve los detalles del producto
+        return $detallesProducto;
+    }
+
+    public static function agregarProductoAlCarrito($detallesProducto, $cantidad)
+    {
+        include_once 'config/parametros.php';
+
+        // Inicia o recupera la sesión
+        session_start();
+
+        // Verifica si el carrito está definido en la sesión
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = array();
+        }
+
+        // Construye el array de producto
+        $producto = array(
+            'id' => $detallesProducto['ID_PRODUCTO'],
+            'name' => $detallesProducto['NOMBRE_PRODUCTO'],
+            'price' => $detallesProducto['PRECIO'],
+            'img' => $detallesProducto['IMG'],
+            'description' => $detallesProducto['DESCRIPCION'],
+            'quantity' => $cantidad
+        );
+
+        // Agrega el producto al carrito
+        $_SESSION['cart'][] = $producto;
+    }
+
+    public static function ajustarCantidadProducto($productoId, $nuevaCantidad)
+    {
+        include_once 'config/parametros.php';
+
+        // Inicia o recupera la sesión
+        session_start();
+
+        // Verifica si el carrito está definido en la sesión
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = array();
+        }
+
+        // Encuentra el índice del producto en el carrito
+        $indiceProducto = -1;
+        foreach ($_SESSION['cart'] as $indice => $producto) {
+            if ($producto['id'] == $productoId) {
+                $indiceProducto = $indice;
+                break;
+            }
+        }
+
+        // Ajusta la cantidad si se encontró el producto en el carrito
+        if ($indiceProducto !== -1) {
+            // Asegúrate de que la nueva cantidad sea al menos 1
+            $nuevaCantidad = max(1, $nuevaCantidad);
+
+            // Actualiza la cantidad del producto en el carrito
+            $_SESSION['cart'][$indiceProducto]['quantity'] = $nuevaCantidad;
+        }
+    }
+
+
+    public static function obtenerDetallesDelPedido($idPedido)
+    {
+        // Obtén la conexión a la base de datos y otras configuraciones necesarias
+        $conn = DataBase::connect(); // Ajusta según tu clase de conexión
+
+        // Inicializa un array para almacenar los detalles del pedido
+        $detallesPedido = array();
+
+        // Consulta para obtener detalles del pedido
+        $sql = "SELECT ID_PRODUCTO, CANTIDAD, PRECIO FROM pedido_articulos WHERE ID_PEDIDO = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $idPedido);
+
+        // Ejecuta la consulta
+        $stmt->execute();
+
+        // Obtiene el resultado de la consulta
+        $result = $stmt->get_result();
+
+        // Verifica si se obtuvo un resultado
+        if ($result) {
+            // Recorre los resultados y agrega cada detalle al array
+            while ($row = $result->fetch_assoc()) {
+                $detallesPedido[] = array(
+                    'ID_PRODUCTO' => $row['ID_PRODUCTO'],
+                    'CANTIDAD' => $row['CANTIDAD'],
+                    'PRECIO' => $row['PRECIO']
+                    // Puedes agregar más campos según sea necesario
+                );
+            }
+        } else {
+            // Maneja el caso en que haya un problema con la consulta SQL
+            echo "Error en la consulta SQL: " . $stmt->error;
+        }
+
+        // Cierra la consulta y la conexión
+        $stmt->close();
+        $conn->close();
+
+        // Devuelve los detalles del pedido
+        return $detallesPedido;
+    }
+
+    public function modificarProducto($idProducto)
+    {
+        // Obtener detalles del producto por su ID
+        $detallesProducto = productoDAO::getProductoById($idProducto);
+
+        // Llamar a la vista con los detalles del producto
+        include 'views/modificarProducto.php';
+    }
+
+    // Dentro de productoController.php
+
+    public function procesarModificarProducto()
+    {
+        // Verifica si se han enviado los datos del formulario
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Obtén los datos del formulario
+            $idProducto = $_POST['idProducto'];
+            $nombreProducto = $_POST['nombreProducto'];
+            $descripcion = $_POST['descripcion'];
+            $precio = $_POST['precio'];
+            $cantidad = $_POST['cantidad'];
+            $img = $_POST['img'];
+            $idCategoria = $_POST['idCategoria'];
+
+            // Llama a la función que actualiza el producto en la base de datos
+            productoDAO::actualizarProducto($idProducto, $nombreProducto, $descripcion, $precio, $cantidad, $img, $idCategoria);
+
+            // Redirige a la página de productos (o a donde desees)
+            header("Location: ?controller=usuario&action=adminPage");
+            exit();
+        } else {
+            // Si no se enviaron los datos por POST, redirige a la página principal
+            header("Location: ?controller=usuario&action=adminPage");
+            exit();
+        }
+    }
+
+    public function eliminarProducto()
+    {
+        // Verifica si se ha proporcionado un ID de producto
+        if (isset($_GET['id'])) {
+            $idProducto = $_GET['id'];
+
+            // Llama a la función que elimina el producto en la base de datos
+            productoDAO::eliminarProducto($idProducto);
+
+            // Redirige al usuario al mismo lugar
+            header("Location: ?controller=usuario&action=adminPage");
+            exit();
+        } else {
+            // Si no se proporcionó un ID de producto, redirige a la página principal
+            header("Location: ?controller=usuario&action=adminPage");
+            exit();
+        }
+    }
+
+    public function procesarCrearProducto()
+    {
+        // Verifica si se han enviado los datos del formulario
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Obtén los datos del formulario
+            $idCategoria = $_POST['idCategoria'];
+            $nombreProducto = $_POST['nombreProducto'];
+            $descripcion = $_POST['descripcion'];
+            $precio = $_POST['precio'];
+            $cantidad = $_POST['cantidad'];
+            $img = $_POST['img'];
+
+            // Puedes realizar validaciones aquí
+
+            // Llama a la función que crea el producto en la base de datos
+            productoDAO::crearProducto($idCategoria, $nombreProducto, $descripcion, $precio, $cantidad, $img);
+
+            // Redirige a la página de productos (o a donde desees)
+            header("Location: ?controller=producto&action=adminPage");
+            exit();
+        } else {
+            // Si no se enviaron los datos por POST, redirige a la página principal
+            header("Location: ?controller=producto&action=adminPage");
+            exit();
+        }
+    }
+
+
+
 
 
 

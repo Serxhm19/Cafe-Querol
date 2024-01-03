@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="Style/stylecarrito.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="img\icons\logoQuerol.jpg">
     <title>Carrito</title>
 </head>
 
@@ -73,19 +74,12 @@
                                             <?= isset($producto['description']) ? $producto['description'] : ''; ?>
                                         </p>
                                         <p class="card-text price">
-                                            <?= number_format($totalProducto, 2) ?>€
+                                            <?= number_format($totalProducto, 2, ',', ' ') ?> €
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <!-- Input para sumar/restar cantidad -->
-                                <div class="quantity-input">
-                                    <div class="form-outline">
-                                        <input min="1" max="" type="number" name="productos[<?= $producto['id'] ?>][quantity]"
-                                            value="<?= $producto['quantity'] ?>" class="form-control" />
-                                    </div>
-                                </div>
                                 <form method="post" action="?controller=producto&action=removeProduct">
                                     <input type="hidden" name="productId"
                                         value="<?= isset($producto['id']) ? $producto['id'] : ''; ?>">
@@ -112,7 +106,7 @@
                     </div>
                     <div class="col-md-2">
                         <p class="card-text totalPrice">
-                            <?= number_format($precios['precioTotalCarrito'], 2) ?>€
+                            <?= number_format($precios['precioTotalCarrito'], 2, ',', ' ') ?> €
                         </p>
                     </div>
                 </div>
@@ -124,7 +118,7 @@
                     </div>
                     <div class="col-md-2">
                         <p class="card-text totalPrice">
-                            <?= number_format($precios['precioEnvio'], 2) ?>€
+                            <?= number_format($precios['precioEnvio'], 2, ',', ' ') ?> €
                         </p>
                     </div>
                 </div>
@@ -136,7 +130,7 @@
                     </div>
                     <div class="col-md-2">
                         <p class="card-text totalPrice2">
-                            <?= number_format($precios['precioTotal'], 2) ?>€
+                            <?= number_format($precios['precioTotal'], 2, ',', ' ') ?> €
                         </p>
                     </div>
                 </div>
@@ -193,7 +187,7 @@
                                         <?= isset($producto['description']) ? $producto['description'] : ''; ?>
                                     </p>
                                     <p class="card-text price">
-                                        <?= number_format($totalProducto, 2) ?>€
+                                        <?= number_format($totalProducto, 2, ',', ' ') ?> €
                                     </p>
                                 </div>
                             </div>
@@ -206,40 +200,65 @@
                 ?>
                 <div class="direccionEnvio">
                     <h1>Dirección de envío</h1>
-                    <!-- Recoger datos de la cuenta -->
+                    <?php $cliente = usuarioController::obtenerDatosCliente(); ?>
+                    <div class="styled-container">
+                        <div class="direccionEnvio">
+                            <?php
+                            // Verifica si se obtuvieron datos del cliente
+                            if ($cliente) {
+                                echo '<p> ' . $cliente->NOMBRE . '</p>';
+                                echo '<p> ' . $cliente->APELLIDO . '</p>';
+                                echo '<p> ' . $cliente->CORREO . '</p>';
+                                echo '<p> ' . $cliente->TELEFONO . '</p>';
+                                echo '<p> ' . $cliente->DIRECCION . '</p>';
+                            } else {
+                                echo '<p>No se encontraron datos del cliente.</p>';
+                            }
+                            ?>
+                        </div>
+
+                    </div>
                     <hr>
-                </div>
-                <form action="?controller=producto&action=insertarDetallesPedido" method="post" class="text-center">
-                    <!-- Agrega campos ocultos para enviar detalles del carrito -->
-                    <?php foreach ($_SESSION['cart'] as $producto): ?>
-                        <input type="hidden" name="productos[<?= $producto['id'] ?>][id]" value="<?= $producto['id'] ?>">
-                        <input type="hidden" name="productos[<?= $producto['id'] ?>][name]" value="<?= $producto['name'] ?>">
-                        <input type="hidden" name="productos[<?= $producto['id'] ?>][quantity]"
-                            value="<?= $producto['quantity'] ?>">
-                        <input type="hidden" name="productos[<?= $producto['id'] ?>][price]" value="<?= $producto['price'] ?>">
-                        <!-- Agrega más campos según sea necesario, como imagen, descripción, etc. -->
-                    <?php endforeach; ?>
+                    <form action="?controller=producto&action=insertarDetallesPedido" method="post" class="text-center">
+                        <!-- Agrega campos ocultos para enviar detalles del carrito -->
+                        <?php foreach ($_SESSION['cart'] as $producto): ?>
+                            <input type="hidden" name="productos[<?= $producto['id'] ?>][id]" value="<?= $producto['id'] ?>">
+                            <input type="hidden" name="productos[<?= $producto['id'] ?>][name]"
+                                value="<?= $producto['name'] ?>">
+                            <input type="hidden" name="productos[<?= $producto['id'] ?>][quantity]"
+                                value="<?= $producto['quantity'] ?>">
+                            <input type="hidden" name="productos[<?= $producto['id'] ?>][price]"
+                                value="<?= $producto['price'] ?>">
+                            <!-- Agrega más campos según sea necesario, como imagen, descripción, etc. -->
+                        <?php endforeach; ?>
 
-                    <!-- Botón para enviar el formulario -->
-                    <button type="submit" class="btnPagar">Pagar</button>
-                </form>
-
-
-                <!-- Botón provisional para borrar el carrito -->
-                <form action="?controller=producto&action=deleteAllCart" method="post" class="text-center">
-                    <button type="submit" class="btn btn-danger">Borrar Carrito</button>
-                </form>
-
-                <?php
+                        <!-- Botón para enviar el formulario -->
+                        <button type="submit" class="btnPagar">Pagar</button>
+                    </form>
+                    <?php
             } else {
                 echo "<p class='text-center'>No hay productos en el carrito.</p>";
             }
             ?>
-
-
-
+            </div>
         </div>
-    </div>
 </body>
+<footer>
+    <div class="footer-up">
+        <ul>
+            <li>
+                <img src="img/icons/facebook.png" alt="Facebook" class="social-icon">
+                <img src="img/icons/facebook2.png" alt="Facebook Hover" class="social-icon-hover">
+            </li>
+            <li>
+                <img src="img/icons/instagram.png" alt="Instagram" class="social-icon">
+                <img src="img/icons/instagram2.png" alt="Instagram Hover" class="social-icon-hover">
+            </li>
+        </ul>
+    </div>
+    <div class="footer-down">
+        <p>Copyright 2023 | Sergi Hernández Miras</p>
+    </div>
+</footer>
 
 </html>

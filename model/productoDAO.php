@@ -15,19 +15,31 @@ final class productoDAO
             return $allproducts;
         }
     }
-
     public static function getProductoById($id)
     {
         $con = DataBase::connect();
-        $sql = "SELECT * FROM productos WHERE id = ?";
+        // Preparar la consulta con una sentencia preparada
+        $sql = "SELECT * FROM productos WHERE ID_PRODUCTO = ?";
+        $stmt = $con->prepare($sql);
 
-        if ($resultado = $con->query($sql)) {
-            while ($idproducto = $resultado->fetch_object()) {
-                return $idproducto;
-            }
-            return $idproducto;
+        // Enlazar el valor al marcador de posición
+        $stmt->bind_param("s", $id);
+
+        // Ejecutar la consulta
+        $stmt->execute();
+
+        // Obtener el resultado
+        $resultado = $stmt->get_result();
+
+        // Verificar si se obtuvieron resultados
+        if ($resultado->num_rows > 0) {
+            $producto = $resultado->fetch_object();
+            return $producto;
+        } else {
+            return null; // No se encontraron resultados
         }
     }
+
 
     public static function getProductoBebidas($categoria)
     {
@@ -115,5 +127,65 @@ final class productoDAO
 
         return $productos;
     }
+
+    public static function actualizarProducto($idProducto, $nombreProducto, $descripcion, $precio, $cantidad, $img, $idCategoria)
+    {
+        $con = DataBase::connect();
+
+        // Preparar la consulta con una sentencia preparada
+        $sql = "UPDATE productos SET NOMBRE_PRODUCTO=?, DESCRIPCION=?, PRECIO=?, CANTIDAD=?, IMG=?, ID_CATEGORIA=? WHERE ID_PRODUCTO=?";
+        $stmt = $con->prepare($sql);
+
+        // Enlazar los valores a los marcadores de posición
+        $stmt->bind_param("ssdsssd", $nombreProducto, $descripcion, $precio, $cantidad, $img, $idCategoria, $idProducto);
+
+        // Ejecutar la consulta
+        $stmt->execute();
+
+        // Cerrar la conexión
+        $stmt->close();
+        $con->close();
+    }
+
+    public static function eliminarProducto($idProducto)
+    {
+        $con = DataBase::connect();
+
+        // Preparar la consulta con una sentencia preparada
+        $sql = "DELETE FROM productos WHERE ID_PRODUCTO=?";
+        $stmt = $con->prepare($sql);
+
+        // Enlazar el valor al marcador de posición
+        $stmt->bind_param("s", $idProducto);
+
+        // Ejecutar la consulta
+        $stmt->execute();
+
+        // Cerrar la conexión
+        $stmt->close();
+        $con->close();
+    }
+
+    public static function crearProducto($idCategoria, $nombreProducto, $descripcion, $precio, $cantidad, $img)
+    {
+        $con = DataBase::connect();
+
+        // Preparar la consulta con una sentencia preparada
+        $sql = "INSERT INTO productos (ID_CATEGORIA, NOMBRE_PRODUCTO, DESCRIPCION, PRECIO, CANTIDAD, IMG) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $con->prepare($sql);
+
+        // Enlazar los valores a los marcadores de posición
+        $stmt->bind_param("dssdsd", $idCategoria, $nombreProducto, $descripcion, $precio, $cantidad, $img);
+
+        // Ejecutar la consulta
+        $stmt->execute();
+
+        // Cerrar la conexión
+        $stmt->close();
+        $con->close();
+    }
+
+
+
 }
 ?>

@@ -31,6 +31,11 @@ class usuarioController
         include_once "views/pedidos.php";
     }
 
+    public function adminPage()
+    {
+        include_once "views/adminPage.php";
+    }
+
 
     public function verificarCorreo()
     {
@@ -224,26 +229,20 @@ VALUES (?, ?, ?, ?, ?, ?, 1)";
 
                             // Cierra la declaración preparada
                             $stmtUpdateEmail->close();
-                        } else {
-                            $_SESSION['errorMessage'] = "Error al preparar la consulta.";
                         }
+
+                        // Cierra la declaración preparada principal
+                        $stmt->close();
                     } else {
-                        $_SESSION['errorMessage'] = "El nuevo correo electrónico debe ser diferente del actual.";
+                        $_SESSION['errorMessage'] = "No se encontró ninguna cuenta asociada a este correo electrónico.";
                     }
-                } else {
-                    $_SESSION['errorMessage'] = "Contraseña incorrecta. Intenta nuevamente.";
+
+                    // Cierra la conexión a la base de datos
+                    $con->close();
+                    header("Location: ?controller=usuario&action=dashboard");
+                    exit();
                 }
-
-                // Cierra la declaración preparada principal
-                $stmt->close();
-            } else {
-                $_SESSION['errorMessage'] = "No se encontró ninguna cuenta asociada a este correo electrónico.";
             }
-
-            // Cierra la conexión a la base de datos
-            $con->close();
-            header("Location: ?controller=usuario&action=dashboard");
-            exit();
         }
     }
 
@@ -293,26 +292,21 @@ VALUES (?, ?, ?, ?, ?, ?, 1)";
 
                             // Cierra la declaración preparada
                             $stmtUpdatePassword->close();
+
+
+                            // Cierra la declaración preparada principal
+                            $stmt->close();
                         } else {
-                            $_SESSION['errorMessage'] = "Error al preparar la consulta.";
+                            $_SESSION['errorMessage'] = "No se encontró ninguna cuenta asociada a este correo electrónico.";
                         }
-                    } else {
-                        $_SESSION['errorMessage'] = "Las nuevas contraseñas no coinciden.";
+
+                        // Cierra la conexión a la base de datos
+                        $con->close();
+                        header("Location: ?controller=usuario&action=dashboard");
+                        exit();
                     }
-                } else {
-                    $_SESSION['errorMessage'] = "Contraseña actual incorrecta. Intenta nuevamente.";
                 }
-
-                // Cierra la declaración preparada principal
-                $stmt->close();
-            } else {
-                $_SESSION['errorMessage'] = "No se encontró ninguna cuenta asociada a este correo electrónico.";
             }
-
-            // Cierra la conexión a la base de datos
-            $con->close();
-            header("Location: ?controller=usuario&action=dashboard");
-            exit();
         }
     }
 
@@ -332,120 +326,199 @@ VALUES (?, ?, ?, ?, ?, ?, 1)";
         }
     }
 
-    public function mostrarDatosCliente()
+    public static function obtenerDatosCliente()
     {
-        session_start();
-
         // Verifica si hay una sesión iniciada
         if (isset($_SESSION['email'])) {
             // Datos de conexión a la base de datos
             include_once 'config/db.php';
-
-            try {
-                // Conecta a la base de datos
-                $con = DataBase::connect();
-
-                // Consulta para obtener los datos del cliente
-                $sql = "SELECT NOMBRE, TELEFONO, DIRECCION, OTROS_CAMPOS FROM usuarios WHERE CORREO = ?";
-                $stmt = $con->prepare($sql);
-                $stmt->bind_param('s', $_SESSION['email']);
-                $stmt->execute();
-
-                // Obtiene los resultados
-                $result = $stmt->get_result();
-
-                // Verifica si se encontraron resultados
-                if ($result->num_rows > 0) {
-                    // Obtiene los datos del cliente
-                    $cliente = $result->fetch_assoc();
-
-                    // Incluye la vista para mostrar los datos del cliente
-                    include_once "views/dashboardData.php";
-                } else {
-                    // Si no se encontraron resultados, redirige a la página de inicio de sesión
-                    $this->redirectToPage();
-                }
-
-                // Cierra la conexión a la base de datos
-                $con->close();
-            } catch (Exception $e) {
-                // Maneja la excepción, por ejemplo, muestra un mensaje de error o redirige a una página de error
-                echo "Error: " . $e->getMessage();
+    
+            // Conecta a la base de datos
+            $con = DataBase::connect();
+    
+            // Consulta para obtener los datos del cliente
+            $sql = "SELECT NOMBRE, APELLIDO, CORREO, TELEFONO, DIRECCION FROM usuarios WHERE CORREO = ?";
+            $stmt = $con->prepare($sql);
+            $stmt->bind_param('s', $_SESSION['email']);
+            $stmt->execute();
+    
+            // Obtiene los resultados
+            $result = $stmt->get_result();
+    
+            // Verifica si se encontraron resultados
+            if ($result->num_rows > 0) {
+                // Obtiene los datos del cliente y los guarda en un objeto
+                return $result->fetch_object();
             }
-        } else {
-            // Si no hay una sesión iniciada, redirige a la página de inicio de sesión
-            $this->redirectToPage();
         }
+    
+        // Si no hay resultados o no hay una sesión iniciada, devuelve null
+        return null;
     }
+    
 
-    public function mostrarMisPedidos()
+    public static function obtenerPedidosUsuario()
     {
-        // Asegúrate de que el usuario esté autenticado
-        session_start();
-        if (!isset($_SESSION['email'])) {
-            header('Location: login.php');
-            exit;
+        include_once 'config/db.php';
+
+        // Verificar si la sesión está iniciada
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
         }
-    
-        // Incluye la conexión a la base de datos y cualquier otra configuración necesaria
-        require_once 'conexion.php'; // Ajusta según tu configuración
-    
-        // Obtiene el ID del usuario
-        $idUsuario = 0;
-    
-        // Obtiene el correo electrónico de la sesión
-        $emailUsuario = $_SESSION['email'] ?? null;
-    
-        // Si el correo electrónico está definido, realiza la consulta
-        if ($emailUsuario) {
-            $sql = "SELECT ID_USUARIO FROM usuarios WHERE CORREO = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param('s', $emailUsuario);
-    
-            // Ejecuta la consulta
-            if ($stmt->execute()) {
-                $result = $stmt->get_result();
-    
-                // Verifica si se obtuvo un resultado
-                if ($result && $result->num_rows > 0) {
-                    $row = $result->fetch_assoc();
-                    $idUsuario = $row['ID_USUARIO'];
+
+        // Verificar si el email del usuario está almacenado en la sesión
+        if (isset($_SESSION['email'])) {
+            $email = $_SESSION['email'];
+
+            // Establecer la conexión a la base de datos (reemplaza los valores con los tuyos)
+            $con = DataBase::connect();
+
+            // Verificar la conexión
+            if ($con->connect_error) {
+                die("Conexión fallida: " . $con->connect_error);
+            }
+
+            // Consulta SQL para obtener el ID del usuario utilizando el email
+            $idUsuarioQuery = "SELECT ID_USUARIO FROM usuarios WHERE CORREO = '$email'";
+            $resultIdUsuario = $con->query($idUsuarioQuery);
+
+            // Verificar si hay resultados
+            if ($resultIdUsuario->num_rows > 0) {
+                // Obtener el ID del usuario
+                $rowIdUsuario = $resultIdUsuario->fetch_assoc();
+                $idUsuario = $rowIdUsuario['ID_USUARIO'];
+
+                // Consulta SQL para obtener los datos de los pedidos para el usuario específico
+                $sql = "SELECT ID_PEDIDO, ESTADO, FECHA_PEDIDO FROM pedidos WHERE ID_USUARIO = $idUsuario";
+
+                // Ejecutar la consulta
+                $result = $con->query($sql);
+
+                // Verificar si hay resultados
+                if ($result->num_rows > 0) {
+                    // Crear un array para almacenar los resultados
+                    $pedidos = array();
+
+                    // Recorrer los resultados y agregarlos al array
+                    while ($row = $result->fetch_assoc()) {
+                        $pedidos[] = $row;
+                    }
+
+                    // Cerrar la conexión y devolver el array de pedidos
+                    $con->close();
+                    return $pedidos;
                 } else {
-                    echo "No se encontró ningún usuario con el correo electrónico proporcionado.";
+                    // Si no hay resultados, cerrar la conexión y devolver un array vacío
+                    $con->close();
+                    return array();
                 }
             } else {
-                echo "Error en la consulta SQL: " . $stmt->error;
+                // Si no se encuentra el usuario, cerrar la conexión y devolver un array vacío
+                $con->close();
+                return array();
             }
-    
-            // Cierra la consulta
-            $stmt->close();
         } else {
-            echo "El índice 'email' no está definido en la sesión.";
+            // Si el email del usuario no está en la sesión, devolver un array vacío
+            return array();
         }
-    
-        // Si se obtuvo el ID del usuario, realiza la consulta de pedidos
-        if ($idUsuario > 0) {
-            $sqlPedidos = "SELECT * FROM pedidos WHERE ID_USUARIO = ?";
-            $stmtPedidos = $conn->prepare($sqlPedidos);
-            $stmtPedidos->bind_param('i', $idUsuario);
-    
-            // Ejecuta la consulta de pedidos
-            if ($stmtPedidos->execute()) {
-                $resultPedidos = $stmtPedidos->get_result();
-    
-                // Incluye la vista correspondiente
-                require 'views/pedidos.php'; // Ajusta según tu estructura de archivos
-            } else {
-                echo "Error al obtener los pedidos: " . $stmtPedidos->error;
-            }
-    
-            // Cierra la conexión a la base de datos
-            $stmtPedidos->close();
-        }
-        
-        $conn->close();
     }
-    
+    public static function obtenerDetallesDelPedido($idPedido)
+    {
+        // Realiza la conexión a la base de datos (reemplaza los valores con los tuyos)
+        $con = DataBase::connect();
+
+        // Verifica la conexión
+        if ($con->connect_error) {
+            die("Conexión fallida: " . $con->connect_error);
+        }
+
+        // Consulta SQL para obtener los detalles del pedido
+        $sql = "SELECT pa.ID_PRODUCTO, p.NOMBRE_PRODUCTO, p.IMG, pa.CANTIDAD, pa.PRECIO 
+        FROM pedido_articulos pa
+        INNER JOIN productos p ON pa.ID_PRODUCTO = p.ID_PRODUCTO
+        WHERE pa.ID_PEDIDO = $idPedido";
+
+        // Ejecuta la consulta
+        $result = $con->query($sql);
+
+        // Verifica si hay resultados
+        if ($result->num_rows > 0) {
+            // Crea un array para almacenar los detalles del pedido
+            $detallesPedido = array();
+
+            // Recorre los resultados y agrega los detalles al array
+            while ($row = $result->fetch_assoc()) {
+                $detallesPedido[] = $row;
+            }
+
+            // Cierra la conexión y devuelve el array de detalles del pedido
+            $con->close();
+            return $detallesPedido;
+        } else {
+            // Si no hay resultados, cierra la conexión y devuelve un array vacío
+            $con->close();
+            return array();
+        }
+    }
+
+    public static function visualizarPedido($idPedido)
+    {
+        // Ejemplo de cómo podrías obtener los detalles del pedido (adaptar según tu estructura)
+        $detallesPedido = usuarioController::obtenerDetallesDelPedido($idPedido);
+
+        // Incluye la plantilla de detalles_pedido.php
+        include 'views/detalles_pedidos.php';
+    }
+
+
+    public static function obtenerPermisoUsuario($email)
+    {
+        // Obtén la conexión a la base de datos y otras configuraciones necesarias
+        $conn = DataBase::connect(); // Ajusta según tu clase de conexión
+
+        // Inicializa una variable para almacenar el permiso del usuario
+        $permisoUsuario = 1; // Valor predeterminado, puedes ajustarlo según tu lógica
+
+        // Consulta para obtener el permiso del usuario según el correo electrónico
+        $sql = "SELECT PERMISO FROM usuarios WHERE CORREO = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('s', $email);
+
+        // Ejecuta la consulta
+        $stmt->execute();
+
+        // Obtiene el resultado de la consulta
+        $result = $stmt->get_result();
+
+        // Verifica si se obtuvo un resultado
+        if ($result) {
+            // Verifica si se encontró un usuario con el correo electrónico proporcionado
+            if ($result->num_rows > 0) {
+                // Obtiene el permiso del usuario
+                $row = $result->fetch_assoc();
+                $permisoUsuario = $row['PERMISO'];
+            } else {
+                // Maneja el caso en que no se encuentre ningún usuario con el correo electrónico proporcionado
+                echo "No se encontró ningún usuario con el correo electrónico proporcionado.";
+            }
+        } else {
+            // Maneja el caso en que haya un problema con la consulta SQL
+            echo "Error en la consulta SQL: " . $stmt->error;
+        }
+
+        // Cierra la consulta y la conexión
+        $stmt->close();
+        $conn->close();
+
+        // Devuelve el permiso del usuario
+        return $permisoUsuario;
+    }
+
+
+
+
+
+
 }
 
 

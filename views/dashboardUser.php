@@ -15,22 +15,21 @@
 
 <body>
   <header>
-    <section>
-      <div class="row">
-        <div class="Header2 col-4">
-          <img src="img/icons/coffee.png" alt="coffee">
-          <h3>TOMA LO QUE QUIERAS MIENTRAS COMPRAS</h3>
-        </div>
-        <div class="Header2 col-4">
-          <img src="img/icons/coffee-cup.png" alt="coffee">
-          <h3>COME AQUI O LLEVATELO A CASA</h3>
-        </div>
-        <div class="Header2 col-4">
-          <img src="img/icons/cake.png" alt="cake">
-          <h3>SERVICIO DE COMIDA</h3>
-        </div>
+    <section class="row">
+      <div class="Header2 col-4">
+        <img src="img/icons/coffee.png" alt="coffee">
+        <h3>TOMA LO QUE QUIERAS MIENTRAS COMPRAS</h3>
+      </div>
+      <div class="Header2 col-4">
+        <img src="img/icons/coffee-cup.png" alt="coffee">
+        <h3>COME AQUI O LLEVATELO A CASA</h3>
+      </div>
+      <div class="Header2 col-4">
+        <img src="img/icons/cake.png" alt="cake">
+        <h3>SERVICIO DE COMIDA</h3>
       </div>
     </section>
+
     <section>
       <div class="header3">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -73,69 +72,96 @@
       </div>
     </section>
   </header>
+
   <div class="col-md-3">
     <div class="menumyaccount" id="cssmenu">
       <h3>Mi cuenta</h3>
       <ul>
         <li>Mis datos</li>
-        <li><a href="https://www.querol.net/es/historial-de-pedidos" title="Mis pedidos">Mis pedidos</a></li>
+        <li><a href="?controller=usuario&action=mispedidos" title="Mis Pedidos">Mis Pedidos</a></li>
+        <?php
+        // Verifica si 'email' está definido en la sesión
+        if (isset($_SESSION['email'])) {
+          $emailUsuario = $_SESSION['email'];
+          $permisoUsuario = usuarioController::obtenerPermisoUsuario($emailUsuario);
+          // Muestra el enlace solo si el permiso es 0
+          if ($permisoUsuario == 0) {
+            echo '<li><a href="?controller=usuario&action=adminPage" title="Pagina Administrador">Pagina Administrador</a></li>';
+          }
+        } else {
+          echo "<li>El índice 'email' no está definido en la sesión.</li>";
+        }
+        ?>
         <li><a href="?controller=usuario&action=CerrarSesion" title="Cerrar sesión">Cerrar sesión</a></li>
       </ul>
     </div>
   </div>
+
   <div class="col-md-9">
     <h3>Datos de acceso</h3>
+
     <h4>Cambio de dirección del correo electrónico</h4>
-    <p>Si deseas cambiar tu dirección e-mail, no es necesario que des de baja tu cuenta. Solo completa el siguiente
-      formulario. Este proceso te permitirá conservar el historial de tu cuenta y recibir nuestros e-mails en tu
-      nueva dirección electrónica.</p>
-    <span class="strong">Tu e-mail acutal es:</span>
-    <span class="redmail strong">
-      <?php echo $_SESSION['email']; ?>
-    </span>
+    <p>Si deseas cambiar tu dirección de correo electrónico, completa el siguiente formulario. Este proceso te
+      permitirá conservar el historial de tu cuenta y recibir nuestros correos en tu nueva dirección.</p>
+
+    <p><strong>Tu email actual es:</strong>
+      <span class="redmail strong">
+        <?php echo $_SESSION['email'];?>
+      </span>
+    </p>
+
     <div class="blockemail">
       <form action="?controller=usuario&action=ActualizarDatos" method="post" class="std">
         <fieldset>
-          <div class="password form-group"> <input class="is_required validate form-control"
-              placeholder="Contraseña actual*" type="password" data-validate="isPasswd" name="passwd" id="passwd">
+          <div class="mb-3">
+            <label for="passwd">Contraseña actual:</label>
+            <input type="password" class="form-control" id="passwd" name="passwd">
           </div>
-          <div class="required form-group"> <input class="is_required validate form-control"
-              placeholder="Nuevo correo electrónico *" data-validate="isEmail" type="email" name="email" id="email"
-              value=""> </div>
-          <div class="required form-group"> <input class="is_required validate form-control"
-              placeholder="Confirme el correo electrónico*" data-validate="isEmail" type="email" name="email2"
-              id="email2" value=""> </div>
-          <div class="form-group"> <span class="infoobligatorios"> * Campos obligatorios <input type="hidden"
-                name="tipo" value="email"> </span> <button type="submit" class="btn btn-primary">ENTRAR EN LA
-              CUENTA</button>
+          <div class="mb-3">
+            <label for="email">Nuevo correo electrónico:</label>
+            <input type="email" class="form-control" id="email" name="email" value="">
+          </div>
+          <div class="mb-3">
+            <label for="email2">Confirmar correo electrónico:</label>
+            <input type="email" class="form-control" id="email2" name="email2" value="">
+          </div>
+          <div class="mb-3">
+            <span class="infoobligatorios"> * Campos obligatorios <input type="hidden" name="tipo" value="email">
+            </span>
+            <button type="submit" class="btn btn-primary">Actualizar Email</button>
           </div>
         </fieldset>
       </form>
     </div>
+
     <h4>Cambio de contraseña</h4>
-    <p>Si deseas cambiar la contraseña de acceso a tu cuenta proporciona la siguiente información</p>
+    <p>Si deseas cambiar la contraseña de acceso a tu cuenta, proporciona la siguiente información.</p>
+
     <div class="blockemail">
       <form action="?controller=usuario&action=ActualizarContrasena" method="post" class="std">
         <fieldset>
-          <div class="password form-group"> <input class="is_required validate form-control"
-              placeholder="Contraseña actual*" type="password" data-validate="isPasswd" name="passwd" id="passwd">
+          <div class="mb-3">
+            <label for="passwd">Contraseña actual:</label>
+            <input type="password" class="form-control" id="passwd" name="passwd">
           </div>
-          <div class="required form-group"> <input class="is_required validate form-control"
-              placeholder="Nueva contraseña*" data-validate="isPasswd" type="password" name="passwordnew"
-              id="passwordnew" value=""> </div>
-          <div class="required form-group"> <input class="is_required validate form-control"
-              placeholder="Confirme la contraseña*" data-validate="isPasswd" type="password" name="passwordnew2"
-              id="passwordnew2" value=""> </div>
-          <div class="form-group"> <span class="infoobligatorios"> * Campos obligatorios <input type="hidden"
-                name="tipo" value="password"> </span><button type="submit" class="btn btn-primary">ENTRAR EN LA
-              CUENTA</button>
+          <div class="mb-3">
+            <label for="passwordnew">Nueva contraseña:</label>
+            <input type="password" class="form-control" id="passwordnew" name="passwordnew" value="">
+          </div>
+          <div class="mb-3">
+            <label for="passwordnew2">Confirmar nueva contraseña:</label>
+            <input type="password" class="form-control" id="passwordnew2" name="passwordnew2" value="">
+          </div>
+          <div class="mb-3">
+            <span class="infoobligatorios"> * Campos obligatorios <input type="hidden" name="tipo" value="password">
+            </span>
+            <button type="submit" class="btn btn-primary">Actualizar Contraseña</button>
           </div>
         </fieldset>
       </form>
     </div>
   </div>
 
-  
 </body>
 
 </html>

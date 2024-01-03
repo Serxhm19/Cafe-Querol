@@ -8,9 +8,10 @@
     integrity="sha384-SsDkMO9SMV3F8C3QvxZjScNB6eScB8peVp/UL6ZI3jFhAxVdfdC4vhm3ZXiU04QE"
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="Style\stylehomepage.css">
+  <link rel="icon" type="image/jpg" href="img\icons\logoQuerol.jpg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Header</title>
+  <title>Café Querol | Tu cafeteria de confianza</title>
 </head>
 
 <header>
@@ -19,20 +20,21 @@
   </div>
   <section>
     <div class="row">
-      <div class="Header2 col-4">
+      <div class="Header2 col-12 col-md-4 text-sm-center">
         <img src="img/icons/coffee.png" alt="coffee">
-        <h3>TOMA LO QUE QUIERAS MIENTRAS COMPRAS</h3>
+        <h3 class="text-sm">TOMA LO QUE QUIERAS MIENTRAS COMPRAS</h3>
       </div>
-      <div class="Header2 col-4">
+      <div class="Header2 col-12 col-md-4 text-sm-center">
         <img src="img/icons/coffee-cup.png" alt="coffee">
-        <h3>COME AQUI O LLEVATELO A CASA</h3>
+        <h3 class="text-sm">COME AQUI O LLEVATELO A CASA</h3>
       </div>
-      <div class="Header2 col-4">
+      <div class="Header2 col-12 col-md-4 text-sm-center">
         <img src="img/icons/cake.png" alt="cake">
-        <h3>SERVICIO DE COMIDA</h3>
+        <h3 class="text-sm">SERVICIO DE COMIDA</h3>
       </div>
     </div>
   </section>
+
   <section>
     <div class="header3">
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -56,7 +58,8 @@
               <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
               <button class="btn" type="submit">Buscar</button>
             </form>
-            <a class="navbar-account" href="?controller=usuario&action=redirectToPage"><img src="img\icons\icon-account.png" alt="logo"></a>
+            <a class="navbar-account" href="?controller=usuario&action=redirectToPage"><img
+                src="img\icons\icon-account.png" alt="logo"></a>
             <a class="navbar-cart" href="?controller=producto&action=Carrito">
               <img src="img\icons\carrito-de-compras.png" alt="logo">
               <?php

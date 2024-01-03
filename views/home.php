@@ -1,58 +1,63 @@
 <?php include 'cabecera.php'; ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Tu Título</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+        integrity="sha384-rbs5XWOCdAyJGsmOpn2iJ08eLOF9Hfe/JG9FCYnE1R8krs/Em9i1aFm51R5B5kxF" crossorigin="anonymous">
+    <!-- Otros estilos y scripts aquí -->
+</head>
+
 <body>
     <section>
-
         <div id="testimonials" class="carousel slide" data-bs-ride="carousel" data-bs-keyboard="true">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="testimonial-img" src="img\IMGHome\Beige Brown Abstract Modern Coffee Shop Banner.png"
+                    <img class="testimonial-img" src="img/IMGHome/Beige Brown Abstract Modern Coffee Shop Banner.png"
                         alt="dog-image">
                 </div>
                 <div class="carousel-item">
                     <img class="testimonial-img"
-                        src="img\IMGHome\liquido-espumoso-vertido-taza-cafe-acero-generado-ia.jpg" alt="lady-img">
+                        src="img/IMGHome/liquido-espumoso-vertido-taza-cafe-acero-generado-ia.jpg" alt="lady-img">
                 </div>
             </div>
             <!-- Carousel Buttons -->
             <button class="carousel-control-prev" type="button" data-bs-target="#testimonials" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
+                <span class="visually-hidden">Anterior</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#testimonials" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
+                <span class="visually-hidden">Siguiente</span>
             </button>
-
         </div>
-
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-        crossorigin="anonymous"></script>
-    <div class="row mt-4">
-        <div class="col-md-12 col-sm-12 col-lg-4">
-            <div class="category">
-                <img src="img/products/tazacafe.png" alt="tazacafe" class="img-fluid">
-                <a href="?controller=producto&action=bebidas" class="btn btn-light mt-2">BEBIDAS</a>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12 col-lg-4">
+                <div class="category">
+                    <img src="img/products/tazacafe.png" alt="tazacafe" class="img-fluid">
+                    <a href="?controller=producto&action=bebidas" class="btn btn-light mt-2">BEBIDAS</a>
+                </div>
             </div>
-
-        </div>
-        <div class="col-md-4 col-sm-12 col-lg-4">
-            <div class="category">
-                <img src="img/products/muffinred.jpg" alt="muffin" class="img-fluid">
-                <a href="?controller=producto&action=alimentacion" class="btn btn-light mt-2">ALIMENTACION</a>
+            <div class="col-md-4 col-lg-4">
+                <div class="category">
+                    <img src="img/products/muffinred.jpg" alt="muffin" class="img-fluid">
+                    <a href="?controller=producto&action=alimentacion" class="btn btn-light mt-2">ALIMENTACIÓN</a>
+                </div>
             </div>
-        </div>
-        <div class="col-md-4 col-sm-12 col-lg-4">
-            <div class="category">
-                <img src="img/products/pack.png" alt="pack" class="img-fluid">
-                <a href="?controller=producto&action=packs" class="btn btn-light mt-2">PACKS</a>
+            <div class="col-md-4 col-lg-4">
+                <div class="category">
+                    <img src="img/products/pack.png" alt="pack" class="img-fluid">
+                    <a href="?controller=producto&action=packs" class="btn btn-light mt-2">PACKS</a>
+                </div>
             </div>
         </div>
     </div>
+
     <section class="topventas">
         <div class="container mt-4">
             <div class="row">
@@ -77,7 +82,7 @@
                         $precioFormateado = number_format($producto->PRECIO, 2, ',', '.');
 
                         ?>
-                        <div class="col-2 mb-3 position-relative">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3">
                             <div class="card cartaproducto">
                                 <img src="<?= $producto->IMG; ?>" class="card-img-top" alt="Imagen del producto">
                                 <div class="card-body">
@@ -108,18 +113,20 @@
                 }
                 ?>
             </div>
-
-
         </div>
     </section>
+
     <section>
         <hr>
         <div class="row">
-            <div class="logoQuerol">
-                <div class="col-2 col-md-3 col-sm-6">
-                    <img src="img\IMGHome\logoquerol.webp" alt="logo">
+            <div class="logoQuerol d-md-flex flex-md-row">
+                <div class="col-12 col-md-3 col-sm-6">
+                    <picture>
+                        <source media="(min-width: 576px)" srcset="img/IMGHome/logoquerol.webp">
+                        <img src="img\icons\logoQuerol.jpg" alt="logo" class="img-fluid" style="max-width: 390px;">
+                    </picture>
                 </div>
-                <div class="col-10 col-md-9 col-sm-6">
+                <div class="col-12 col-md-6 d-none d-md-block">
                     <p>¡Bienvenido a la Cafetería Querol! En un mundo donde la moda y el estilo se combinan a la
                         perfección,
                         hemos creado un espacio que refleja la esencia de la tienda de zapatos Querol. En nuestra
@@ -136,15 +143,16 @@
             </div>
         </div>
     </section>
+
     <hr>
     <!-- Newsletter Section -->
     <div class="newsletter mt-4">
         <h3>¿Quieres recibir nuestras ofertas y novedades?</h3>
         <div class="row">
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-6">
                 <input type="text" class="form-control" placeholder="Introduce tu e-mail para suscribirte">
             </div>
-            <div class="col-md-6 col-sm-12 mt-2 mt-md-0">
+            <div class="col-md-6 mt-2 mt-md-0">
                 <button type="button" class="btn btn-primary">ENVIAR</button>
             </div>
         </div>
@@ -159,11 +167,10 @@
             </label>
         </div>
     </div>
-    </section>
 </body>
+
 <footer>
     <?php include 'footer.php'; ?>
 </footer>
-
 
 </html>

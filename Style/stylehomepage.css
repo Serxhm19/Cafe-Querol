@@ -1,12 +1,15 @@
-/* -------------------------- General Styles -------------------------- */
+/*----------------------------------------------------------------*/
+/*                           Header                               */
+/*----------------------------------------------------------------*/
+
 body {
   margin: 0 auto;
 }
 
-/* -------------------------- Header Styles -------------------------- */
 #Header1 {
   height: 47px;
   background-color: #D9D9D9;
+
 }
 
 #Header1 h2 {
@@ -20,12 +23,16 @@ body {
   display: flex;
   justify-content: center;
   height: 38.8px;
+
 }
+
+
 
 .Header2 h3 {
   font-family: DIN;
   font-size: 12px;
   padding-top: 14px;
+
 }
 
 .Header2 img {
@@ -33,25 +40,51 @@ body {
   height: 16px;
   margin-right: 8px;
   margin-top: 10px;
+
+
 }
 
-/* -------------------------- Navigation Styles -------------------------- */
+.row {
+  max-width: 100%;
+}
+
+/* Estilos para la barra de navegación */
 .header3 .navbar {
   background-color: #000 !important;
+  /* Color de fondo negro */
 }
 
+/* Estilos para los enlaces de la barra de navegación */
 .header3 .navbar-nav .nav-link {
   color: #fff !important;
+  /* Color del texto blanco */
 }
 
+/* Estilos para el botón de búsqueda */
 .header3 .navbar .btn-outline-success {
   color: #fff;
+  /* Color del texto blanco */
 }
 
+/* Estilos para el campo de búsqueda */
 .header3 .navbar .form-control {
   background-color: #fffefe;
+  /* Color de fondo gris oscuro */
   color: #000000;
+  /* Color del texto blanco */
   border-color: #333;
+  /* Color del borde gris oscuro */
+}
+
+.btn {
+  border-color: white;
+  color: white;
+
+}
+
+.btn:hover {
+  border-color: white;
+  color: white;
 }
 
 .navbar-account {
@@ -68,6 +101,7 @@ body {
   position: absolute;
   top: 0;
   right: 4px;
+  /* Ajusta la posición derecha según sea necesario */
   color: rgb(0, 0, 0);
   border-radius: 50%;
   font-size: 12px;
@@ -80,7 +114,6 @@ body {
 }
 
 .collapse.navbar-collapse a {
-  margin: 0;
   padding: 0;
   border: 0;
   font-size: 100%;
@@ -90,7 +123,12 @@ body {
   font-weight: bold;
 }
 
-/* -------------------------- Home.php Styles -------------------------- */
+
+/*----------------------------------------------------------------*/
+/*                           Home.php                             */
+/*----------------------------------------------------------------*/
+
+/* Estilos para el carrusel */
 .carousel {
   height: 692px;
   width: 100%;
@@ -111,6 +149,7 @@ body {
   justify-content: space-between;
 }
 
+
 .btn.btn-light {
   width: 243px;
   height: 40px;
@@ -122,12 +161,15 @@ body {
   border: 1px solid #333333;
   text-align: center;
   line-height: 25px;
+  /* Añadido para centrar el texto verticalmente */
   letter-spacing: 1.5px;
 }
+
 
 .btn.btn-light:hover {
   background-color: #333333;
   color: white;
+
 }
 
 .row {
@@ -149,8 +191,11 @@ body {
 
 .category img {
   width: 395px;
+  /* Ajusta el ancho de la imagen según tus necesidades */
   height: 395px;
+  /* Ajusta la altura proporcionalmente */
   margin-bottom: 10px;
+  /* Añade un margen inferior entre la imagen y el botón */
 }
 
 .topVentas {
@@ -166,13 +211,21 @@ body {
   letter-spacing: 3.1px;
 }
 
+
+
 .imagenestopVentas .card {
   border: none;
+  /* Elimina los bordes de las tarjetas */
   display: flex;
+  /* Utiliza flexbox para centrar vertical y horizontalmente */
   flex-direction: column;
+  /* Asegura que los elementos se apilen verticalmente */
   align-items: center;
+  /* Centra horizontalmente */
   justify-content: center;
+  /* Centra verticalmente */
   text-align: center;
+  /* Centra el texto horizontalmente */
   font-family: DIN;
 }
 
@@ -185,6 +238,7 @@ body {
 .imagenestopVentas .card p {
   font-size: 14px;
   font-family: DIN;
+  font-size: 14px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -193,6 +247,8 @@ body {
   font-weight: bold;
   color: #3A3939;
 }
+
+
 
 .imagenestopVentas .card img {
   width: 270px;
@@ -203,14 +259,19 @@ body {
   display: flex;
   justify-content: center;
   max-width: 100%;
+  /* Set maximum width to 100% */
 }
+
 
 hr {
   margin: 0 auto;
+  /* Añade un margen automático a los lados, lo que centra horizontalmente el hr */
   margin-bottom: 35px;
   margin-top: 35px;
   color: #777777;
+
 }
+
 
 .logoQuerol img {
   width: 470px;
@@ -227,6 +288,7 @@ hr {
   margin-left: 190px;
   margin-top: 30px;
 }
+
 
 .newsletter {
   display: flex;
@@ -248,6 +310,7 @@ hr {
   margin: 0;
   padding: 0;
   margin-top: 10px;
+
 }
 
 .newsletter input {
@@ -283,7 +346,7 @@ hr {
 .privacy-checkbox p {
   display: inline-block;
   vertical-align: middle;
-  margin: 0;
+  margin-top: 6px;
   padding: 0;
   font-family: DIN;
   font-size: 14px;
@@ -317,15 +380,22 @@ hr {
   width: 170px;
   height: 30px;
   text-decoration: none;
+  /* Elimina el subrayado predeterminado del texto enlaces */
 }
 
 .allproducts .card {
   border: none;
+  /* Elimina los bordes de las tarjetas */
   display: flex;
+  /* Utiliza flexbox para centrar vertical y horizontalmente */
   flex-direction: column;
+  /* Asegura que los elementos se apilen verticalmente */
   align-items: center;
+  /* Centra horizontalmente */
   justify-content: center;
+  /* Centra verticalmente */
   text-align: center;
+  /* Centra el texto horizontalmente */
   font-family: DIN;
 }
 
@@ -343,12 +413,15 @@ hr {
 .allproducts .card p {
   font-size: 13px;
   font-family: DIN;
+
 }
 
 .card-title.name,
 .card-text.price {
   font-weight: bold;
+  /* Aplica negrita a los nombres y precios */
 }
+
 
 .allproducts {
   display: flex;
@@ -365,6 +438,7 @@ hr {
   width: 270px;
 }
 
+
 .card .btn-hover {
   position: absolute;
   margin-top: 10px;
@@ -380,10 +454,12 @@ hr {
   width: 170px;
   height: 30px;
   text-decoration: none;
+  /* Elimina el subrayado predeterminado del texto enlaces */
 }
 
 .card .btn-hover:hover {
   text-decoration: underline;
+  /* Agrega subrayado al texto enlaces cuando el botón está en hover */
 }
 
 .card:hover .btn-hover {
@@ -396,14 +472,20 @@ hr {
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 1;
+  /* Número de líneas a mostrar */
   max-height: 1.2em;
 }
 
 .card {
   margin-bottom: 20px;
+  /* Ajusta el valor según sea necesario */
 }
 
-/* -------------------------- Footer Styles -------------------------- */
+
+/*----------------------------------------------------------------*/
+/*                           footer.php                           */
+/*----------------------------------------------------------------*/
+
 footer {
   background-color: #000000 !important;
   color: white !important;
@@ -426,17 +508,20 @@ footer {
   margin: 0 10px;
 }
 
+/* Establece estilos para las imágenes normales */
 .footer-up ul li .social-icon {
   width: 30px;
   transition: transform 0.3s ease-in-out;
 }
 
+/* Establece estilos para las imágenes en hover */
 .footer-up ul li .social-icon-hover {
   width: 30px;
   transition: transform 0.3s ease-in-out;
   display: none;
 }
 
+/* Aplica el efecto de cambio en hover */
 .footer-up ul li:hover .social-icon {
   display: none;
 }

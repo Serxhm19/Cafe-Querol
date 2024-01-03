@@ -60,19 +60,22 @@
         </div>
     </section>
     <section>
-        <div class="row allproducts">
+    <div class="row allproducts">
             <?php
             include_once 'model/productoDAO.php';
-            $categoria = 2;
+            $categoria = 3;
 
             $productos = productoDAO::getProductoPacks($categoria);
 
             $contador = 0;
             if ($productos && count($productos) > 0) {
                 foreach ($productos as $producto) {
+                    // Formatea el precio con comas en lugar de puntos
+                    $precioFormateado = number_format($producto->PRECIO, 2, ',', '.');
+
                     ?>
-                    <div class="col-2 mb-3 position-relative">
-                        <div class="card">
+                    <div class="col-12 col-md-2 mb-3 position-relative">
+                        <div class="card cartaproducto">
                             <img src="<?= $producto->IMG; ?>" class="card-img-top" alt="Imagen del producto">
                             <div class="card-body">
                                 <p class="card-title name">
@@ -82,7 +85,7 @@
                                     <?= $producto->DESCRIPCION; ?>
                                 </p>
                                 <h2 class="card-text price">
-                                    <?= $producto->PRECIO . "€"; ?>
+                                    <?= $precioFormateado . " €"; ?>
                                 </h2>
                                 <form action="?controller=producto&action=sel" method="post">
                                     <input type="hidden" name="product_id" value="<?= $producto->ID_PRODUCTO; ?>">

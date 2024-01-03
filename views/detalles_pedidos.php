@@ -74,70 +74,46 @@
             </div>
         </section>
     </header>
-    <div class="col-md-3">
-        <div class="menumyaccount" id="cssmenu">
-            <h3>Mi cuenta</h3>
-            <ul>
-                <li><a href="?controller=usuario&action=dashboard" title="Cerrar sesión">Mis Datos</a></li>
-                <li>Mis pedidos</li>
-                <li><a href="?controller=usuario&action=CerrarSesion" title="Cerrar sesión">Cerrar sesión</a></li>
-            </ul>
+
+    <body>
+        <div class="container">
+
+            <h2>Detalles del Pedido</h2>
+            <p>ID Pedido:
+                <?php echo $idPedido; ?>
+            </p>
+
+            <h3>Productos del Pedido</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($detallesPedido as $detalle): ?>
+                        <tr>
+                            <td><img src="<?php echo $detalle['IMG']; ?>" alt="<?php echo $detalle['NOMBRE_PRODUCTO']; ?>">
+                            </td>
+                            <td>
+                                <?php echo $detalle['NOMBRE_PRODUCTO']; ?>
+                            </td>
+                            <td>
+                                <?php echo $detalle['CANTIDAD']; ?>
+                            </td>
+                            <td>
+                                <?php echo $detalle['PRECIO']; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+            <a href="?controller=usuario&action=mispedidos" class="btn btn-secondary">Cerrar</a>
         </div>
-    </div>
-
-    <div class="col-md-9">
-        <h2>Historial de Pedidos</h2>
-        <div class="text-center mt-4">
-            <?php
-            // Llamamos a la función para obtener la información del último pedido
-            $ultimoPedidoInfo = productoController::mostrarUltimoPedido();
-
-            // Verificamos si hay un ID de pedido asociado en la información
-            // y creamos el enlace para visualizar el pedido si es necesario
-            if (isset($ultimoPedidoInfo)) {
-                echo '<a href="?controller=usuario&action=visualizarPedido&ID_PEDIDO=' . $ultimoPedidoInfo . '" class="btn btn-info">Visualizar Pedido</a>';
-            }
-            ?>
-        </div>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID PEDIDO</th>
-                    <th>ESTADO</th>
-                    <th>FECHA DE PEDIDO</th>
-                    <th>Acciones</th> <!-- Nueva columna para los botones -->
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                include_once 'controller/usuarioController.php';
-
-                // Obtener pedidos del usuario loggeado
-                $pedidos = usuarioController::obtenerPedidosUsuario();
-
-                // Iterar sobre los pedidos y mostrarlos en la tabla
-                foreach ($pedidos as $pedido) {
-                    echo "<tr>";
-                    echo "<td>" . $pedido['ID_PEDIDO'] . "</td>";
-                    echo "<td>" . $pedido['ESTADO'] . "</td>";
-                    echo "<td>" . $pedido['FECHA_PEDIDO'] . "</td>";
-                    echo "<td>";
-
-                    // Botón para recuperar el pedido
-                    echo '<a href="?controller=producto&action=recuperarPedido&ID_PEDIDO=' . $pedido['ID_PEDIDO'] . '" class="btn btn-primary">Recuperar Pedido</a>';
-
-                    // Botón para visualizar el pedido
-                    echo '<a href="?controller=usuario&action=visualizarPedido&ID_PEDIDO=' . $pedido['ID_PEDIDO'] . '" class="btn btn-info">Visualizar Pedido</a>';
-
-                    echo "</td>";
-                    echo "</tr>";
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
-
-</body>
+    </body>
 
 </html>

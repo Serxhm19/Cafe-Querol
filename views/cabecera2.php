@@ -15,18 +15,19 @@
 
 <header>
   <section>
+  <section>
     <div class="row">
-      <div class="Header2 col-4">
+      <div class="Header2 col-12 col-md-4 text-sm-center">
         <img src="img/icons/coffee.png" alt="coffee">
-        <h3>TOMA LO QUE QUIERAS MIENTRAS COMPRAS</h3>
+        <h3 class="text-sm">TOMA LO QUE QUIERAS MIENTRAS COMPRAS</h3>
       </div>
-      <div class="Header2 col-4">
+      <div class="Header2 col-12 col-md-4 text-sm-center">
         <img src="img/icons/coffee-cup.png" alt="coffee">
-        <h3>COME AQUI O LLEVATELO A CASA</h3>
+        <h3 class="text-sm">COME AQUI O LLEVATELO A CASA</h3>
       </div>
-      <div class="Header2 col-4">
+      <div class="Header2 col-12 col-md-4 text-sm-center">
         <img src="img/icons/cake.png" alt="cake">
-        <h3>SERVICIO DE COMIDA</h3>
+        <h3 class="text-sm">SERVICIO DE COMIDA</h3>
       </div>
     </div>
   </section>

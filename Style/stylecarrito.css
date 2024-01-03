@@ -252,6 +252,7 @@ hr {
 .remove-button {
     width: 20px;
     height: 20px;
+
 }
 
 /* Agrega estos estilos a tu archivo de estilo (stylecarrito.css) o donde sea apropiado */
@@ -264,6 +265,8 @@ hr {
 .remove-button img {
     width: 25px;
     height: 25px;
+    margin-top: 12px;
+
 }
 
 .form-control {
@@ -273,15 +276,21 @@ hr {
 
 .card-text.totalPrice {
     text-align: left;
-    margin-right: 15px;
+    margin-left: -15px;
     font-size: 14px;
-    font-family: DIN;
+    font-family: Arial, Helvetica, sans-serif;
     margin-top: 10px;
+}
+
+.card-text.totalPrice2 {
+    font-size: 19px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: -10px;
 }
 
 .card-text.Resume {
     text-align: left;
-    margin-left: 15px;
+    margin-left: 25px;
     font-size: 14px;
     font-family: DIN;
     margin-top: 10px;
@@ -308,7 +317,7 @@ hr {
     letter-spacing: 1.5px;
     text-align: left;
     margin-top: 24px;
-    margin-left: 115px;
+    margin-left: 100px;
     margin-right: auto;
 }
 
@@ -335,4 +344,71 @@ hr {
     align-items: center;
     margin-left: 100px;
     margin-right: auto;
+}
+
+.styled-container {
+    border: 1px solid #000000;
+    padding: 5px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    width: 300px;
+    margin-left: 100px;
+}
+
+.styled-container p {
+    font-family: DIN;
+    margin: 2px;
+
+}
+
+
+/*----------------------------------------------------------------*/
+/*                           footer.php                           */
+/*----------------------------------------------------------------*/
+
+footer {
+    background-color: #000000 !important;
+    color: white !important;
+    padding: 20px !important;
+    text-align: center !important;
+    width: 1177px;
+    bottom: 1;
+}
+
+.footer-up {
+    margin-bottom: 20px;
+}
+
+.footer-up ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-up ul li {
+    margin: 0 10px;
+}
+
+/* Establece estilos para las imágenes normales */
+.footer-up ul li .social-icon {
+    width: 30px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Establece estilos para las imágenes en hover */
+.footer-up ul li .social-icon-hover {
+    width: 30px;
+    transition: transform 0.3s ease-in-out;
+    display: none;
+}
+
+/* Aplica el efecto de cambio en hover */
+.footer-up ul li:hover .social-icon {
+    display: none;
+}
+
+.footer-up ul li:hover .social-icon-hover {
+    display: inline-block;
+    transform: scale(1.2);
 }
