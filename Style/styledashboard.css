@@ -6,6 +6,18 @@ body {
   margin: 0 auto;
 }
 
+#Header1 {
+  height: 47px;
+  background-color: #D9D9D9;
+
+}
+
+#Header1 h2 {
+  font-family: DIN;
+  font-size: 15px;
+  padding-top: 15px;
+  padding-left: 30px;
+}
 
 .Header2 {
   display: flex;
@@ -102,7 +114,6 @@ body {
 }
 
 .collapse.navbar-collapse a {
-  margin: 0;
   padding: 0;
   border: 0;
   font-size: 100%;
@@ -113,12 +124,158 @@ body {
 }
 
 
+/*----------------------------------------------------------------*/
+/*                           General Styles                        */
+/*----------------------------------------------------------------*/
 
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
 
-/* ########################### */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
 
-#cssmenu > ul {
-    background: #f7f7f7;
-    padding: 15px 17px;
-    position: relative;
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/*----------------------------------------------------------------*/
+/*                        Mi cuenta Section                        */
+/*----------------------------------------------------------------*/
+
+.col-md-3 {
+  width: 25%;
+}
+
+.menumyaccount {
+  background-color: #f7f7f7;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.menumyaccount h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.menumyaccount ul {
+  list-style: none;
+  padding: 0;
+}
+
+.menumyaccount ul li {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #666;
+}
+
+.menumyaccount ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.menumyaccount ul li a:hover {
+  color: #e3001b;
+}
+
+/*----------------------------------------------------------------*/
+/*                   Datos de acceso Section                       */
+/*----------------------------------------------------------------*/
+
+.col-md-9 {
+  width: 75%;
+  background-color: #f7f7f7;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.col-md-9 h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.col-md-9 h4 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.col-md-9 p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.col-md-9 strong {
+  color: #e3001b;
+}
+
+.blockemail {
+  margin-bottom: 30px;
+}
+
+.blockemail form {
+  width: 100%;
+}
+
+.blockemail fieldset {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.blockemail label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.blockemail input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.blockemail .infoobligatorios {
+  font-size: 14px;
+  color: #666;
+}
+
+.blockemail button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #e3001b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.blockemail button:hover {
+  background-color: #333;
+}
+
+/*----------------------------------------------------------------*/
+/*                        Responsive Styles                        */
+/*----------------------------------------------------------------*/
+
+@media (max-width: 768px) {
+  .col-md-3,
+  .col-md-9 {
+    width: 100%;
+    padding: 15px;
+  }
 }
