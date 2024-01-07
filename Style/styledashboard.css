@@ -144,35 +144,66 @@ body {
   flex-wrap: wrap;
 }
 
+.breadcrumb nav {
+  text-decoration: none; 
+  color: black; 
+  font-size: 14px;
+  font-family: DIN;
+  font-weight: 400;
+  margin-top: 20px;
+  margin-left: 80px;
+}
+
+.breadcrumb a {
+  text-decoration: none; /* Para quitar el subrayado en estado normal */
+  color: black;
+}
+
+.breadcrumb a:hover,
+.breadcrumb a:visited {
+  color: rgb(0, 0, 0);
+  text-decoration: none; /* Para quitar el subrayado en estado hover y visited */
+} 
+
 /*----------------------------------------------------------------*/
 /*                        Mi cuenta Section                        */
 /*----------------------------------------------------------------*/
 
 .col-md-3 {
   width: 25%;
+
+
 }
 
 .menumyaccount {
   background-color: #f7f7f7;
-  padding: 20px;
   margin-bottom: 20px;
+  margin-left: 80px;
+  margin-top: 20px;
 }
 
 .menumyaccount h3 {
-  font-size: 20px;
-  margin-bottom: 15px;
-  color: #333;
+  font-size: 15px;
+  background: #262626;
+  text-align: center;
+  color: white;
+  padding: 9px 15px;
+  margin-top: 8px;
+  padding-bottom: 7px;
+  margin-bottom: 0;
 }
 
 .menumyaccount ul {
   list-style: none;
-  padding: 0;
+  padding: 10px;
+  font-family: DIN;
+  font-size: 14px;
 }
 
 .menumyaccount ul li {
-  margin-bottom: 10px;
-  font-size: 16px;
-  color: #666;
+  color: red;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .menumyaccount ul li a {
@@ -182,39 +213,57 @@ body {
 }
 
 .menumyaccount ul li a:hover {
-  color: #e3001b;
+  color: #626262;
 }
 
 /*----------------------------------------------------------------*/
 /*                   Datos de acceso Section                       */
 /*----------------------------------------------------------------*/
 
-.col-md-9 {
-  width: 75%;
+.formulario {
   background-color: #f7f7f7;
-  padding: 20px;
   margin-bottom: 20px;
+  margin-right: 80px;
 }
 
+
 .col-md-9 h3 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #333;
+  font-family: 'ArialMT', sans-serif;
+  font-size: 20px;
+  color: #222222;
+  letter-spacing: 1.5px;
+  margin-top: 20px;
 }
 
 .col-md-9 h4 {
-  font-size: 20px;
-  margin-bottom: 15px;
-  color: #333;
+  background: #b8b8b8;
+  color: white;
+  padding: 10px 15px;
+  font-family: 'DIN';
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 16px;
+
 }
 
 .col-md-9 p {
-  font-size: 16px;
-  color: #666;
+  font-size: 14px;
+  color: #585858;
   margin-bottom: 15px;
+  font-family: DIN;
+  font-weight: bold;
+  margin-left: 20px;
 }
 
-.col-md-9 strong {
+.col-md-9 p2 {
+  font-size: 15px;
+  color: #585858;
+  font-family: DIN;
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+.redmail.strong{
   color: #e3001b;
 }
 
@@ -227,7 +276,6 @@ body {
 }
 
 .blockemail fieldset {
-  border: 1px solid #ccc;
   padding: 15px;
   margin-bottom: 20px;
 }
@@ -240,42 +288,100 @@ body {
 }
 
 .blockemail input {
-  width: 100%;
+  width: 300px;
   padding: 10px;
   margin-bottom: 15px;
-  font-size: 16px;
+  font-size: 12px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
+  height: 27px;
+  border-radius: 0%;
+  color: #e1dcdc;
+  background-color: #f3f3f3;
 }
 
 .blockemail .infoobligatorios {
-  font-size: 14px;
-  color: #666;
+  font-size: 12px;
+  color: #777777;
+  font-family: DIN;
 }
 
 .blockemail button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #e3001b;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  border-color: #e3001b #e3001b #e3001b #e3001b;
+  background: #e3001b;
+  height: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 10px;
+  border-radius: 0px;
+  width: 200px;
 }
 
 .blockemail button:hover {
   background-color: #333;
 }
 
+
+
+
+
 /*----------------------------------------------------------------*/
-/*                        Responsive Styles                        */
+/*                        Responsive Styles                       */
 /*----------------------------------------------------------------*/
 
 @media (max-width: 768px) {
+
   .col-md-3,
   .col-md-9 {
     width: 100%;
     padding: 15px;
   }
+}
+
+/*----------------------------------------------------------------*/
+/*                           footer.php                           */
+/*----------------------------------------------------------------*/
+
+footer {
+  background-color: #000000 !important;
+  color: white !important;
+  padding: 20px !important;
+  text-align: center !important;
+}
+
+.footer-up {
+  margin-bottom: 20px;
+}
+
+.footer-up ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-up ul li {
+  margin: 0 10px;
+}
+
+/* Establece estilos para las imágenes normales */
+.footer-up ul li .social-icon {
+  width: 30px;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Establece estilos para las imágenes en hover */
+.footer-up ul li .social-icon-hover {
+  width: 30px;
+  transition: transform 0.3s ease-in-out;
+  display: none;
+}
+
+/* Aplica el efecto de cambio en hover */
+.footer-up ul li:hover .social-icon {
+  display: none;
+}
+
+.footer-up ul li:hover .social-icon-hover {
+  display: inline-block;
+  transform: scale(1.2);
 }

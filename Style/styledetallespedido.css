@@ -133,12 +133,11 @@ body {
 /*----------------------------------------------------------------*/
 
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
   }
   
   .container {
-    max-width: 800px;
+    max-width: 1800px;
     margin: 0 auto;
     padding: 20px;
   }
@@ -146,13 +145,6 @@ body {
   h2 {
     font-size: 28px;
     color: #333;
-    margin-bottom: 15px;
-  }
-  
-  h3 {
-    font-size: 24px;
-    color: #333;
-    margin-top: 20px;
     margin-bottom: 15px;
   }
   
@@ -207,6 +199,17 @@ body {
     width: 100px;
   }
   
+  .btn.btn-secondary{
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #000000;
+  }
+
+  .btn.btn-secondary:hover{
+    background-color: #ffffff;
+    color: #000;
+    border: 1px solid #000;
+  }
   /*----------------------------------------------------------------*/
   /*                        Responsive Styles                        */
   /*----------------------------------------------------------------*/

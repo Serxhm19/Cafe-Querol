@@ -43,30 +43,24 @@ body {
 
 /* Estilos para la barra de navegación */
 .header3 .navbar {
-  background-color: #000 !important;
-  /* Color de fondo negro */
+  background-color: #000 !important; /* Color de fondo negro */
 }
 
 /* Estilos para los enlaces de la barra de navegación */
 .header3 .navbar-nav .nav-link {
-  color: #fff !important;
-  /* Color del texto blanco */
+  color: #fff !important; /* Color del texto blanco */
 }
 
 /* Estilos para el botón de búsqueda */
 .header3 .navbar .btn-outline-success {
-  color: #fff;
-  /* Color del texto blanco */
+  color: #fff; /* Color del texto blanco */
 }
 
 /* Estilos para el campo de búsqueda */
 .header3 .navbar .form-control {
-  background-color: #fffefe;
-  /* Color de fondo gris oscuro */
-  color: #000000;
-  /* Color del texto blanco */
-  border-color: #333;
-  /* Color del borde gris oscuro */
+  background-color: #fffefe; /* Color de fondo gris oscuro */
+  color: #000000; /* Color del texto blanco */
+  border-color: #333; /* Color del borde gris oscuro */
 }
 
 .btn {
@@ -92,8 +86,7 @@ body {
 .cart-count {
   position: absolute;
   top: 0;
-  right: 4px;
-  /* Ajusta la posición derecha según sea necesario */
+  right: 4px; /* Ajusta la posición derecha según sea necesario */
   color: rgb(0, 0, 0);
   border-radius: 50%;
   font-size: 12px;
@@ -106,7 +99,6 @@ body {
 }
 
 .collapse.navbar-collapse a {
-  margin: 0;
   padding: 0;
   border: 0;
   font-size: 100%;
@@ -119,6 +111,7 @@ body {
 /*----------------------------------------------------------------*/
 /*                           Register.php                         */
 /*----------------------------------------------------------------*/
+
 body {
   margin: 0;
   font-family: DIN;
@@ -131,9 +124,9 @@ body {
   font-weight: normal;
   text-transform: uppercase;
   padding: 3px 0 17px 0;
-  margin-bottom: 20px;
   overflow: hidden;
   text-align: center;
+  margin-top: 30px;
 }
 
 .page-subheading {
@@ -152,17 +145,20 @@ body {
 
 .form-container h2 {
   font-size: 16px;
-  padding: 16px;
   font-family: DIN;
+  margin-left: 20px;
+
 }
 
 .form-container h3 {
   font-size: 15px;
   color: black;
-  padding: 15px 0 10px 20px;
   font-weight: bolder;
   letter-spacing: 0;
   font-family: DIN;
+  margin-left: 20px;
+  margin-top: 10px;
+
 }
 
 .breadcrumb a {
@@ -186,17 +182,20 @@ body {
 }
 
 .form-container {
-  width: 100%;
+  width: 600px;
   margin: 0 20px;
   /* Ajusta el margen entre los formularios según sea necesario */
-  margin-top: 30px;
+  margin-top: 20px;
   background-color: #f7f7f7;
   font-family: DIN;
   margin-bottom: 20px;
   box-sizing: border-box;
+  display: flex;
+  height: 100%;
+  
 }
 
-.forms-container .form-container form legend {
+legend {
   font-family: DIN;
   font-weight: 600;
   text-transform: uppercase;
@@ -206,20 +205,21 @@ body {
   line-height: normal;
   margin-bottom: 12px;
   background: #262626;
-  width: 100%;
+  width: 600px;
   box-sizing: border-box;
 }
 
 .form-control {
   display: block;
-  width: calc(100% - 40px);
   padding: .375rem .75rem;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   border-radius: 0px;
-  margin: 0 20px 20px 20px;
   box-sizing: border-box;
+  margin: 0 auto; /* Centra el formulario horizontalmente */
+  display: flex;
+  flex-direction: column;
 }
 
 .form-label {
@@ -227,6 +227,8 @@ body {
   font-size: 13px;
   font-weight: bold;
   margin-left: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-text {
@@ -234,10 +236,28 @@ body {
   font-weight: bolder;
   color: #666;
   margin-left: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-.btn.btn-primary,
-.btn.btn-primary.newsletter {
+.inputs{
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.inputs label{
+  color: black;
+  font-size: 12px;
+  letter-spacing: 0;
+  font-weight: bold;
+  font-family: DIN;
+  margin-top: 20px;
+}
+
+.btn.btn-primary {
   border-color: #e3001b #e3001b #e3001b #e3001b;
   background: #e3001b;
   height: 30px;
@@ -246,13 +266,9 @@ body {
   text-transform: uppercase;
   font-size: 13px;
   border-radius: 0px;
-  margin: 0 20px 20px 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
 }
-
-.btn.btn-primary.newsletter {
-  background: #000000;
-}
-
 
 /*----------------------------------------------------------------*/
 /*                           footer.php                           */

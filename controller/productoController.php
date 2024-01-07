@@ -103,8 +103,6 @@ class productoController
         }
     }
 
-
-
     public function deleteAllCart()
     {
         include_once 'config/parametros.php';
@@ -261,10 +259,10 @@ class productoController
         if (isset($_COOKIE['ultimo_pedido'])) {
             // Obtiene el valor de la cookie 'ultimo_pedido'
             $ultimoPedidoInfo = $_COOKIE['ultimo_pedido'];
-    
+
             return $ultimoPedidoInfo;
         } else {
-            
+
         }
     }
 
@@ -522,6 +520,10 @@ class productoController
             exit();
         }
     }
+
+
+
+
 
 
 

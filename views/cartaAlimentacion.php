@@ -10,9 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header</title>
 </head>
+<?php include 'cabecera2.php'; ?>
 
 <body>
-    <?php include 'cabecera2.php'; ?>
     </section>
     <section class="breadcrumb">
         <nav aria-label="breadcrumb">
@@ -39,17 +39,18 @@
     </section>
     <section class="categories">
         <div class="row">
-            <div class="categoriesdropdown col-2">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    CATEGORIAS
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="?controller=producto&action=bebidas">Bebidas</a></li>
-                    <li><a class="dropdown-item" href="?controller=producto&action=alimentacion">Alimentación</a>
-                    </li>
-                    <li><a class="dropdown-item" href="?controller=producto&action=packs">Packs</a></li>
-                </ul>
+            <div class="col-6">
+                <div class="categoriesdropdown">
+                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        CATEGORIAS
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="?controller=producto&action=bebidas">Bebidas</a></li>
+                        <li><a class="dropdown-item" href="?controller=producto&action=alimentacion">Alimentación</a>
+                        </li>
+                        <li><a class="dropdown-item" href="?controller=producto&action=packs">Packs</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
@@ -70,7 +71,7 @@
                     ?>
                     <div class="col-12 col-md-2 mb-3 position-relative">
                         <div class="card cartaproducto">
-                            <img src="<?= $producto->IMG; ?>" class="card-img-top" alt="Imagen del producto">
+                            <img src="<?= $producto->IMG; ?>" class="card-img-top" alt="<?= $producto -> NOMBRE_PRODUCTO ?>">
                             <div class="card-body">
                                 <p class="card-title name">
                                     <?= $producto->NOMBRE_PRODUCTO; ?>
@@ -133,4 +134,20 @@
 
     </section>
 </body>
-<?= require_once('footer.php') ?>
+<footer>
+    <div class="footer-up">
+        <ul>
+            <li>
+                <img src="img/icons/facebook.png" alt="Facebook" class="social-icon">
+                <img src="img/icons/facebook2.png" alt="Facebook Hover" class="social-icon-hover">
+            </li>
+            <li>
+                <img src="img/icons/instagram.png" alt="Instagram" class="social-icon">
+                <img src="img/icons/instagram2.png" alt="Instagram Hover" class="social-icon-hover">
+            </li>
+        </ul>
+    </div>
+    <div class="footer-down">
+        <p>Copyright 2023 | Sergi Hernández Miras</p>
+    </div>
+</footer>

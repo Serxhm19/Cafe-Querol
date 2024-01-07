@@ -90,18 +90,18 @@ class usuarioController
             $inputPassword = $_POST["password"];
 
             // Consulta para verificar las credenciales del usuario
-            $sql = "SELECT CORREO, PASSWORD, PERMISO FROM usuarios WHERE CORREO = ? AND PASSWORD = ?";
+            $sql = "SELECT CORREO, PASSWORD, PERMISO FROM usuarios WHERE CORREO = ?";
             $stmt = $con->prepare($sql);
-            $stmt->bind_param('ss', $inputEmail, $inputPassword);
+            $stmt->bind_param('s', $inputEmail);
             $stmt->execute();
             $stmt->store_result();
 
             if ($stmt->num_rows > 0) {
-                $stmt->bind_result($email, $password, $userPermission);
+                $stmt->bind_result($email, $hashed_password, $userPermission);
                 $stmt->fetch();
 
-                // Verifica la contraseña directamente
-                if ($inputPassword === $password) {
+                // Verifica la contraseña utilizando password_verify
+                if (password_verify($inputPassword, $hashed_password)) {
                     // Inicio de sesión exitoso
                     $_SESSION['email'] = $email;
 
@@ -124,6 +124,7 @@ class usuarioController
         }
     }
 
+
     public function RegistrarUsuario()
     {
         include_once 'model/usuarioEstandar.php'; // Ajusta la ruta según tu estructura de archivos
@@ -134,32 +135,38 @@ class usuarioController
             // Obtener los datos del formulario
             $nombre = $_POST["nombre"];
             $apellido = $_POST["apellido"];
-            $contrasena = $_POST["contrasena"]; // Hashear la contraseña
+            $contrasena = $_POST["contrasena"];
+            $hashed_password = password_hash($contrasena, PASSWORD_DEFAULT);
             $correo = $_POST["correo"];
             $telefono = $_POST["telefono"];
             $direccion = $_POST["direccion"];
 
             // Crear una instancia de usuarioEstandar y establecer los datos
-            $usuario = new UsuarioEstandar($nombre, $apellido, $contrasena, $correo, $telefono, $direccion);
+            $usuario = new UsuarioEstandar($nombre, $apellido, $hashed_password, $correo, $telefono, $direccion);
 
             // Guardar el usuario en la base de datos
             $con = DataBase::connect(); // Ajusta según tu clase de conexión
 
             $sql = "INSERT INTO usuarios (NOMBRE, APELLIDO, PASSWORD, CORREO, TELEFONO, DIRECCION, PERMISO) 
-VALUES (?, ?, ?, ?, ?, ?, 1)";
+                    VALUES (?, ?, ?, ?, ?, ?, 1)";
 
             $stmt = $con->prepare($sql);
 
             // Bind de parámetros
-            $stmt->bind_param('ssssss', $nombre, $apellido, $contrasena, $correo, $telefono, $direccion);
+            $stmt->bind_param('ssssss', $nombre, $apellido, $hashed_password, $correo, $telefono, $direccion);
 
             if ($stmt->execute()) {
                 header("Location: ?controller=usuario&action=login"); // Redirige de nuevo a la página de inicio de sesión con el mensaje de error
+                exit(); // Agrega esta línea para evitar ejecución adicional del código
             } else {
                 echo "Error al registrar el usuario.";
             }
+
+            $stmt->close(); // Cierra la declaración preparada
+            $con->close();  // Cierra la conexión a la base de datos
         }
     }
+
 
     public function CerrarSesion()
     {
@@ -270,45 +277,46 @@ VALUES (?, ?, ?, ?, ?, ?, 1)";
                 $stmt->bind_result($userId, $storedPassword);
                 $stmt->fetch();
 
-                // Verifica la contraseña
-                if ($inputPassword == $storedPassword) {
+                // Verifica la contraseña usando password_verify
+                if (password_verify($inputPassword, $storedPassword)) {
                     // Contraseña correcta, procede a actualizar la contraseña
                     if ($newPassword == $confirmPassword) {
                         // Actualiza la contraseña en la base de datos solo si las nuevas contraseñas coinciden
+                        $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
                         $sqlUpdatePassword = "UPDATE usuarios SET PASSWORD = ? WHERE ID_USUARIO = ?";
                         $stmtUpdatePassword = $con->prepare($sqlUpdatePassword);
-                        $stmtUpdatePassword->bind_param('si', $newPassword, $userId);
+                        $stmtUpdatePassword->bind_param('si', $hashedNewPassword, $userId);
 
                         // Verifica si la preparación de la consulta fue exitosa
-                        if ($stmtUpdatePassword) {
-                            if ($stmtUpdatePassword->execute()) {
-                                // Actualización exitosa
-                                $_SESSION['successMessage'] = "Contraseña actualizada con éxito.";
-                                header("Location: ?controller=usuario&action=dashboard");
-                                exit();
-                            } else {
-                                $_SESSION['errorMessage'] = "Error al actualizar la contraseña.";
-                            }
-
-                            // Cierra la declaración preparada
+                        if ($stmtUpdatePassword->execute()) {
+                            // Actualización exitosa
+                            $_SESSION['successMessage'] = "Contraseña actualizada con éxito.";
                             $stmtUpdatePassword->close();
-
-
-                            // Cierra la declaración preparada principal
                             $stmt->close();
+                            $con->close();
+                            header("Location: ?controller=usuario&action=dashboard");
+                            exit();
                         } else {
-                            $_SESSION['errorMessage'] = "No se encontró ninguna cuenta asociada a este correo electrónico.";
+                            $_SESSION['errorMessage'] = "Error al actualizar la contraseña.";
                         }
-
-                        // Cierra la conexión a la base de datos
-                        $con->close();
-                        header("Location: ?controller=usuario&action=dashboard");
-                        exit();
+                    } else {
+                        $_SESSION['errorMessage'] = "Las nuevas contraseñas no coinciden.";
                     }
+                } else {
+                    $_SESSION['errorMessage'] = "Contraseña incorrecta.";
                 }
+            } else {
+                $_SESSION['errorMessage'] = "No se encontró ninguna cuenta asociada a este correo electrónico.";
             }
+
+            // Cierra la conexión a la base de datos
+            $stmt->close();
+            $con->close();
+            header("Location: ?controller=usuario&action=dashboard");
+            exit();
         }
     }
+
 
     public function redirectToPage()
     {
@@ -332,30 +340,30 @@ VALUES (?, ?, ?, ?, ?, ?, 1)";
         if (isset($_SESSION['email'])) {
             // Datos de conexión a la base de datos
             include_once 'config/db.php';
-    
+
             // Conecta a la base de datos
             $con = DataBase::connect();
-    
+
             // Consulta para obtener los datos del cliente
             $sql = "SELECT NOMBRE, APELLIDO, CORREO, TELEFONO, DIRECCION FROM usuarios WHERE CORREO = ?";
             $stmt = $con->prepare($sql);
             $stmt->bind_param('s', $_SESSION['email']);
             $stmt->execute();
-    
+
             // Obtiene los resultados
             $result = $stmt->get_result();
-    
+
             // Verifica si se encontraron resultados
             if ($result->num_rows > 0) {
                 // Obtiene los datos del cliente y los guarda en un objeto
                 return $result->fetch_object();
             }
         }
-    
+
         // Si no hay resultados o no hay una sesión iniciada, devuelve null
         return null;
     }
-    
+
 
     public static function obtenerPedidosUsuario()
     {

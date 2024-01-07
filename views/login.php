@@ -43,19 +43,19 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="?controller=producto">Home</a>
+                                <a class="nav-link active" aria-current="page" href="?controller=producto">HOME</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page"
-                                    href="?controller=producto&action=Carta">Carta</a>
+                                    href="?controller=producto&action=Carta">CARTA</a>
                             </li>
                         </ul>
                         <form class="d-flex" role="search">
                             <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
                             <button class="btn" type="submit">Buscar</button>
                         </form>
-                        <a class="navbar-account" href="?controller=producto"><img src="img\icons\icon-account.png"
-                                alt="logo"></a>
+                        <a class="navbar-account" href="?controller=usuario&action=redirectToPage"><img
+                                src="img\icons\icon-account.png" alt="logo"></a>
                         <a class="navbar-cart" href="?controller=producto&action=Carrito">
                             <img src="img\icons\carrito-de-compras.png" alt="logo">
                             <?php
@@ -101,7 +101,9 @@
                 <?php endif; ?>
                 <div class="mb-3">
                     <div id="emailHelp" class="form-text">Escríbenos tu email para crear tu cuenta</div>
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <label for="exampleInputEmail1" class="form-label">Correo Electronico</label>
+                    <img src="img\icons\mail-svgrepo-com.svg" alt="correo" class="icon">
+
                     <input type="email" class="form-control" id="exampleInputEmail1" name="email"
                         aria-describedby="emailHelp">
                 </div>
@@ -123,13 +125,16 @@
                     <div class="mb-3">
                         <div id="emailHelp" class="form-text">Introduce tu dirección de email y contraseña para
                             identificarte.</div>
-                        <label for="exampleInputEmail2" class="form-label">Email address</label>
+                        <label for="exampleInputEmail2" class="form-label">Correo Electronico</label>
+                        <img src="img\icons\mail-svgrepo-com.svg" alt="correo" class="icon">
                         <input type="email" class="form-control" name="email" id="exampleInputEmail2"
                             aria-describedby="emailHelp" required>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <label for="exampleInputPassword1" class="form-label">Contraseña</label>
                         <input type="password" class="form-control" name="password" id="exampleInputPassword1" required>
+                        <img src="img\icons\lock-closed-sharp-svgrepo-com.svg" alt="correo" class="icon">
+
                     </div>
                     <button type="submit" class="btn btn-primary">ENTRAR EN LA CUENTA</button>
                 </form>
@@ -142,10 +147,10 @@
     <div class="newsletter mt-4">
         <h3>¿Quieres recibir nuestras ofertas y novedades?</h3>
         <div class="row">
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-6">
                 <input type="text" class="form-control" placeholder="Introduce tu e-mail para suscribirte">
             </div>
-            <div class="col-md-6 col-sm-12 mt-2 mt-md-0">
+            <div class="col-md-6 mt-2 mt-md-0">
                 <button type="button" class="btn btn-primary newsletter">ENVIAR</button>
             </div>
         </div>

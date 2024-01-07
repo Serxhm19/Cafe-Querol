@@ -113,6 +113,18 @@ body {
   font-weight: bold;
 }
 
+.collapse.navbar-collapse a {
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  font-size: 17px;
+  font-family: DIN;
+  font-weight: bold;
+}
+
+
+
 
 
 #identificate {
@@ -154,19 +166,27 @@ body {
   font-family: DIN;
 }
 
-.breadcrumb a {
+.breadcrumb nav {
   text-decoration: none;
   color: black;
   font-size: 14px;
   font-family: DIN;
+  font-weight: 400;
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: 80px;
 }
 
-.breadcrumb a:hover {
-  text-decoration: underline;
-  color: rgb(0, 0, 0);
+.breadcrumb a {
+  text-decoration: none;
+  /* Para quitar el subrayado en estado normal */
+  color: black;
+}
 
+.breadcrumb a:hover,
+.breadcrumb a:visited {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  /* Para quitar el subrayado en estado hover y visited */
 }
 
 .form-container {
@@ -238,13 +258,20 @@ body {
 
 .btn.btn-primary.newsletter {
   background: #000000;
-  height: 30px;
-  line-height: 2px;
+  height: 37px;
   font-weight: normal;
   text-transform: uppercase;
   font-size: 13px;
-  border-radius: 0px;
   margin-left: 20px;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 10px;
+  width: 120px;
+  display: inline-flex; /* Añadido para alinear verticalmente el contenido */
+  align-items: center; /* Añadido para alinear verticalmente el contenido */
+  justify-content: center; /* Añadido para alinear verticalmente el contenido */
 }
 
 .form-container2 {
@@ -269,6 +296,7 @@ body {
   margin-top: -30px;
 }
 
+
 .newsletter {
   display: flex;
   flex-direction: column;
@@ -282,15 +310,6 @@ body {
   font-weight: bold;
 }
 
-.newsletter input,
-.newsletter button {
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0;
-  padding: 0;
-  margin-top: 10px;
-
-}
 
 .newsletter input {
   width: 180px;
@@ -299,18 +318,13 @@ body {
   height: 37px;
   border-radius: 0%;
   border: solid 1px #000000;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
 }
 
-.newsletter button {
-  width: 120px;
-  font-size: 11px;
-  font-family: DIN;
-  height: 37px;
-  border-radius: 0%;
-  border: solid 1px #000000;
-  background-color: #000000;
-  color: #FFFFFF;
-}
 
 .privacy-checkbox {
   margin-top: 10px;
@@ -325,7 +339,7 @@ body {
 .privacy-checkbox p {
   display: inline-block;
   vertical-align: middle;
-  margin: 0;
+  margin-top: 6px;
   padding: 0;
   font-family: DIN;
   font-size: 14px;
@@ -337,6 +351,20 @@ body {
   text-decoration: none;
   color: #777777;
 }
+
+/* Estilo para el contenedor */
+.mb-3 {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilo para el icono */
+.icon {
+  width: 15px;
+  height: 15px;
+  margin-left: 20px;
+}
+
 
 
 

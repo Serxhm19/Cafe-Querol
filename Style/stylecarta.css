@@ -45,24 +45,31 @@ body {
 /*----------------------------------------------------------------*/
 /*                           Carta                                */
 /*----------------------------------------------------------------*/
-.breadcrumb nav{
+.breadcrumb nav {
     text-decoration: none; 
     color: black; 
     font-size: 14px;
     font-family: DIN;
+    font-weight: 400;
     margin-top: 20px;
-    margin-left: 20px;
+    margin-left: 80px;
 }
 
-.breadcrumb a:hover {
-    text-decoration: underline; 
-    color: rgb(0, 0, 0); 
-    
+.breadcrumb a {
+    text-decoration: none; /* Para quitar el subrayado en estado normal */
+    color: black;
 }
 
+.breadcrumb a:hover,
+.breadcrumb a:visited {
+    color: rgb(0, 0, 0);
+    text-decoration: none; /* Para quitar el subrayado en estado hover y visited */
+} 
 
 .description {
     font-family: DIN;
+    width: 100%;
+
 }
 
 .description h2 {
@@ -70,6 +77,11 @@ body {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
 
+}
+
+.categories{
+    display: flex;
+    justify-content: left;
 }
 
 
@@ -83,37 +95,39 @@ body {
 }
 
 .categoriesdropdown button {
-    font-size: 11px;
+    font-size: 12px;
     font-family: 'DIN', sans-serif;
     background-color: #FFFFFF;
     color: #777777;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px; /* Ajusta el valor según tus preferencias para hacer los bordes más redondos */
+    padding: 5px 10px;
+    margin-left: 80px;
 }
 
-.categoriesdropdown {
-    margin-bottom: 55px;
-
-
-}
-
-.cartaproducto:hover{
-    border: solid 1px #000000;
-}
-
-.categoriesdropdown .dropdown-menu {
-    font-size: 11px;
+.orderdropdown button {
+    font-size: 12px;
     font-family: 'DIN', sans-serif;
     background-color: #FFFFFF;
     color: #777777;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px; /* Ajusta el valor según tus preferencias para hacer los bordes más redondos */
+    padding: 5px 10px;
+    margin-top: 55px;
+    margin-left: 20px;
 }
 
-.categoriesdropdown .dropdown-item {
-    color: #777777;
+
+
+
+.categoriesdropdown .dropdown-menu, 
+.orderdropdown .dropdown-menu {
+    font-size: 13px;
+    font-family: 'DIN';
+    background-color: #FFFFFF;
+    color: #000000;
 }
 
-.categoriesdropdown .dropdown-item:hover {
-    background-color: #f0f0f0;
-    /* Cambia el color de fondo al pasar el ratón por encima */
-}
 
 .categories .categoriesdropdown:last-child {
     margin-top: 55px;
@@ -285,4 +299,53 @@ body {
 .card {
     margin-bottom: 20px; /* Ajusta el valor según sea necesario */
 }
+
+/*----------------------------------------------------------------*/
+/*                           footer.php                           */
+/*----------------------------------------------------------------*/
+
+footer {
+    background-color: #000000 !important;
+    color: white !important;
+    padding: 20px !important;
+    text-align: center !important;
+  }
+  
+  .footer-up {
+    margin-bottom: 20px;
+  }
+  
+  .footer-up ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .footer-up ul li {
+    margin: 0 10px;
+  }
+  
+  /* Establece estilos para las imágenes normales */
+  .footer-up ul li .social-icon {
+    width: 30px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Establece estilos para las imágenes en hover */
+  .footer-up ul li .social-icon-hover {
+    width: 30px;
+    transition: transform 0.3s ease-in-out;
+    display: none;
+  }
+  
+  /* Aplica el efecto de cambio en hover */
+  .footer-up ul li:hover .social-icon {
+    display: none;
+  }
+  
+  .footer-up ul li:hover .social-icon-hover {
+    display: inline-block;
+    transform: scale(1.2);
+  }
 

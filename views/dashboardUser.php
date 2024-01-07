@@ -9,8 +9,9 @@
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="Style\styledashboard.css">
   <meta charset="UTF-8">
+  <link rel="icon" type="image/jpg" href="img\icons\logoQuerol.jpg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Header</title>
+  <title>Café Querol | Tu cafeteria de confianza</title>
 </head>
 
 <body>
@@ -54,8 +55,8 @@
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
                 <button class="btn" type="submit">Buscar</button>
               </form>
-              <a class="navbar-account" href="?controller=producto"><img src="img/icons/icon-account.png"
-                  alt="logo"></a>
+              <a class="navbar-account" href="?controller=usuario&action=redirectToPage"><img
+                  src="img\icons\icon-account.png" alt="logo"></a>
               <a class="navbar-cart" href="?controller=producto&action=Carrito">
                 <img src="img/icons/carrito-de-compras.png" alt="logo">
                 <?php
@@ -72,96 +73,128 @@
       </div>
     </section>
   </header>
+  <section class="breadcrumb">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="?controller=producto">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+      </ol>
+    </nav>
+  </section>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="menumyaccount" id="cssmenu">
+        <h3>Mi cuenta</h3>
+        <ul>
+          <li>Mis datos</li>
+          <hr>
+          <li><a href="?controller=usuario&action=mispedidos" title="Mis Pedidos">Mis Pedidos</a></li>
+          <hr>
+          <?php
+          // Verifica si 'email' está definido en la sesión
+          if (isset($_SESSION['email'])) {
+            $emailUsuario = $_SESSION['email'];
+            $permisoUsuario = usuarioController::obtenerPermisoUsuario($emailUsuario);
+            // Muestra el enlace solo si el permiso es 0
+            if ($permisoUsuario == 0) {
+              echo '<li><a href="?controller=usuario&action=adminPage" title="Pagina Administrador">Pagina Administrador</a></li><hr>';
 
-  <div class="col-md-3">
-    <div class="menumyaccount" id="cssmenu">
-      <h3>Mi cuenta</h3>
-      <ul>
-        <li>Mis datos</li>
-        <li><a href="?controller=usuario&action=mispedidos" title="Mis Pedidos">Mis Pedidos</a></li>
-        <?php
-        // Verifica si 'email' está definido en la sesión
-        if (isset($_SESSION['email'])) {
-          $emailUsuario = $_SESSION['email'];
-          $permisoUsuario = usuarioController::obtenerPermisoUsuario($emailUsuario);
-          // Muestra el enlace solo si el permiso es 0
-          if ($permisoUsuario == 0) {
-            echo '<li><a href="?controller=usuario&action=adminPage" title="Pagina Administrador">Pagina Administrador</a></li>';
+            }
+          } else {
+            echo "<li>El índice 'email' no está definido en la sesión.</li>";
           }
-        } else {
-          echo "<li>El índice 'email' no está definido en la sesión.</li>";
-        }
-        ?>
-        <li><a href="?controller=usuario&action=CerrarSesion" title="Cerrar sesión">Cerrar sesión</a></li>
-      </ul>
-    </div>
-  </div>
+          ?>
 
-  <div class="col-md-9">
-    <h3>Datos de acceso</h3>
-
-    <h4>Cambio de dirección del correo electrónico</h4>
-    <p>Si deseas cambiar tu dirección de correo electrónico, completa el siguiente formulario. Este proceso te
-      permitirá conservar el historial de tu cuenta y recibir nuestros correos en tu nueva dirección.</p>
-
-    <p><strong>Tu email actual es:</strong>
-      <span class="redmail strong">
-        <?php echo $_SESSION['email'];?>
-      </span>
-    </p>
-
-    <div class="blockemail">
-      <form action="?controller=usuario&action=ActualizarDatos" method="post" class="std">
-        <fieldset>
-          <div class="mb-3">
-            <label for="passwd">Contraseña actual:</label>
-            <input type="password" class="form-control" id="passwd" name="passwd">
-          </div>
-          <div class="mb-3">
-            <label for="email">Nuevo correo electrónico:</label>
-            <input type="email" class="form-control" id="email" name="email" value="">
-          </div>
-          <div class="mb-3">
-            <label for="email2">Confirmar correo electrónico:</label>
-            <input type="email" class="form-control" id="email2" name="email2" value="">
-          </div>
-          <div class="mb-3">
-            <span class="infoobligatorios"> * Campos obligatorios <input type="hidden" name="tipo" value="email">
-            </span>
-            <button type="submit" class="btn btn-primary">Actualizar Email</button>
-          </div>
-        </fieldset>
-      </form>
+          <li><a href="?controller=usuario&action=CerrarSesion" title="Cerrar sesión">Cerrar sesión</a></li>
+        </ul>
+      </div>
     </div>
 
-    <h4>Cambio de contraseña</h4>
-    <p>Si deseas cambiar la contraseña de acceso a tu cuenta, proporciona la siguiente información.</p>
 
-    <div class="blockemail">
-      <form action="?controller=usuario&action=ActualizarContrasena" method="post" class="std">
-        <fieldset>
-          <div class="mb-3">
-            <label for="passwd">Contraseña actual:</label>
-            <input type="password" class="form-control" id="passwd" name="passwd">
-          </div>
-          <div class="mb-3">
-            <label for="passwordnew">Nueva contraseña:</label>
-            <input type="password" class="form-control" id="passwordnew" name="passwordnew" value="">
-          </div>
-          <div class="mb-3">
-            <label for="passwordnew2">Confirmar nueva contraseña:</label>
-            <input type="password" class="form-control" id="passwordnew2" name="passwordnew2" value="">
-          </div>
-          <div class="mb-3">
-            <span class="infoobligatorios"> * Campos obligatorios <input type="hidden" name="tipo" value="password">
-            </span>
-            <button type="submit" class="btn btn-primary">Actualizar Contraseña</button>
-          </div>
-        </fieldset>
-      </form>
+    <div class="col-md-9">
+      <h3>Datos de acceso</h3>
+      <div class="formulario">
+        <h4>Cambio de dirección del correo electrónico</h4>
+        <p>Si deseas cambiar tu dirección de correo electrónico, completa el siguiente formulario. Este proceso te
+          permitirá conservar el historial de tu cuenta y recibir nuestros correos en tu nueva dirección.</p>
+
+        <p2>Tu email actual es:
+          <span class="redmail strong">
+            <?php echo $_SESSION['email']; ?>
+          </span>
+        </p2>
+
+        <div class="blockemail">
+          <form action="?controller=usuario&action=ActualizarDatos" method="post" class="std">
+            <fieldset>
+              <div class="mb-3">
+                <input type="password" class="form-control" id="passwd" name="passwd" placeholder="Contraseña actual">
+              </div>
+              <div class="mb-3">
+                <input type="email" class="form-control" id="email" name="email" value=""
+                  placeholder="Nuevo correo electrónico">
+              </div>
+              <div class="mb-3">
+                <input type="email" class="form-control" id="email2" name="email2" value=""
+                  placeholder="Confirmar correo electrónico">
+              </div>
+              <div class="mb-3">
+                <span class="infoobligatorios"> * Campos obligatorios <input type="hidden" name="tipo" value="email">
+                </span>
+              </div>
+              <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Actualizar Email</button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <h4>Cambio de contraseña</h4>
+        <p>Si deseas cambiar la contraseña de acceso a tu cuenta, proporciona la siguiente información.</p>
+        <div class="blockemail">
+          <form action="?controller=usuario&action=ActualizarContrasena" method="post" class="std">
+            <fieldset>
+              <div class="mb-3">
+                <input type="password" class="form-control" id="passwd" name="passwd" placeholder="Contraseña actual:">
+              </div>
+              <div class="mb-3">
+                <input type="password" class="form-control" id="passwordnew" name="passwordnew" value=""
+                  placeholder="Nueva contraseña">
+              </div>
+              <div class="mb-3">
+                <input type="password" class="form-control" id="passwordnew2" name="passwordnew2" value=""
+                  placeholder="Confirmar nueva contraseña">
+              </div>
+              <div class="mb-3">
+                <span class="infoobligatorios"> * Campos obligatorios <input type="hidden" name="tipo" value="email">
+                </span>
+              </div>
+              <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Actualizar Contraseña</button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 
 </body>
+<footer>
+  <div class="footer-up">
+    <ul>
+      <li>
+        <img src="img/icons/facebook.png" alt="Facebook" class="social-icon">
+        <img src="img/icons/facebook2.png" alt="Facebook Hover" class="social-icon-hover">
+      </li>
+      <li>
+        <img src="img/icons/instagram.png" alt="Instagram" class="social-icon">
+        <img src="img/icons/instagram2.png" alt="Instagram Hover" class="social-icon-hover">
+      </li>
+    </ul>
+  </div>
+  <div class="footer-down">
+    <p>Copyright 2023 | Sergi Hernández Miras</p>
+  </div>
+</footer>
 
 </html>

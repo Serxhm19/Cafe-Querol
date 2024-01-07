@@ -206,6 +206,7 @@ hr {
 }
 
 .headerColRight hr {
+    margin-left: 15px;
     width: 475px;
     border: 1px solid black;
     background-color: black;
@@ -249,12 +250,6 @@ hr {
     /* Ajusta según sea necesario */
 }
 
-.remove-button {
-    width: 20px;
-    height: 20px;
-
-}
-
 /* Agrega estos estilos a tu archivo de estilo (stylecarrito.css) o donde sea apropiado */
 
 .quantity-input {
@@ -262,10 +257,8 @@ hr {
 }
 
 /* Ajusta el selector para apuntar a la imagen dentro de .remove-button */
-.remove-button img {
-    width: 25px;
-    height: 25px;
-    margin-top: 12px;
+.remove-button svg {
+    margin-top: 40px;
 
 }
 

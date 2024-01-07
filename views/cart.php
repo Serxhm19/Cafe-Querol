@@ -37,20 +37,22 @@
     </section>
     <section class="categories">
         <div class="row">
-            <div class="categoriesdropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    CATEGORIAS
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="?controller=producto&action=bebidas">Bebidas</a></li>
-                    <li><a class="dropdown-item" href="?controller=producto&action=alimentacion">Alimentación</a>
-                    </li>
-                    <li><a class="dropdown-item" href="?controller=producto&action=packs">Packs</a></li>
-                </ul>
+            <div class="col-6">
+                <div class="categoriesdropdown">
+                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        CATEGORIAS
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="?controller=producto&action=bebidas">Bebidas</a></li>
+                        <li><a class="dropdown-item" href="?controller=producto&action=alimentacion">Alimentación</a>
+                        </li>
+                        <li><a class="dropdown-item" href="?controller=producto&action=packs">Packs</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
+
     <section>
         <div class="row allproducts">
             <?php
@@ -65,7 +67,7 @@
                     ?>
                     <div class="col-12 col-md-2 mb-3 position-relative">
                         <div class="card cartaproducto">
-                            <img src="<?= $producto->IMG; ?>" class="card-img-top" alt="Imagen del producto">
+                            <img src="<?= $producto->IMG; ?>" class="card-img-top" alt="<?= $producto -> NOMBRE_PRODUCTO ?>">
                             <div class="card-body">
                                 <p class="card-title name">
                                     <?= $producto->NOMBRE_PRODUCTO; ?>

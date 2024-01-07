@@ -110,21 +110,41 @@ final class productoDAO
         return $productos;
     }
 
-    public static function getAllProductoHome()
+    public static function topVentas()
     {
         $con = DataBase::connect();
-        $sql = "SELECT * FROM productos";
-
-        $productos = array();
-
+    
+        // Consulta para obtener los IDs de los productos más pedidos
+        $sql = "SELECT ID_PRODUCTO, SUM(CANTIDAD) AS total_pedidos
+                FROM pedido_articulos
+                GROUP BY ID_PRODUCTO
+                ORDER BY total_pedidos DESC
+                LIMIT 5"; // Puedes ajustar el límite según tus necesidades
+    
+        $mostOrderedProductIDs = array();
+    
         if ($result = $con->query($sql)) {
             while ($row = $result->fetch_object()) {
-                $productos[] = $row;
+                $mostOrderedProductIDs[] = $row->ID_PRODUCTO;
             }
         }
-
+    
+        // Consulta para obtener todos los datos de los productos más pedidos
+        $productos = array();
+    
+        if (!empty($mostOrderedProductIDs)) {
+            $inClause = implode(',', $mostOrderedProductIDs);
+            $sqlProductos = "SELECT * FROM productos WHERE ID_PRODUCTO IN ($inClause)";
+    
+            if ($resultProductos = $con->query($sqlProductos)) {
+                while ($rowProductos = $resultProductos->fetch_object()) {
+                    $productos[] = $rowProductos;
+                }
+            }
+        }
+    
         $con->close();
-
+    
         return $productos;
     }
 
@@ -184,6 +204,8 @@ final class productoDAO
         $stmt->close();
         $con->close();
     }
+
+   
 
 
 
