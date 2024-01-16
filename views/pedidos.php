@@ -161,7 +161,10 @@
                         // Botón para visualizar el pedido
                         echo '<a href="?controller=usuario&action=visualizarPedido&ID_PEDIDO=' . $pedido['ID_PEDIDO'] . '" class="btn btn-info">Visualizar Pedido</a>';
 
+                        echo '<a href="?controller=usuario&action=visualizarPedido&ID_PEDIDO=' . $pedido['ID_PEDIDO'] . '" class="btn btn-info">Añadir Reseña</a>';
+
                         echo "</td>";
+                        
                         echo "</tr>";
                     }
                     ?>
