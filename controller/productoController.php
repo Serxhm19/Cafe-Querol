@@ -63,6 +63,14 @@ class productoController
 
     }
 
+    public function Reseñas()
+    {
+
+        include_once "views/reseñas.php";
+
+
+    }
+
 
 
     public static function sel()

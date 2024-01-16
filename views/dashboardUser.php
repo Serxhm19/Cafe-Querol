@@ -50,6 +50,9 @@
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="?controller=producto&action=Carta">CARTA</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="?controller=producto&action=Reseñas">RESEÑAS</a>
+                </li>
               </ul>
               <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
