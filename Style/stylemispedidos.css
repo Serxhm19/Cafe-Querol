@@ -149,8 +149,8 @@ body {
 }
 
 .breadcrumb nav {
-  text-decoration: none; 
-  color: black; 
+  text-decoration: none;
+  color: black;
   font-size: 14px;
   font-family: DIN;
   font-weight: 400;
@@ -159,15 +159,17 @@ body {
 }
 
 .breadcrumb a {
-  text-decoration: none; /* Para quitar el subrayado en estado normal */
+  text-decoration: none;
+  /* Para quitar el subrayado en estado normal */
   color: black;
 }
 
 .breadcrumb a:hover,
 .breadcrumb a:visited {
   color: rgb(0, 0, 0);
-  text-decoration: none; /* Para quitar el subrayado en estado hover y visited */
-} 
+  text-decoration: none;
+  /* Para quitar el subrayado en estado hover y visited */
+}
 
 /*----------------------------------------------------------------*/
 /*                        Mi cuenta Section                        */
@@ -290,6 +292,74 @@ body {
 .table th {
   background-color: #f2f2f2;
 }
+
+/*----------------------------------------------------------------*/
+/*                     Formulario Reseñas                         */
+/*----------------------------------------------------------------*/
+
+label {
+  display: inline-block;
+  padding: 0;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+label.reset {
+  font-size: 10px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  margin: 10px 5px;
+  padding: 2px 3px;
+}
+
+label.star {
+  width: 30px;
+  height: 27px;
+}
+
+/* Ocultamos los radio buttons */
+input[name=rating] {
+  display: none;
+}
+
+/* Estrellas inmediatamente después de un radio button son amarillas */
+input[type=radio]+label.star svg path {
+  border: #000;
+  fill: rgb(241, 0, 0);
+}
+
+/* Estrellas a la derecha del radio button checked son blancas */
+input[type=radio]:checked~label.star svg path {
+  fill: #fff;
+}
+
+/* Estilo para el texto de la valoración */
+#texto {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Estilo para el botón de agregar reseña */
+#formularioResena .btn-primary {
+  margin-top: 10px;
+}
+
+/* Añadir estilos específicos para el modal si es necesario */
+#myModal {
+  /* Tus estilos para el modal aquí */
+}
+
+/* Añadir estilos específicos para el formulario si es necesario */
+#formularioResena {
+  /* Tus estilos para el formulario aquí */
+}
+
+/* Añadir estilos específicos para el botón de cerrar modal si es necesario */
+#myModal .btn-close {
+  /* Tus estilos para el botón de cerrar modal aquí */
+}
+
+
 
 /*----------------------------------------------------------------*/
 /*                           footer.php                           */

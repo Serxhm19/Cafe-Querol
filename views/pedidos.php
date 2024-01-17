@@ -2,11 +2,8 @@
 <html lang="en">
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-SsDkMO9SMV3F8C3QvxZjScNB6eScB8peVp/UL6ZI3jFhAxVdfdC4vhm3ZXiU04QE"
-        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="Style/stylemispedidos.css">
     <meta charset="UTF-8">
     <link rel="icon" type="image/jpg" href="img\icons\logoQuerol.jpg">
@@ -161,35 +158,208 @@
                         // Botón para visualizar el pedido
                         echo '<a href="?controller=usuario&action=visualizarPedido&ID_PEDIDO=' . $pedido['ID_PEDIDO'] . '" class="btn btn-info">Visualizar Pedido</a>';
 
-                        echo '<a href="?controller=usuario&action=visualizarPedido&ID_PEDIDO=' . $pedido['ID_PEDIDO'] . '" class="btn btn-info">Añadir Reseña</a>';
+                        echo '  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"
+                        data-idpedido="' . $pedido['ID_PEDIDO'] . '">Añadir Reseña</button>';
 
                         echo "</td>";
-                        
+
                         echo "</tr>";
                     }
                     ?>
                 </tbody>
             </table>
         </div>
+    </div>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Añadir Reseña</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <!-- Formulario para añadir reseña -->
+                    <form id="formularioResena">
+                        <div class="mb-3">
+                            <input type="hidden" id="idResena" name="idResena">
+                        </div>
+                        <div class="mb-3">
+                            <label for="idPedidoResena" class="form-label">ID Pedido:</label>
+                            <input type="text" class="form-control" id="idPedidoResena" name="idPedidoResena" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="asuntoResena" class="form-label">Asunto de la Reseña:</label>
+                            <input type="text" class="form-control" id="asuntoResena" name="asuntoResena" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="comentarioResena" class="form-label">Comentario de la Reseña:</label>
+                            <textarea class="form-control" id="comentarioResena" name="comentarioResena"
+                                required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="valoracionResena" class="form-label">Valoración de la Reseña:</label>
+
+                            <!-- svg from https://es.wikipedia.org/wiki/Archivo:Star*.svg -->
+
+                            <input id=rating0 type=radio value=0 name=rating checked />
+
+                            <label class=star for=rating1>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 275">
+                                    <path stroke="#000" stroke-width="15"
+                                        d="M150 25l29 86h90l-72 54 26 86-73-51-73 51 26-86-72-54h90z" />
+                                </svg>
+                            </label>
+                            <input id=rating1 type=radio value=1 name=rating />
+
+                            <label class=star for=rating2>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 275">
+                                    <path stroke="#000" stroke-width="15"
+                                        d="M150 25l29 86h90l-72 54 26 86-73-51-73 51 26-86-72-54h90z" />
+                                </svg>
+                            </label>
+                            <input id=rating2 type=radio value=2 name=rating />
+
+                            <label class=star for=rating3>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 275">
+                                    <path stroke="#000" stroke-width="15"
+                                        d="M150 25l29 86h90l-72 54 26 86-73-51-73 51 26-86-72-54h90z" />
+                                </svg>
+                            </label>
+                            <input id=rating3 type=radio value=3 name=rating />
+
+                            <label class=star for=rating4>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 275">
+                                    <path stroke="#000" stroke-width="15"
+                                        d="M150 25l29 86h90l-72 54 26 86-73-51-73 51 26-86-72-54h90z" />
+                                </svg>
+                            </label>
+                            <input id=rating4 type=radio value=4 name=rating />
+
+                            <label class=star for=rating5>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 275">
+                                    <path stroke="#000" stroke-width="15"
+                                        d="M150 25l29 86h90l-72 54 26 86-73-51-73 51 26-86-72-54h90z" />
+                                </svg>
+                            </label>
+                            <input id=rating5 type=radio value=5 name=rating />
+
+                            <!-- por último el label del rating 0 ( sin calificar ) -->
+                            <label class=reset for=rating0>Sin Calificar</label>
+
+                            <!-- Otros campos del formulario -->
+                            <button type="button" class="btn btn-primary" onclick="agregarResena()">Agregar
+                                Reseña</button>
+                    </form>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer>
+        <div class="footer-up">
+            <ul>
+                <li>
+                    <img src="img/icons/facebook.png" alt="Facebook" class="social-icon">
+                    <img src="img/icons/facebook2.png" alt="Facebook Hover" class="social-icon-hover">
+                </li>
+                <li>
+                    <img src="img/icons/instagram.png" alt="Instagram" class="social-icon">
+                    <img src="img/icons/instagram2.png" alt="Instagram Hover" class="social-icon-hover">
+                </li>
+            </ul>
+        </div>
+        <div class="footer-down">
+            <p>Copyright 2023 | Sergi Hernández Miras</p>
+        </div>
+    </footer>
+
+
+    <!-- ###################################################################################### -->
+    <script>
+        // para todos los radiobutton rating agregar un on change
+        const changeRating = document.querySelectorAll('input[name=rating]');
+        changeRating.forEach((radio) => {
+            radio.addEventListener('change', getRating);
+        });
+
+        // buscar el radiobutton checked y armar el texto con el valor ( 0 - 5 )
+        function getRating() {
+            let estrellas = document.querySelector('input[name=rating]:checked').value;
+            document.getElementById("texto").innerHTML = (
+                0 < estrellas ?
+                    estrellas + " estrella" + (1 < estrellas ? "s" : "") :
+                    "sin calificar"
+            );
+
+            // opcionalmente agregar un ajax para guardar el rating
+        }
+        // Función para agregar una reseña utilizando la API
+        function agregarResena() {
+            // Obtén los valores del formulario
+            var idPedido = $("#idPedidoResena").val();
+            var asuntoResena = $("#asuntoResena").val();
+            var comentarioResena = $("#comentarioResena").val();
+            var fechaResena = $("#fechaResena").val();
+            var valoracionResena = $("#valoracionResena").val();
+
+            // Realiza la solicitud a la API utilizando Fetch
+            fetch('URL_DE_TU_API', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'accion=add_review&id_pedido=' + idPedido + '&asunto_resena=' + asuntoResena + '&comentario_resena=' + comentarioResena + '&fecha_resena=' + fechaResena + '&valoracion_resena=' + valoracionResena,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Maneja la respuesta de la API
+                    console.log(data);
+
+                    // Cierra el modal después de agregar la reseña (puedes ajustar esto según tus necesidades)
+                    $('#myModal').modal('hide');
+                })
+                .catch(error => {
+                    console.error('Error al agregar la reseña:', error);
+                });
+        }
+
+        // Función para actualizar el formulario con los datos del pedido seleccionado
+        function actualizarFormulario(idPedido) {
+            // Puedes agregar lógica para obtener más detalles del pedido si es necesario
+
+            // Establece el ID del pedido en el campo correspondiente del formulario
+            $("#idPedidoResena").val(idPedido);
+
+            // Puedes agregar más lógica para llenar otros campos del formulario si es necesario
+        }
+
+        // Evento que se dispara cuando se abre el modal
+        $('#myModal').on('show.bs.modal', function (event) {
+            // Obtiene el botón que abrió el modal
+            var button = $(event.relatedTarget);
+
+            // Obtiene el ID del pedido desde el botón
+            var idPedido = button.data('idpedido');
+
+            // Actualiza el formulario con los datos del pedido
+            actualizarFormulario(idPedido);
+        });
+    </script>
 
 </body>
-
-<footer>
-    <div class="footer-up">
-        <ul>
-            <li>
-                <img src="img/icons/facebook.png" alt="Facebook" class="social-icon">
-                <img src="img/icons/facebook2.png" alt="Facebook Hover" class="social-icon-hover">
-            </li>
-            <li>
-                <img src="img/icons/instagram.png" alt="Instagram" class="social-icon">
-                <img src="img/icons/instagram2.png" alt="Instagram Hover" class="social-icon-hover">
-            </li>
-        </ul>
-    </div>
-    <div class="footer-down">
-        <p>Copyright 2023 | Sergi Hernández Miras</p>
-    </div>
-</footer>
 
 </html>
