@@ -4,6 +4,7 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="Style/stylemispedidos.css">
     <meta charset="UTF-8">
     <link rel="icon" type="image/jpg" href="img\icons\logoQuerol.jpg">
@@ -158,8 +159,8 @@
                         // Botón para visualizar el pedido
                         echo '<a href="?controller=usuario&action=visualizarPedido&ID_PEDIDO=' . $pedido['ID_PEDIDO'] . '" class="btn btn-info">Visualizar Pedido</a>';
 
-                        echo '  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"
-                        data-idpedido="' . $pedido['ID_PEDIDO'] . '">Añadir Reseña</button>';
+                        // Botón para añadir reseña
+                        echo '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" data-idpedido="' . $pedido['ID_PEDIDO'] . '">Añadir Reseña</button>';
 
                         echo "</td>";
 
@@ -204,8 +205,6 @@
                         </div>
                         <div class="mb-3">
                             <label for="valoracionResena" class="form-label">Valoración de la Reseña:</label>
-
-                            <!-- svg from https://es.wikipedia.org/wiki/Archivo:Star*.svg -->
 
                             <input id=rating0 type=radio value=0 name=rating checked />
 
@@ -253,8 +252,8 @@
                             <label class=reset for=rating0>Sin Calificar</label>
 
                             <!-- Otros campos del formulario -->
-                            <button type="button" class="btn btn-primary" onclick="agregarResena()">Agregar
-                                Reseña</button>
+                            <button type="button" class="btn btn-primary" id="btnAgregarResena">Agregar Reseña</button>
+
                     </form>
                 </div>
 
@@ -287,78 +286,7 @@
         </div>
     </footer>
 
-
-    <!-- ###################################################################################### -->
-    <script>
-        // para todos los radiobutton rating agregar un on change
-        const changeRating = document.querySelectorAll('input[name=rating]');
-        changeRating.forEach((radio) => {
-            radio.addEventListener('change', getRating);
-        });
-
-        // buscar el radiobutton checked y armar el texto con el valor ( 0 - 5 )
-        function getRating() {
-            let estrellas = document.querySelector('input[name=rating]:checked').value;
-            document.getElementById("texto").innerHTML = (
-                0 < estrellas ?
-                    estrellas + " estrella" + (1 < estrellas ? "s" : "") :
-                    "sin calificar"
-            );
-
-            // opcionalmente agregar un ajax para guardar el rating
-        }
-        // Función para agregar una reseña utilizando la API
-        function agregarResena() {
-            // Obtén los valores del formulario
-            var idPedido = $("#idPedidoResena").val();
-            var asuntoResena = $("#asuntoResena").val();
-            var comentarioResena = $("#comentarioResena").val();
-            var fechaResena = $("#fechaResena").val();
-            var valoracionResena = $("#valoracionResena").val();
-
-            // Realiza la solicitud a la API utilizando Fetch
-            fetch('URL_DE_TU_API', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: 'accion=add_review&id_pedido=' + idPedido + '&asunto_resena=' + asuntoResena + '&comentario_resena=' + comentarioResena + '&fecha_resena=' + fechaResena + '&valoracion_resena=' + valoracionResena,
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // Maneja la respuesta de la API
-                    console.log(data);
-
-                    // Cierra el modal después de agregar la reseña (puedes ajustar esto según tus necesidades)
-                    $('#myModal').modal('hide');
-                })
-                .catch(error => {
-                    console.error('Error al agregar la reseña:', error);
-                });
-        }
-
-        // Función para actualizar el formulario con los datos del pedido seleccionado
-        function actualizarFormulario(idPedido) {
-            // Puedes agregar lógica para obtener más detalles del pedido si es necesario
-
-            // Establece el ID del pedido en el campo correspondiente del formulario
-            $("#idPedidoResena").val(idPedido);
-
-            // Puedes agregar más lógica para llenar otros campos del formulario si es necesario
-        }
-
-        // Evento que se dispara cuando se abre el modal
-        $('#myModal').on('show.bs.modal', function (event) {
-            // Obtiene el botón que abrió el modal
-            var button = $(event.relatedTarget);
-
-            // Obtiene el ID del pedido desde el botón
-            var idPedido = button.data('idpedido');
-
-            // Actualiza el formulario con los datos del pedido
-            actualizarFormulario(idPedido);
-        });
-    </script>
+    <script src="js\pedidos.js"></script>
 
 </body>
 
