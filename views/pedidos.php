@@ -205,54 +205,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="valoracionResena" class="form-label">Valoración de la Reseña:</label>
+                            <input type="number" id="valoracionResena" name="valoracionResena" min="1" max="5"
+                                required />
+                        </div>
 
-                            <input id=rating0 type=radio value=0 name=rating checked />
 
-                            <label class=star for=rating1>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 275">
-                                    <path stroke="#000" stroke-width="15"
-                                        d="M150 25l29 86h90l-72 54 26 86-73-51-73 51 26-86-72-54h90z" />
-                                </svg>
-                            </label>
-                            <input id=rating1 type=radio value=1 name=rating />
-
-                            <label class=star for=rating2>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 275">
-                                    <path stroke="#000" stroke-width="15"
-                                        d="M150 25l29 86h90l-72 54 26 86-73-51-73 51 26-86-72-54h90z" />
-                                </svg>
-                            </label>
-                            <input id=rating2 type=radio value=2 name=rating />
-
-                            <label class=star for=rating3>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 275">
-                                    <path stroke="#000" stroke-width="15"
-                                        d="M150 25l29 86h90l-72 54 26 86-73-51-73 51 26-86-72-54h90z" />
-                                </svg>
-                            </label>
-                            <input id=rating3 type=radio value=3 name=rating />
-
-                            <label class=star for=rating4>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 275">
-                                    <path stroke="#000" stroke-width="15"
-                                        d="M150 25l29 86h90l-72 54 26 86-73-51-73 51 26-86-72-54h90z" />
-                                </svg>
-                            </label>
-                            <input id=rating4 type=radio value=4 name=rating />
-
-                            <label class=star for=rating5>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 275">
-                                    <path stroke="#000" stroke-width="15"
-                                        d="M150 25l29 86h90l-72 54 26 86-73-51-73 51 26-86-72-54h90z" />
-                                </svg>
-                            </label>
-                            <input id=rating5 type=radio value=5 name=rating />
-
-                            <!-- por último el label del rating 0 ( sin calificar ) -->
-                            <label class=reset for=rating0>Sin Calificar</label>
-
-                            <!-- Otros campos del formulario -->
-                            <button type="button" class="btn btn-primary" id="btnAgregarResena">Agregar Reseña</button>
+                        <!-- Otros campos del formulario -->
+                        <button type="button" class="btn btn-primary" id="btnAgregarResena">Agregar Reseña</button>
 
                     </form>
                 </div>

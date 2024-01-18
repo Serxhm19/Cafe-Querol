@@ -2,6 +2,7 @@
 
 include_once 'controller/productoController.php';
 include_once 'controller/usuarioController.php';
+include_once 'controller/apiController.php'; 
 include_once 'config/parametros.php';
 
 // Verifica si se proporciona un controlador

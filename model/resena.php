@@ -167,6 +167,35 @@ class resena
         $con->close();
     }
 
+
+    public static function obtenerTodasResenas()
+    {
+        // Obtén la conexión a la base de datos utilizando tu método o clase de conexión
+        $con = DataBase::connect();
+
+        // Preparar la consulta
+        $sql = "SELECT * FROM reseñas";
+        $result = $con->query($sql);
+
+        // Verificar si se obtuvieron resultados
+        if ($result) {
+            // Obtener todas las reseñas como un array asociativo
+            $resenas = $result->fetch_all(MYSQLI_ASSOC);
+
+            // Cerrar la conexión y devolver las reseñas
+            $con->close();
+            return $resenas;
+        } else {
+            // Si hay un error, puedes manejarlo de la manera que prefieras
+            echo "Error al obtener las reseñas: " . $con->error;
+        }
+
+        // Cerrar la conexión
+        $con->close();
+
+        return [];
+    }
+
 }
 
 ?>
