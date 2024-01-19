@@ -84,4 +84,32 @@
   </section>
 </header>
 
+<body>
+  <script>
+    window.addEventListener("load", function () {
+      insertarApi();
+    });
+
+
+    async function insertarApi() {
+      fetch('http://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+        },
+        body: JSON.stringify({
+          accion: 'get_reviews',
+        }),
+      })
+        .then(data => data.json())
+        
+        .catch((error) => {
+          console.error('Error:', error.message);
+        });
+      }
+
+
+  </script>
+</body>
+
 </html>

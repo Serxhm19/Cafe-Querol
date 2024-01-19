@@ -191,6 +191,9 @@
                             <input type="hidden" id="idResena" name="idResena">
                         </div>
                         <div class="mb-3">
+                            <input type="hidden" id="idUsuario" name="idUsuario">
+                        </div>
+                        <div class="mb-3">
                             <label for="idPedidoResena" class="form-label">ID Pedido:</label>
                             <input type="text" class="form-control" id="idPedidoResena" name="idPedidoResena" readonly>
                         </div>

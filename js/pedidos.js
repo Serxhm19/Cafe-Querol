@@ -24,68 +24,39 @@ $(document).ready(function () {
     });
 });
 
-// Esta función obtiene los valores del formulario y devuelve un objeto con esos valores
 function obtenerValoresDelFormulario() {
-    // Obtén los valores de los campos del formulario
+
     var id_pedido = document.getElementById('idPedidoResena').value;
-    var id_usuario = document.getElementById('idUsuarioResena').value;
+    var id_usuario = 13;
     var asunto_resena = document.getElementById('asuntoResena').value;
     var comentario_resena = document.getElementById('comentarioResena').value;
-    var valoracion_resena = document.getElementById('valoracionResena').value; // Obtén el valor directamente del campo de entrada
+    var valoracion_resena = document.getElementById('valoracionResena').value; 
 
-    // Retorna un objeto con los valores obtenidos
     return {
-        id_pedido: id_pedido,
-        id_usuario: id_usuario,
-        asunto_resena: asunto_resena,
-        comentario_resena: comentario_resena,
-        valoracion_resena: valoracion_resena
+        "id_pedido": id_pedido,
+        "id_usuario": id_usuario,
+        "asunto_resena": asunto_resena,
+        "comentario_resena": comentario_resena,
+        "valoracion_resena": valoracion_resena
     };
 }
 
-// ... (Otras partes del código)
-
 $(document).ready(function () {
-    // Agrega un evento de clic al botón
     $("#btnAgregarResena").click(function () {
-        // Obtiene los valores del formulario
         var valoresFormulario = obtenerValoresDelFormulario();
-        console.log(valoresFormulario); // Agrega este log
-
-        // Realiza la solicitud Fetch a tu API con datos en formato JSON
-        fetch('http://workspace.com/Workspace/Cafe-Querol/controller=API&action=api', {
+        console.log(valoresFormulario);
+        fetch('http://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json; charset=utf-8',
             },
             body: JSON.stringify({
                 accion: 'add_review',
-                id_pedido: valoresFormulario.id_pedido,
-                id_usuario: valoresFormulario.id_usuario,
-                asunto_resena: valoresFormulario.asunto_resena,
-                comentario_resena: valoresFormulario.comentario_resena,
-                valoracion_resena: valoresFormulario.valoracion_resena,
+                valoresFormulario,
             }),
         })
-            .then(response => {
-                // Comprueba si la respuesta del servidor es exitosa (código de estado 200)
-                if (!response.ok) {
-                    throw new Error('Error en la solicitud. Código de estado: ' + response.status);
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Comprueba si la respuesta de la API indica un error
-                if (data && data.error) {
-                    throw new Error('Error en la API: ' + data.error);
-                }
-
-                // Maneja la respuesta de la API aquí
-                console.log(data); // Agrega este log
-                alert("Reseña añadida correctamente");
-            })
+            .then(data => data.json())
             .catch((error) => {
-                // Maneja los errores aquí
                 console.error('Error:', error.message);
                 alert("Error al agregar la reseña");
             });
