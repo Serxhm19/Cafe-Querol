@@ -1,0 +1,131 @@
+/*----------------------------------------------------------------*/
+/*                           Header                               */
+/*----------------------------------------------------------------*/
+
+body {
+    margin: 0 auto;
+  }
+  
+  #Header1 {
+    height: 47px;
+    background-color: #D9D9D9;
+  
+  }
+  
+  #Header1 h2 {
+    font-family: DIN;
+    font-size: 15px;
+    padding-top: 15px;
+    padding-left: 30px;
+  }
+  
+  .Header2 {
+    display: flex;
+    justify-content: center;
+    height: 38.8px;
+  
+  }
+  
+  
+  
+  .Header2 h3 {
+    font-family: DIN;
+    font-size: 12px;
+    padding-top: 14px;
+  
+  }
+  
+  .Header2 img {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    margin-top: 10px;
+  
+  
+  }
+  
+  .row {
+    max-width: 100%;
+  }
+  
+  /* Estilos para la barra de navegación */
+  .header3 .navbar {
+    background-color: #000 !important;
+    /* Color de fondo negro */
+  }
+  
+  /* Estilos para los enlaces de la barra de navegación */
+  .header3 .navbar-nav .nav-link {
+    color: #fff !important;
+    /* Color del texto blanco */
+  }
+  
+  /* Estilos para el botón de búsqueda */
+  .header3 .navbar .btn-outline-success {
+    color: #fff;
+    /* Color del texto blanco */
+  }
+  
+  /* Estilos para el campo de búsqueda */
+  .header3 .navbar .form-control {
+    background-color: #fffefe;
+    /* Color de fondo gris oscuro */
+    color: #000000;
+    /* Color del texto blanco */
+    border-color: #333;
+    /* Color del borde gris oscuro */
+  }
+  
+  .btn {
+    border-color: white;
+    color: white;
+  
+  }
+  
+  .btn:hover {
+    border-color: white;
+    color: white;
+  }
+  
+  .navbar-account {
+    margin-left: 10px;
+  }
+  
+  .navbar-cart img {
+    margin-left: 10px;
+    max-width: 30px;
+    height: 30px;
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: 0;
+    right: 4px;
+    /* Ajusta la posición derecha según sea necesario */
+    color: rgb(0, 0, 0);
+    border-radius: 50%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    margin-right: 17px;
+    margin-top: 28px;
+    font-family: DIN;
+    font-weight: bold;
+  }
+  
+  .collapse.navbar-collapse a {
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    font-size: 17px;
+    font-family: DIN;
+    font-weight: bold;
+  }
+  
+/*----------------------------------------------------------------*/
+/*                           Cards                                */
+/*----------------------------------------------------------------*/
+
+
+  

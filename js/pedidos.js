@@ -1,3 +1,4 @@
+
 const changeRating = document.querySelectorAll('input[name=rating]');
 changeRating.forEach((radio) => {
     radio.addEventListener('change', getRating);
@@ -10,7 +11,6 @@ function getRating() {
             estrellas + " estrella" + (1 < estrellas ? "s" : "") :
             "sin calificar"
     );
-
 }
 
 $(document).ready(function () {
@@ -25,40 +25,45 @@ $(document).ready(function () {
 });
 
 function obtenerValoresDelFormulario() {
-
-    var id_pedido = document.getElementById('idPedidoResena').value;
     var id_usuario = 13;
-    var asunto_resena = document.getElementById('asuntoResena').value;
-    var comentario_resena = document.getElementById('comentarioResena').value;
-    var valoracion_resena = document.getElementById('valoracionResena').value; 
+    id_pedido = document.getElementById('idPedidoResena').value;
+    asunto_resena = document.getElementById('asuntoResena').value;
+    comentario_resena = document.getElementById('comentarioResena').value;
+    valoracion_resena = document.getElementById('valoracionResena').value;
 
     return {
         "id_pedido": id_pedido,
         "id_usuario": id_usuario,
         "asunto_resena": asunto_resena,
         "comentario_resena": comentario_resena,
-        "valoracion_resena": valoracion_resena
+        "valoracion_resena": valoracion_resena,
+        
     };
 }
 
-$(document).ready(function () {
-    $("#btnAgregarResena").click(function () {
-        var valoresFormulario = obtenerValoresDelFormulario();
-        console.log(valoresFormulario);
-        fetch('http://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8',
-            },
-            body: JSON.stringify({
-                accion: 'add_review',
-                valoresFormulario,
-            }),
-        })
-            .then(data => data.json())
-            .catch((error) => {
-                console.error('Error:', error.message);
-                alert("Error al agregar la reseña");
-            });
-    });
+$("#btnAgregarResena").click(function () {
+    var valoresFormulario = obtenerValoresDelFormulario();
+    console.log(valoresFormulario);
+
+    let formData = new FormData();
+    formData.append('accion', 'add_review');
+
+    for (const [key, value] of Object.entries(valoresFormulario)) {
+        formData.append(key, value);
+    }
+
+    insertarResenaApi(formData);
 });
+
+async function insertarResenaApi(formData) {
+    const url = 'http://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api';
+
+    try {
+        const response = await axios.post(url, formData);
+        console.log(response.data);
+        alert("Reseña agregada correctamente");
+    } catch (error) {
+        console.error('Error:', error.message);
+        alert("Error al agregar la reseña");
+    }
+}

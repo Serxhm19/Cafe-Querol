@@ -195,7 +195,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="idPedidoResena" class="form-label">ID Pedido:</label>
-                            <input type="text" class="form-control" id="idPedidoResena" name="idPedidoResena" readonly>
+                            <input type="text" class="form-control" id="idPedidoResena" name="idPedidoResena" disabled>
                         </div>
                         <div class="mb-3">
                             <label for="asuntoResena" class="form-label">Asunto de la Reseña:</label>
@@ -249,6 +249,7 @@
     </footer>
 
     <script src="js\pedidos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </body>
 

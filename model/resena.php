@@ -152,49 +152,62 @@ class resena
         $sql = "INSERT INTO reseñas (ID_PEDIDO, ASUNTO_RESEÑA, COMENTARIO_RESEÑA, FECHA_RESEÑA, VALORACION_RESEÑA) VALUES (?, ?, ?, NOW(), ?)";
         $stmt = $con->prepare($sql);
 
-        // Enlazar los valores a los marcadores de posición
-        $stmt->bind_param("dssd", $this->idPedido, $this->asuntoResena, $this->comentarioResena, $this->valoracionResena);
+        // Verifica si la preparación de la consulta fue exitosa
+        if ($stmt) {
+            // Enlazar los valores a los marcadores de posición
+            $stmt->bind_param("dssd", $this->idPedido, $this->asuntoResena, $this->comentarioResena, $this->valoracionResena);
 
-        // Ejecutar la consulta
-        if ($stmt->execute()) {
-            echo "Reseña añadida con éxito";
+            // Ejecutar la consulta
+            if ($stmt->execute()) {
+                echo json_encode(array('success' => 'Reseña añadida con éxito'));
+            } else {
+                echo json_encode(array('error' => 'Error al añadir la reseña: ' . $stmt->error));
+            }
+
+            // Cerrar la sentencia preparada
+            $stmt->close();
         } else {
-            echo "Error al añadir la reseña: " . $stmt->error;
+            echo json_encode(array('error' => 'Error en la preparación de la consulta'));
         }
 
-        // Cerrar la conexión y la sentencia preparada
-        $stmt->close();
+        // Cerrar la conexión
         $con->close();
     }
 
 
     public static function obtenerTodasResenas()
     {
-        // Obtén la conexión a la base de datos utilizando tu método o clase de conexión
         $con = DataBase::connect();
-
-        // Preparar la consulta
         $sql = "SELECT * FROM reseñas";
         $result = $con->query($sql);
 
-        // Verificar si se obtuvieron resultados
         if ($result) {
-            // Obtener todas las reseñas como un array asociativo
-            $resenas = $result->fetch_all(MYSQLI_ASSOC);
+            $resenas = [];
 
-            // Cerrar la conexión y devolver las reseñas
+            while ($row = $result->fetch_assoc()) {
+                $resena = new Resena(
+                    $row['ID_RESEÑA'],
+                    $row['ID_PEDIDO'],
+                    $row['ASUNTO_RESEÑA'],
+                    $row['COMENTARIO_RESEÑA'],
+                    $row['FECHA_RESEÑA'],
+                    $row['VALORACION_RESEÑA']
+                );
+                $resenas[] = $resena;
+            }
+
             $con->close();
             return $resenas;
         } else {
-            // Si hay un error, puedes manejarlo de la manera que prefieras
             echo "Error al obtener las reseñas: " . $con->error;
         }
 
-        // Cerrar la conexión
         $con->close();
-
         return [];
     }
+
+
+
 
 }
 

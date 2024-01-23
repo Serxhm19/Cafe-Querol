@@ -4,9 +4,6 @@
 <head>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-SsDkMO9SMV3F8C3QvxZjScNB6eScB8peVp/UL6ZI3jFhAxVdfdC4vhm3ZXiU04QE"
-    crossorigin="anonymous"></script>
   <link rel="stylesheet" href="Style\stylehomepage.css">
   <link rel="icon" type="image/jpg" href="img\icons\logoQuerol.jpg">
   <meta charset="UTF-8">
@@ -85,31 +82,61 @@
 </header>
 
 <body>
+
+<h1 class="titulo"> RESEÑAS </h1>
+<!-- <div class="container"-->
+  <!-- Add this to your HTML where you want to display the cards -->
+  <div id="cards-container"></div>
+
   <script>
     window.addEventListener("load", function () {
       insertarApi();
     });
 
-
     async function insertarApi() {
-      fetch('http://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-        },
-        body: JSON.stringify({
-          accion: 'get_reviews',
-        }),
-      })
-        .then(data => data.json())
-        
-        .catch((error) => {
-          console.error('Error:', error.message);
+      const formData = new FormData();
+      formData.append('accion', 'get_reviews');
+
+      try {
+        const response = await fetch('http://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api', {
+          method: 'POST',
+          body: formData,
         });
+
+        if (!response.ok) {
+          throw new Error("Error " + response.status + ": " + response.statusText);
+        }
+
+        const data = await response.json();
+        console.log(data);
+
+        // Assuming 'data' is an array of form data objects
+        data.forEach((formData) => {
+          // Create a card element
+          var card = document.createElement('div');
+          card.className = 'card';
+
+          // Populate the card with data
+          card.innerHTML = `
+                    <h2>ID Reseña: ${formData.ID_RESEÑA}</h2>
+                    <p>ID Pedido: ${formData.ID_PEDIDO}</p>
+                    <p>Asunto: ${formData.ASUNTO_RESEÑA}</p>
+                    <p>Comentario: ${formData.COMENTARIO_RESEÑA}</p>
+                    <p>Fecha: ${formData.FECHA_RESEÑA}</p>
+                    <p>Valoración: ${formData.VALORACION_RESEÑA}</p>
+                `;
+
+          // Append the card to a container in your HTML
+          var cardsContainer = document.getElementById('cards-container');
+          cardsContainer.appendChild(card);
+        });
+      } catch (error) {
+        console.error('Error:', error.message);
       }
-
-
+    }
   </script>
+
+
 </body>
 
 </html>
