@@ -189,7 +189,6 @@ class resena
     }
 
 
-
     public static function obtenerResenaPorPedido($idPedido)
     {
         $con = DataBase::connect();

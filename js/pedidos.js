@@ -55,15 +55,43 @@ $("#btnAgregarResena").click(function () {
     insertarResenaApi(formData);
 });
 
+// Función para mostrar mensajes con Notie.js
+function mostrarMensaje(response) {
+    if (response.exists) {
+        // Ya existe una reseña
+        notie.alert({
+            type: 'error',
+            text: response.error,
+            time: 3 // Duración del mensaje en segundos
+        });
+    } else if (response.success) {
+        // Reseña añadida con éxito
+        notie.alert({
+            type: 'success',
+            text: response.success,
+            time: 3 // Duración del mensaje en segundos
+        });
+    } else if (response.error) {
+        // Otro tipo de error
+        notie.alert({
+            type: 'error',
+            text: response.error,
+            time: 3 // Duración del mensaje en segundos
+        });
+    }
+}
+
+// Llama a la función al recibir la respuesta del servidor
 async function insertarResenaApi(formData) {
     const url = 'http://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api';
 
     try {
         const response = await axios.post(url, formData);
         console.log(response.data);
-        alert("Reseña agregada correctamente");
+        mostrarMensaje(response.data); // Muestra el mensaje con Notie.js
     } catch (error) {
         console.error('Error:', error.message);
         alert("Error al agregar la reseña");
     }
 }
+
