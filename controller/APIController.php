@@ -43,6 +43,7 @@ class APIController
 
             // Enviar una respuesta JSON válida
             echo json_encode(["mensaje" => "Reseña añadida correctamente"], JSON_UNESCAPED_UNICODE);
+            
         } else {
             echo json_encode(["error" => "La clave 'accion' no está definida."], JSON_UNESCAPED_UNICODE);
             exit();

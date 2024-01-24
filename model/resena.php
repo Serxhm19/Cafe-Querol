@@ -148,31 +148,77 @@ class resena
         // Obtén la conexión a la base de datos utilizando tu método o clase de conexión
         $con = DataBase::connect();
 
-        // Preparar la consulta con una sentencia preparada
-        $sql = "INSERT INTO reseñas (ID_PEDIDO, ASUNTO_RESEÑA, COMENTARIO_RESEÑA, FECHA_RESEÑA, VALORACION_RESEÑA) VALUES (?, ?, ?, NOW(), ?)";
-        $stmt = $con->prepare($sql);
+        // Verificar si ya existe una reseña para el pedido
+        $resenaExistente = self::obtenerResenaPorPedido($this->idPedido);
 
-        // Verifica si la preparación de la consulta fue exitosa
-        if ($stmt) {
-            // Enlazar los valores a los marcadores de posición
-            $stmt->bind_param("dssd", $this->idPedido, $this->asuntoResena, $this->comentarioResena, $this->valoracionResena);
+        // Arreglo asociativo para almacenar el resultado y los mensajes
+        $response = array();
 
-            // Ejecutar la consulta
-            if ($stmt->execute()) {
-                echo json_encode(array('success' => 'Reseña añadida con éxito'));
-            } else {
-                echo json_encode(array('error' => 'Error al añadir la reseña: ' . $stmt->error));
-            }
-
-            // Cerrar la sentencia preparada
-            $stmt->close();
+        if ($resenaExistente) {
+            $response['exists'] = true;
+            $response['error'] = 'Ya existe una reseña para este pedido.';
         } else {
-            echo json_encode(array('error' => 'Error en la preparación de la consulta'));
+            // Preparar la consulta con una sentencia preparada
+            $sql = "INSERT INTO reseñas (ID_PEDIDO, ASUNTO_RESEÑA, COMENTARIO_RESEÑA, FECHA_RESEÑA, VALORACION_RESEÑA) VALUES (?, ?, ?, NOW(), ?)";
+            $stmt = $con->prepare($sql);
+
+            // Verifica si la preparación de la consulta fue exitosa
+            if ($stmt) {
+                // Enlazar los valores a los marcadores de posición
+                $stmt->bind_param("dssd", $this->idPedido, $this->asuntoResena, $this->comentarioResena, $this->valoracionResena);
+
+                // Ejecutar la consulta
+                if ($stmt->execute()) {
+                    $response['success'] = 'Reseña añadida con éxito';
+                } else {
+                    $response['error'] = 'Error al añadir la reseña: ' . $stmt->error;
+                }
+
+                // Cerrar la sentencia preparada
+                $stmt->close();
+            } else {
+                $response['error'] = 'Error en la preparación de la consulta';
+            }
         }
 
         // Cerrar la conexión
         $con->close();
+
+        // Imprimir el resultado como JSON
+        echo json_encode($response);
     }
+
+
+
+    public static function obtenerResenaPorPedido($idPedido)
+    {
+        $con = DataBase::connect();
+
+        $sql = "SELECT * FROM reseñas WHERE ID_PEDIDO = ?";
+        $stmt = $con->prepare($sql);
+        $stmt->bind_param("s", $idPedido);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result) {
+            if ($row = $result->fetch_assoc()) {
+                $resena = new Resena(
+                    $row['ID_RESEÑA'],
+                    $row['ID_PEDIDO'],
+                    $row['ASUNTO_RESEÑA'],
+                    $row['COMENTARIO_RESEÑA'],
+                    $row['FECHA_RESEÑA'],
+                    $row['VALORACION_RESEÑA']
+                );
+
+                return $resena;
+            }
+        } else {
+            echo "Error al obtener la reseña: " . $con->error;
+        }
+        return null;
+    }
+
 
 
     public static function obtenerTodasResenas()
@@ -204,6 +250,38 @@ class resena
 
         $con->close();
         return [];
+    }
+
+
+    public static function obtenerResenaPorId($idResena)
+    {
+        $con = DataBase::connect();
+
+        $sql = "SELECT * FROM reseñas WHERE ID_RESEÑA = ?";
+        $stmt = $con->prepare($sql);
+        $stmt->bind_param("s", $idResena);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result) {
+            if ($row = $result->fetch_assoc()) {
+                $resena = new Resena(
+                    $row['ID_RESEÑA'],
+                    $row['ID_PEDIDO'],
+                    $row['ASUNTO_RESEÑA'],
+                    $row['COMENTARIO_RESEÑA'],
+                    $row['FECHA_RESEÑA'],
+                    $row['VALORACION_RESEÑA']
+                );
+
+                return $resena;
+            } else {
+                echo "No se encontró ninguna reseña con el ID proporcionado.";
+            }
+        } else {
+            echo "Error al obtener la reseña: " . $con->error;
+        }
+        return null;
     }
 
 
