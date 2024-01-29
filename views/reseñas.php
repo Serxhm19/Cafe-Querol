@@ -4,7 +4,7 @@
 <head>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <link rel="stylesheet" href="Style\stylehomepage.css">
+  <link rel="stylesheet" href="Style\stylereseñas.css">
   <link rel="icon" type="image/jpg" href="img\icons\logoQuerol.jpg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -83,8 +83,9 @@
 
 <body>
 
-<h1 class="titulo"> RESEÑAS </h1>
-<!-- <div class="container"-->
+  <h1 class="titulo"> RESEÑAS </h1>
+  <hr>
+  <!-- <div class="container"-->
   <!-- Add this to your HTML where you want to display the cards -->
   <div id="cards-container"></div>
 
@@ -118,12 +119,10 @@
 
           // Populate the card with data
           card.innerHTML = `
-                    <h2>ID Reseña: ${formData.ID_RESEÑA}</h2>
-                    <p>ID Pedido: ${formData.ID_PEDIDO}</p>
-                    <p>Asunto: ${formData.ASUNTO_RESEÑA}</p>
-                    <p>Comentario: ${formData.COMENTARIO_RESEÑA}</p>
-                    <p>Fecha: ${formData.FECHA_RESEÑA}</p>
-                    <p>Valoración: ${formData.VALORACION_RESEÑA}</p>
+                    <h2>${formData.ASUNTO_RESEÑA}</h2>
+                    <p>${formData.COMENTARIO_RESEÑA}</p>
+                    <p>${formData.FECHA_RESEÑA}</p>
+                    <p> ${formData.VALORACION_RESEÑA}</p>
                 `;
 
           // Append the card to a container in your HTML

@@ -1,9 +1,11 @@
 
+// para todos los radiobutton rating agregar un on change
 const changeRating = document.querySelectorAll('input[name=rating]');
 changeRating.forEach((radio) => {
     radio.addEventListener('change', getRating);
 });
 
+// buscar el radiobutton checked y armar el texto con el valor ( 0 - 5 )
 function getRating() {
     let estrellas = document.querySelector('input[name=rating]:checked').value;
     document.getElementById("texto").innerHTML = (
@@ -25,11 +27,25 @@ $(document).ready(function () {
 });
 
 function obtenerValoresDelFormulario() {
-    var id_usuario = 13;
-    id_pedido = document.getElementById('idPedidoResena').value;
-    asunto_resena = document.getElementById('asuntoResena').value;
-    comentario_resena = document.getElementById('comentarioResena').value;
-    valoracion_resena = document.getElementById('valoracionResena').value;
+    // Assuming this function is within a .js file
+    // Get the user data
+    var clienteData = obtenerDatosClienteReseñas();
+
+    // Check if user data is available
+    var id_usuario;
+    if (clienteData) {
+        // Extract the user ID
+        id_usuario = clienteData.ID_USUARIO;
+    } else {
+        // If user data is not available, set id_usuario to a default value or handle it accordingly
+        id_usuario = 0; // You may want to set it to 0 or any default value
+    }
+
+    // Rest of your code remains unchanged
+    var id_pedido = document.getElementById('idPedidoResena').value;
+    var asunto_resena = document.getElementById('asuntoResena').value;
+    var comentario_resena = document.getElementById('comentarioResena').value;
+    var valoracion_resena = document.querySelector('input[name=rating]:checked').value;
 
     return {
         "id_pedido": id_pedido,
@@ -37,9 +53,9 @@ function obtenerValoresDelFormulario() {
         "asunto_resena": asunto_resena,
         "comentario_resena": comentario_resena,
         "valoracion_resena": valoracion_resena,
-        
     };
 }
+
 
 $("#btnAgregarResena").click(function () {
     var valoresFormulario = obtenerValoresDelFormulario();
