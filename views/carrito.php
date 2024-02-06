@@ -4,6 +4,7 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="Style/stylecarrito.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -251,7 +252,7 @@
                         <?php endforeach; ?>
 
                         <!-- Botón para enviar el formulario -->
-                        <button type="submit" class="btnPagar">Pagar</button>
+                        <button type="submit" id="btnPagar" class="btnPagar">Pagar</button>
                     </form>
                     <?php
             } else {
@@ -260,6 +261,41 @@
             ?>
             </div>
         </div>
+        <script>
+            $('#btnPagar').click(function (e) {
+                e.preventDefault(); // Evita que el formulario se envíe de forma normal
+
+                // Obtén los datos del formulario
+                var formData = $('form').serialize();
+
+                // Realiza una solicitud AJAX al servidor
+                $.ajax({
+                    type: 'POST',
+                    url: '?controller=producto&action=insertarDetallesPedido',
+                    data: formData,
+                    success: function (response) {
+                        // Genera el código QR una vez que se haya enviado el formulario
+                        var qrCodeBaseUri = 'https://api.qrserver.com/v1/create-qr-code/?',
+                            params = {
+                                data: 'https://google.com',
+                                size: '150x150',
+                                margin: 1,
+                                download: 1
+                            };
+
+                        var link = document.createElement('a');
+                        var fileName = 'qr_code_' + new Date().toISOString().slice(0, 10) + '.png'; // Nombre del archivo con la fecha actual
+                        link.download = fileName;
+                        link.href = qrCodeBaseUri + $.param(params);
+                        link.click();
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            });
+        </script>
 </body>
 <footer>
     <div class="footer-up">

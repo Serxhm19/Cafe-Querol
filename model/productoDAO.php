@@ -113,38 +113,38 @@ final class productoDAO
     public static function topVentas()
     {
         $con = DataBase::connect();
-    
+
         // Consulta para obtener los IDs de los productos más pedidos
         $sql = "SELECT ID_PRODUCTO, SUM(CANTIDAD) AS total_pedidos
                 FROM pedido_articulos
                 GROUP BY ID_PRODUCTO
                 ORDER BY total_pedidos DESC
                 LIMIT 5"; // Puedes ajustar el límite según tus necesidades
-    
+
         $mostOrderedProductIDs = array();
-    
+
         if ($result = $con->query($sql)) {
             while ($row = $result->fetch_object()) {
                 $mostOrderedProductIDs[] = $row->ID_PRODUCTO;
             }
         }
-    
+
         // Consulta para obtener todos los datos de los productos más pedidos
         $productos = array();
-    
+
         if (!empty($mostOrderedProductIDs)) {
             $inClause = implode(',', $mostOrderedProductIDs);
             $sqlProductos = "SELECT * FROM productos WHERE ID_PRODUCTO IN ($inClause)";
-    
+
             if ($resultProductos = $con->query($sqlProductos)) {
                 while ($rowProductos = $resultProductos->fetch_object()) {
                     $productos[] = $rowProductos;
                 }
             }
         }
-    
+
         $con->close();
-    
+
         return $productos;
     }
 
@@ -205,9 +205,32 @@ final class productoDAO
         $con->close();
     }
 
-   
+    public static function getProductosByCategoria($categorias)
+    {
 
+        $con = DataBase::connect();
 
+        // Validar que $categorias es un array y no está vacío
+        if (!is_array($categorias) || empty($categorias)) {
+            return null;
+        }
 
+        // Crear una cadena con los IDs de categorías para usar en la cláusula WHERE
+        $categoriasString = implode(',', $categorias);
+
+        // Modificar la consulta para seleccionar productos de las categorías especificadas
+        $sql = "SELECT * FROM productos WHERE ID_CATEGORIA IN ($categoriasString)";
+
+        $productos = array(); // Inicializamos un array para almacenar los productos
+
+        if ($resultado = $con->query($sql)) {
+            while ($producto = $resultado->fetch_object()) {
+                $productos[] = $producto; // Agregamos cada producto al array
+            }
+            return $productos; // Devolvemos el array con todos los productos
+        } else {
+            return null; // Devolvemos null en caso de error en la consulta
+        }
+    }
 }
 ?>

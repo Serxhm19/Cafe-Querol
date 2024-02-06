@@ -35,39 +35,35 @@
             visita a Querol sea aún más especial a través de nuestra exquisita oferta gastronómica.
         </p>
     </section>
-    <section class="categories">
-        <div class="row">
-            <div class="col-6">
-                <div class="categoriesdropdown">
-                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        CATEGORIAS
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="?controller=producto&action=bebidas">Bebidas</a></li>
-                        <li><a class="dropdown-item" href="?controller=producto&action=alimentacion">Alimentación</a>
-                        </li>
-                        <li><a class="dropdown-item" href="?controller=producto&action=packs">Packs</a></li>
-                    </ul>
-                </div>
-            </div>
+    <div class="col-6">
+        <div class="categoriesdropdown">
+            <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                CATEGORIAS
+            </button>
+            <ul class="dropdown-menu">
+                <li><input type="checkbox" class="category-checkbox" id="bebidas"> <label for="bebidas">Bebidas</label>
+                </li>
+                <li><input type="checkbox" class="category-checkbox" id="alimentacion"> <label
+                        for="alimentacion">Alimentación</label></li>
+                <li><input type="checkbox" class="category-checkbox" id="packs"> <label for="packs">Packs</label></li>
+            </ul>
         </div>
-    </section>
+    </div>
+
 
     <section>
         <div class="row allproducts">
             <?php
-            $productos = productoDAO::getAllProductoCarta();
+            $productos = productoDAO::getAllProducto();
 
             $contador = 0;
             if ($productos && count($productos) > 0) {
                 foreach ($productos as $producto) {
-                    // Formatea el precio con comas en lugar de puntos
                     $precioFormateado = number_format($producto->PRECIO, 2, ',', '.');
-
                     ?>
-                    <div class="col-12 col-md-2 mb-3 position-relative">
+                    <div class="col-12 col-md-2 mb-3 position-relative" data-categories="<?= $categorias ?>">
                         <div class="card cartaproducto">
-                            <img src="<?= $producto->IMG; ?>" class="card-img-top" alt="<?= $producto -> NOMBRE_PRODUCTO ?>">
+                            <img src="<?= $producto->IMG; ?>" class="card-img-top" alt="<?= $producto->NOMBRE_PRODUCTO ?>">
                             <div class="card-body">
                                 <p class="card-title name">
                                     <?= $producto->NOMBRE_PRODUCTO; ?>
@@ -129,6 +125,47 @@
             </div>
         </div>
     </section>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Manejar el cambio en los checkboxes
+            $('.category-checkbox').change(function () {
+                filterProducts();
+            });
+
+            function filterProducts() {
+                // Obtener categorías seleccionadas
+                var selectedCategories = [];
+                $('.category-checkbox:checked').each(function () {
+                    selectedCategories.push($(this).attr('id'));
+                });
+
+                // Mostrar u ocultar productos según las categorías seleccionadas
+                $('.allproducts .col-12').each(function () {
+                    var productCategories = $(this).find('.category').data('categories').split(',');
+
+                    if (selectedCategories.length === 0 || containsAny(productCategories, selectedCategories)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+
+            // Función auxiliar para verificar si un array contiene algún elemento de otro array
+            function containsAny(source, target) {
+                for (var i = 0; i < source.length; i++) {
+                    if (target.indexOf(source[i]) >= 0) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            // Inicializar el filtro al cargar la página
+            filterProducts();
+        });
+    </script>
 
 </body>
 <footer>

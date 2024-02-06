@@ -71,6 +71,14 @@ class productoController
 
     }
 
+    
+    public function QR()
+    {
+
+        include_once "views/qrPage.php";
+
+
+    }
 
 
     public static function sel()
@@ -148,7 +156,7 @@ class productoController
         }
 
         // Redirigir a la página del carrito 
-        header("Location: " . $url . "?controller=producto&action=carrito");
+        header("Location: " . $url . "?controller=usuario&action=mispedidos");
         exit();
     }
 
@@ -242,7 +250,7 @@ class productoController
                 unset($_SESSION['cart']);
 
                 // Redirige al usuario al dashboard
-                header("Location: " . $url . "?controller=usuario&action=dashboard");
+                header("Location: " . $url . "?controller=producto&action=carrito");
                 exit; // Asegura que no haya ninguna salida adicional después de la redirección
             } else {
                 echo "No hay productos en el carrito.";
