@@ -9,6 +9,9 @@ class resena
     protected $fechaResena;
     protected $valoracionResena;
 
+    protected $emailUsuario; // Nuevo atributo para almacenar el correo electrónico del usuario
+
+
     // Constructor para crear una instancia de Resena
     public function __construct($idResena, $idPedido, $asuntoResena, $comentarioResena, $fechaResena, $valoracionResena)
     {
@@ -283,9 +286,80 @@ class resena
         return null;
     }
 
+    public static function obtenerTodasResenasConEmail()
+    {
+        try {
+            $conexion = DataBase::connect();
+
+            $query = "SELECT
+                r.ID_RESEÑA,
+                r.ID_PEDIDO,
+                r.ASUNTO_RESEÑA,
+                r.COMENTARIO_RESEÑA,
+                r.FECHA_RESEÑA,
+                r.VALORACION_RESEÑA,
+                u.CORREO AS EMAIL_USUARIO
+            FROM
+                reseñas r
+            INNER JOIN pedidos p ON r.ID_PEDIDO = p.ID_PEDIDO
+            INNER JOIN usuarios u ON p.ID_USUARIO = u.ID_USUARIO";
+
+            $stmt = $conexion->prepare($query);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            if ($result) {
+                $resenas = [];
+                while ($row = $result->fetch_assoc()) {
+                    $resena = new Resena(
+                        $row['ID_RESEÑA'],
+                        $row['ID_PEDIDO'],
+                        $row['ASUNTO_RESEÑA'],
+                        $row['COMENTARIO_RESEÑA'],
+                        $row['FECHA_RESEÑA'],
+                        $row['VALORACION_RESEÑA']
+                    );
+                    $resena->setEmailUsuario($row['EMAIL_USUARIO']); // Asignar el email del usuario
+                    $resenas[] = $resena;
+                }
+
+                $conexion->close();
+                return $resenas;
+            } else {
+                echo "Error al obtener las reseñas: " . $conexion->error;
+            }
+
+            $conexion->close();
+            return [];
+        } catch (PDOException $e) {
+            echo "Error al obtener las reseñas con email del usuario: " . $e->getMessage();
+            return [];
+        }
+    }
 
 
+    /**
+     * Get the value of emailUsuario
+     */ 
+    public function getEmailUsuario()
+    {
+        return $this->emailUsuario;
+    }
 
+    /**
+     * Set the value of emailUsuario
+     *
+     * @return  self
+     */ 
+    public function setEmailUsuario($emailUsuario)
+    {
+        $this->emailUsuario = $emailUsuario;
+
+        return $this;
+    }
 }
+
+
 
 ?>

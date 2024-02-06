@@ -123,6 +123,7 @@
                     <p>${formData.COMENTARIO_RESEÑA}</p>
                     <p>${formData.FECHA_RESEÑA}</p>
                     <p> ${formData.VALORACION_RESEÑA}</p>
+                    <p> ${formData.EMAIL_USUARIO}</p>
                 `;
 
           // Append the card to a container in your HTML

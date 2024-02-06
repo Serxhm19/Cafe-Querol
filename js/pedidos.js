@@ -27,19 +27,7 @@ $(document).ready(function () {
 });
 
 function obtenerValoresDelFormulario() {
-    // Assuming this function is within a .js file
-    // Get the user data
-    var clienteData = obtenerDatosClienteReseñas();
 
-    // Check if user data is available
-    var id_usuario;
-    if (clienteData) {
-        // Extract the user ID
-        id_usuario = clienteData.ID_USUARIO;
-    } else {
-        // If user data is not available, set id_usuario to a default value or handle it accordingly
-        id_usuario = 0; // You may want to set it to 0 or any default value
-    }
 
     // Rest of your code remains unchanged
     var id_pedido = document.getElementById('idPedidoResena').value;
@@ -49,7 +37,6 @@ function obtenerValoresDelFormulario() {
 
     return {
         "id_pedido": id_pedido,
-        "id_usuario": id_usuario,
         "asunto_resena": asunto_resena,
         "comentario_resena": comentario_resena,
         "valoracion_resena": valoracion_resena,

@@ -11,7 +11,7 @@ class APIController
         $accion = isset($_POST['accion']) ? $_POST['accion'] : 'default_value';
 
         if ($accion == 'get_reviews') {
-            $resenas = Resena::obtenerTodasResenas();
+            $resenas = Resena::obtenerTodasResenasConEmail(); // Obtener reseñas con email de usuario
             $array_resenas = [];
             foreach ($resenas as $resena) {
                 $array_resenas[] = [
@@ -20,10 +20,10 @@ class APIController
                     "ASUNTO_RESEÑA" => $resena->getAsuntoResena(),
                     "COMENTARIO_RESEÑA" => $resena->getComentarioResena(),
                     "FECHA_RESEÑA" => $resena->getFechaResena(),
-                    "VALORACION_RESEÑA" => $resena->getValoracionResena()
+                    "VALORACION_RESEÑA" => $resena->getValoracionResena(),
+                    "EMAIL_USUARIO" => $resena->getEmailUsuario() // Agregar email de usuario
                 ];
             }
-
             // Envia la respuesta como JSON
             echo json_encode($array_resenas, JSON_UNESCAPED_UNICODE);
         } else if ($accion == 'add_review') {
@@ -43,7 +43,8 @@ class APIController
 
             // Enviar una respuesta JSON válida
             echo json_encode(["mensaje" => "Reseña añadida correctamente"], JSON_UNESCAPED_UNICODE);
-            
+
+
         } else {
             echo json_encode(["error" => "La clave 'accion' no está definida."], JSON_UNESCAPED_UNICODE);
             exit();

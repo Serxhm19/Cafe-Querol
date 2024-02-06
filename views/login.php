@@ -170,6 +170,31 @@
         </div>
     </div>
     </section>
+
+    <script>
+        // Función para guardar el correo electrónico en localStorage
+        function guardarEmailLocalStorage() {
+            // Obtener el valor del correo electrónico del input
+            var email = document.getElementById('exampleInputEmail2').value;
+
+            // Verificar si se ha ingresado un correo electrónico
+            if (email.trim() !== '') {
+                // Guardar el correo electrónico en localStorage
+                localStorage.setItem('email', email);
+            }
+        }
+
+        // Llamar a la función para guardar el correo electrónico cuando se envíe el formulario
+        document.addEventListener('DOMContentLoaded', function () {
+            var formIdentificacion = document.getElementById('formIdentificacion');
+            if (formIdentificacion) {
+                formIdentificacion.addEventListener('submit', function (event) {
+                    guardarEmailLocalStorage();
+                });
+            }
+        });
+    </script>
+    
 </body>
 <footer>
     <div class="footer-up">

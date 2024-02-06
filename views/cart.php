@@ -54,12 +54,13 @@
     <section>
         <div class="row allproducts">
             <?php
-            $productos = productoDAO::getAllProducto();
+            $productos = productoDAO::getAllProductoCarta();
 
             $contador = 0;
             if ($productos && count($productos) > 0) {
                 foreach ($productos as $producto) {
                     $precioFormateado = number_format($producto->PRECIO, 2, ',', '.');
+                    $categorias = implode(',', $producto->ID_CATEGORIA);
                     ?>
                     <div class="col-12 col-md-2 mb-3 position-relative" data-categories="<?= $categorias ?>">
                         <div class="card cartaproducto">
