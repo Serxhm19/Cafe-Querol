@@ -44,7 +44,23 @@ class APIController
             // Enviar una respuesta JSON válida
             echo json_encode(["mensaje" => "Reseña añadida correctamente"], JSON_UNESCAPED_UNICODE);
 
-
+        } else if ($accion == 'get_products') {
+            include_once ('model\productoDAO.php');
+            // Obtener productos desde la base de datos
+            $productos = productoDAO::getAllProductoCarta();
+            $array_productos = [];
+            foreach ($productos as $producto) {
+                $array_productos[] = [
+                    "ID_PRODUCTO" => $producto->ID_PRODUCTO,
+                    "NOMBRE_PRODUCTO" => $producto->NOMBRE_PRODUCTO,
+                    "DESCRIPCION" => $producto->DESCRIPCION,
+                    "PRECIO" => $producto->PRECIO,
+                    "IMG" => $producto->IMG
+                    // Puedes incluir más atributos según sea necesario
+                ];
+            }
+            // Envia la respuesta como JSON
+            echo json_encode($array_productos, JSON_UNESCAPED_UNICODE);
         } else {
             echo json_encode(["error" => "La clave 'accion' no está definida."], JSON_UNESCAPED_UNICODE);
             exit();

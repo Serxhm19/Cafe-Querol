@@ -9,7 +9,7 @@
     <link rel="icon" type="image/jpg" href="img\icons\logoQuerol.jpg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> Café Querol | Tu cafeteria de confianza </title>
+    <title>Café Querol | Tu cafetería de confianza</title>
 </head>
 
 <body>
@@ -41,114 +41,92 @@
                 CATEGORIAS
             </button>
             <ul class="dropdown-menu">
-                <li><input type="checkbox" class="category-checkbox" id="bebidas"> <label for="bebidas">Bebidas</label>
-                </li>
-                <li><input type="checkbox" class="category-checkbox" id="alimentacion"> <label
-                        for="alimentacion">Alimentación</label></li>
-                <li><input type="checkbox" class="category-checkbox" id="packs"> <label for="packs">Packs</label></li>
+                <li><input type="checkbox" class="category-checkbox" id="1"> <label for="1">Bebidas</label></li>
+                <li><input type="checkbox" class="category-checkbox" id="2"> <label for="2">Alimentación</label></li>
+                <li><input type="checkbox" class="category-checkbox" id="3"> <label for="3">Packs</label></li>
             </ul>
         </div>
     </div>
 
 
     <section>
-        <div class="row allproducts">
-            <?php
-            $productos = productoDAO::getAllProductoCarta();
-
-            $contador = 0;
-            if ($productos && count($productos) > 0) {
-                foreach ($productos as $producto) {
-                    $precioFormateado = number_format($producto->PRECIO, 2, ',', '.');
-                    $categorias = implode(',', $producto->ID_CATEGORIA);
-                    ?>
-                    <div class="col-12 col-md-2 mb-3 position-relative" data-categories="<?= $categorias ?>">
-                        <div class="card cartaproducto">
-                            <img src="<?= $producto->IMG; ?>" class="card-img-top" alt="<?= $producto->NOMBRE_PRODUCTO ?>">
-                            <div class="card-body">
-                                <p class="card-title name">
-                                    <?= $producto->NOMBRE_PRODUCTO; ?>
-                                </p>
-                                <p class="card-title description">
-                                    <?= $producto->DESCRIPCION; ?>
-                                </p>
-                                <h2 class="card-text price">
-                                    <?= $precioFormateado . " €"; ?>
-                                </h2>
-                                <form action="?controller=producto&action=sel" method="post">
-                                    <input type="hidden" name="product_id" value="<?= $producto->ID_PRODUCTO; ?>">
-                                    <input type="hidden" name="product_name" value="<?= $producto->NOMBRE_PRODUCTO; ?>">
-                                    <input type="hidden" name="product_price" value="<?= $producto->PRECIO; ?>">
-                                    <input type="hidden" name="product_img" value="<?= $producto->IMG; ?>">
-                                    <input type="hidden" name="product_description" value="<?= $producto->DESCRIPCION; ?>">
-                                    <button type="submit" class="btn-hover add-to-cart-btn">
-                                        Añadir al Carrito
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <?php
-                    $contador++;
-                    if ($contador % 5 === 0) {
-                        echo '<div class="w-100"></div>';
-                    }
-                }
-            } else {
-                echo "<p>No se encontraron productos.</p>";
-            }
-            ?>
-        </div>
-
-
-
-        <hr>
-        <!-- Newsletter y Checkbox Section -->
-        <div class="newsletter mt-4">
-            <h3>¿Quieres recibir nuestras ofertas y novedades?</h3>
-            <div class="row">
-                <div class="col-12 col-md-6">
-                    <input type="text" class="form-control" placeholder="Introduce tu e-mail para suscribirte">
-                </div>
-                <div class="col-12 col-md-6 mt-2 mt-md-0">
-                    <button type="button" class="btn btn-primary">ENVIAR</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Privacy Checkbox Section -->
-        <div class="privacy-checkbox mt-2">
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="privacyCheckbox">
-                <label class="form-check-label" for="privacyCheckbox">
-                    He leído y acepto la <a href="#">Política de privacidad</a>
-                </label>
-            </div>
+        <div class="row allproducts" id="product-container">
+            <!-- Los productos se cargarán aquí -->
         </div>
     </section>
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function () {
+            // Llama a la función para obtener los productos al cargar la página
+            getProducts();
+
             // Manejar el cambio en los checkboxes
             $('.category-checkbox').change(function () {
                 filterProducts();
             });
 
             function filterProducts() {
-                // Obtener categorías seleccionadas
                 var selectedCategories = [];
+
+                // Obtener las categorías seleccionadas
                 $('.category-checkbox:checked').each(function () {
                     selectedCategories.push($(this).attr('id'));
                 });
 
                 // Mostrar u ocultar productos según las categorías seleccionadas
                 $('.allproducts .col-12').each(function () {
-                    var productCategories = $(this).find('.category').data('categories').split(',');
+                    var productCategories = $(this).data('categories').split(',');
 
                     if (selectedCategories.length === 0 || containsAny(productCategories, selectedCategories)) {
                         $(this).show();
                     } else {
                         $(this).hide();
+                    }
+                });
+            }
+
+            function getProducts() {
+                $.ajax({
+                    url: 'http://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api',
+                    type: 'POST',
+                    data: {
+                        accion: 'get_products'
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response && response.length > 0) {
+                            var productsHtml = '';
+                            $.each(response, function (index, product) {
+                                var priceFormatted = parseFloat(product.PRECIO).toFixed(2);
+                                productsHtml += `
+                            <div class="col-12 col-md-2 mb-3 position-relative" data-categories="${product.ID_CATEGORIA}">
+                                <div class="card cartaproducto">
+                                    <img src="${product.IMG}" class="card-img-top" alt="${product.NOMBRE_PRODUCTO}">
+                                    <div class="card-body">
+                                        <p class="card-title name">${product.NOMBRE_PRODUCTO}</p>
+                                        <p class="card-title description">${product.DESCRIPCION}</p>
+                                        <h2 class="card-text price">${priceFormatted} €</h2>
+                                        <form action="?controller=producto&action=sel" method="post">
+                                            <input type="hidden" name="product_id" value="${product.ID_PRODUCTO}">
+                                            <input type="hidden" name="product_name" value="${product.NOMBRE_PRODUCTO}">
+                                            <input type="hidden" name="product_price" value="${priceFormatted}">
+                                            <input type="hidden" name="product_img" value="${product.IMG}">
+                                            <input type="hidden" name="product_description" value="${product.DESCRIPCION}">
+                                            <button type="submit" class="btn-hover add-to-cart-btn">Añadir al Carrito</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>`;
+                            });
+
+                            $('#product-container').html(productsHtml);
+                        } else {
+                            $('#product-container').html('<p>No se encontraron productos.</p>');
+                        }
+                    },
+                    error: function () {
+                        $('#product-container').html('<p>Ocurrió un error al cargar los productos.</p>');
                     }
                 });
             }
@@ -162,13 +140,12 @@
                 }
                 return false;
             }
-
-            // Inicializar el filtro al cargar la página
-            filterProducts();
         });
-    </script>
 
+
+    </script>
 </body>
+
 <footer>
     <div class="footer-up">
         <ul>
@@ -186,3 +163,5 @@
         <p>Copyright 2023 | Sergi Hernández Miras</p>
     </div>
 </footer>
+
+</html>
