@@ -95,7 +95,7 @@ final class productoDAO
     public static function getAllProductoCarta()
     {
         $con = DataBase::connect();
-        $sql = "SELECT ID_PRODUCTO, IMG, PRECIO, NOMBRE_PRODUCTO, DESCRIPCION FROM productos";
+        $sql = "SELECT ID_CATEGORIA, ID_PRODUCTO, IMG, PRECIO, NOMBRE_PRODUCTO, DESCRIPCION FROM productos";
 
         $productos = array();
 

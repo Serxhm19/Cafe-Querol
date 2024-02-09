@@ -51,6 +51,7 @@ class APIController
             $array_productos = [];
             foreach ($productos as $producto) {
                 $array_productos[] = [
+                    "ID_CATEGORIA" => $producto->ID_CATEGORIA,
                     "ID_PRODUCTO" => $producto->ID_PRODUCTO,
                     "NOMBRE_PRODUCTO" => $producto->NOMBRE_PRODUCTO,
                     "DESCRIPCION" => $producto->DESCRIPCION,

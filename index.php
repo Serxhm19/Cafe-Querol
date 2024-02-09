@@ -5,6 +5,11 @@ include_once 'controller/usuarioController.php';
 include_once 'controller/APIController.php';
 include_once 'config/parametros.php';
 
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Verifica si se proporciona un controlador
 if (!isset($_GET['controller'])) {
     header("location:" . url . '?controller=producto');

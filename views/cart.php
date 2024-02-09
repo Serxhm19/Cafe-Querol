@@ -76,9 +76,9 @@
 
                 // Mostrar u ocultar productos según las categorías seleccionadas
                 $('.allproducts .col-12').each(function () {
-                    var productCategories = $(this).data('categories').split(',');
+                    var productCategories = $(this).data('categories').toString();
 
-                    if (selectedCategories.length === 0 || containsAny(productCategories, selectedCategories)) {
+                    if (selectedCategories.length === 0 || containsAny(productCategories.split(','), selectedCategories)) {
                         $(this).show();
                     } else {
                         $(this).hide();
@@ -141,8 +141,6 @@
                 return false;
             }
         });
-
-
     </script>
 </body>
 
@@ -165,3 +163,5 @@
 </footer>
 
 </html>
+
+
