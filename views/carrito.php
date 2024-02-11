@@ -277,7 +277,7 @@
                         // Genera el código QR una vez que se haya enviado el formulario
                         var qrCodeBaseUri = 'https://api.qrserver.com/v1/create-qr-code/?',
                             params = {
-                                data: 'https://google.com',
+                                data: 'http://workspace.com/Workspace/Cafe-Querol/?controller=usuario&action=visualizarPedido&ID_PEDIDO=' + response.ID_PEDIDO, // Actualización de la URL
                                 size: '150x150',
                                 margin: 1,
                                 download: 1

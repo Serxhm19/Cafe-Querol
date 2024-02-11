@@ -158,3 +158,117 @@ hr{
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: white;
 }
+
+.star {
+  width: 22px; /* Ancho de la estrella */
+  height: 22px; /* Altura de la estrella */
+  fill: #ff0000; /* Color de relleno de la estrella */
+}
+
+.rating-dropdown button {
+  font-size: 12px;
+  font-family: 'DIN', sans-serif;
+  background-color: #FFFFFF;
+  color: #777777;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px; /* Ajusta el valor según tus preferencias para hacer los bordes más redondos */
+  padding: 5px 10px;
+  margin-left: 80px;
+}
+
+.rating-dropdown button:hover {
+  font-size: 12px;
+  font-family: 'DIN', sans-serif;
+  background-color: #FFFFFF;
+  color: #777777;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px; /* Ajusta el valor según tus preferencias para hacer los bordes más redondos */
+  padding: 5px 10px;
+  margin-left: 80px;
+}
+
+.orderdropdown button {
+  font-size: 12px;
+  font-family: 'DIN', sans-serif;
+  background-color: #FFFFFF;
+  color: #777777;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px; /* Ajusta el valor según tus preferencias para hacer los bordes más redondos */
+  padding: 5px 10px;
+  margin-top: 55px;
+  margin-left: 20px;
+}
+
+
+
+
+.rating-dropdown .dropdown-menu, 
+.orderdropdown .dropdown-menu {
+  font-size: 13px;
+  font-family: 'DIN';
+  background-color: #FFFFFF;
+  color: #000000;
+  padding: 5px;
+}
+
+
+.categories .rating-dropdown:last-child {
+  margin-top: 55px;
+  text-align: end;
+  /* Alinea el último elemento a la derecha */
+  margin-bottom: 55px;
+}
+
+.order-dropdown button {
+  font-size: 12px;
+  font-family: 'DIN', sans-serif;
+  background-color: #FFFFFF;
+  color: #777777;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px; /* Ajusta el valor según tus preferencias para hacer los bordes más redondos */
+  padding: 5px 10px;
+  margin-left: 80px;
+}
+
+.order-dropdown button:hover {
+  font-size: 12px;
+  font-family: 'DIN', sans-serif;
+  background-color: #FFFFFF;
+  color: #777777;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px; /* Ajusta el valor según tus preferencias para hacer los bordes más redondos */
+  padding: 5px 10px;
+  margin-left: 80px;
+}
+
+.orderdropdown button {
+  font-size: 12px;
+  font-family: 'DIN', sans-serif;
+  background-color: #FFFFFF;
+  color: #777777;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px; /* Ajusta el valor según tus preferencias para hacer los bordes más redondos */
+  padding: 5px 10px;
+  margin-top: 55px;
+  margin-left: 20px;
+}
+
+.order-dropdown .dropdown-menu, 
+.orderdropdown .dropdown-menu {
+  font-size: 13px;
+  font-family: 'DIN';
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+
+.categories .order-dropdown:last-child {
+  margin-top: 55px;
+  text-align: end;
+  /* Alinea el último elemento a la derecha */
+  margin-bottom: 55px;
+}
+
+.order-dropdown li{
+  margin-left: 5px;
+}

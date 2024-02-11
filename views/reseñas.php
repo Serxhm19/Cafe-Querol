@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="Style\stylereseñas.css">
   <link rel="icon" type="image/jpg" href="img\icons\logoQuerol.jpg">
   <meta charset="UTF-8">
@@ -85,7 +85,54 @@
 
   <h1 class="titulo"> RESEÑAS </h1>
   <hr>
-  <!-- <div class="container"-->
+  <section>
+    <!-- Agrega menú desplegable de Bootstrap para filtrar por valoración -->
+    <div class="rating-dropdown">
+      <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Filtrar por valoración
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <input type="checkbox" class="form-check-input rating-checkbox" id="1">
+          <label class="form-check-label" for="1">1 estrella</label>
+        </li>
+        <li>
+          <input type="checkbox" class="form-check-input rating-checkbox" id="2">
+          <label class="form-check-label" for="2">2 estrellas</label>
+        </li>
+        <li>
+          <input type="checkbox" class="form-check-input rating-checkbox" id="3">
+          <label class="form-check-label" for="3">3 estrellas</label>
+        </li>
+        <li>
+          <input type="checkbox" class="form-check-input rating-checkbox" id="4">
+          <label class="form-check-label" for="4">4 estrellas</label>
+        </li>
+        <li>
+          <input type="checkbox" class="form-check-input rating-checkbox" id="5">
+          <label class="form-check-label" for="5">5 estrellas</label>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Agrega otro menú desplegable para filtrar por orden ascendente o descendente -->
+    <div class="order-dropdown">
+      <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Filtrar por orden
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <input type="radio" class="form-check-input order-radio" name="order" id="ascendente" value="ascendente">
+          <label class="form-check-label" for="ascendente">Ascendente</label>
+        </li>
+        <li>
+          <input type="radio" class="form-check-input order-radio" name="order" id="descendente" value="descendente">
+          <label class="form-check-label" for="descendente">Descendente</label>
+        </li>
+      </ul>
+    </div>
+  </section>
+
   <!-- Add this to your HTML where you want to display the cards -->
   <div id="cards-container"></div>
 
@@ -117,25 +164,101 @@
           var card = document.createElement('div');
           card.className = 'card';
 
-          // Populate the card with data
-          card.innerHTML = `
-                    <h2>${formData.ASUNTO_RESEÑA}</h2>
-                    <p>${formData.COMENTARIO_RESEÑA}</p>
-                    <p>${formData.FECHA_RESEÑA}</p>
-                    <p> ${formData.VALORACION_RESEÑA}</p>
-                    <p> ${formData.EMAIL_USUARIO}</p>
-                `;
+          // Create star rating HTML based on the rating value
+          var starsHTML = '';
+          for (let i = 0; i < formData.VALORACION_RESEÑA; i++) {
+            starsHTML += '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="star"><path d="M12 2l3.09 6.31L22 9.24l-5.62 5.46 1.33 7.77L12 18.77l-6.71 3.7 1.33-7.77L2 9.24l6.91-.93L12 2z"/></svg>';
+          }
 
-          // Append the card to a container in your HTML
+          // Populate the card with data including star rating HTML
+          card.innerHTML = `
+          <h2>${formData.ASUNTO_RESEÑA}</h2>
+          <p data-rating="${formData.VALORACION_RESEÑA}">${starsHTML}</p>
+          <p>${formData.COMENTARIO_RESEÑA}</p>
+          <p>${formData.FECHA_RESEÑA}</p>
+          <p>${formData.EMAIL_USUARIO}</p>
+        `;
+
+          // Append the card to the cards container
           var cardsContainer = document.getElementById('cards-container');
           cardsContainer.appendChild(card);
         });
+
+        // Add event listener to checkbox for filtering
+        var ratingCheckboxes = document.querySelectorAll('.rating-checkbox');
+        ratingCheckboxes.forEach(function (checkbox) {
+          checkbox.addEventListener('change', function () {
+            filterReviews();
+          });
+        });
+
+        // Add event listener to radio buttons for ordering
+        var orderRadios = document.querySelectorAll('.order-radio');
+        orderRadios.forEach(function (radio) {
+          radio.addEventListener('change', function () {
+            filterReviews();
+          });
+        });
+
       } catch (error) {
         console.error('Error:', error.message);
       }
     }
-  </script>
 
+    // Function to filter reviews based on selected ratings and order
+    function filterReviews() {
+      var selectedRatings = [];
+      var checkedCheckboxes = document.querySelectorAll('.rating-checkbox:checked');
+      checkedCheckboxes.forEach(function (checkbox) {
+        selectedRatings.push(checkbox.id);
+      });
+
+      var orderValue = '';
+      var checkedRadio = document.querySelector('.order-radio:checked');
+      if (checkedRadio) {
+        orderValue = checkedRadio.value;
+      }
+
+      var cards = document.querySelectorAll('.card');
+      cards.forEach(function (card) {
+        var cardRating = parseInt(card.querySelector('p[data-rating]').getAttribute('data-rating'));
+        if (selectedRatings.length === 0 || selectedRatings.includes(cardRating.toString())) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (orderValue === 'ascendente') {
+        sortCardsByRating('ascendente');
+      } else if (orderValue === 'descendente') {
+        sortCardsByRating('descendente');
+      }
+    }
+
+    // Function to sort cards by rating
+    function sortCardsByRating(order) {
+      var cardsContainer = document.getElementById('cards-container');
+      var cards = Array.from(cardsContainer.children);
+
+      cards.sort(function (a, b) {
+        var ratingA = parseInt(a.querySelector('p[data-rating]').getAttribute('data-rating'));
+        var ratingB = parseInt(b.querySelector('p[data-rating]').getAttribute('data-rating'));
+
+        if (order === 'ascendente') {
+          return ratingA - ratingB;
+        } else if (order === 'descendente') {
+          return ratingB - ratingA;
+        }
+      });
+
+      // Vaciar el contenedor de tarjetas y volver a añadir las tarjetas ordenadas
+      cardsContainer.innerHTML = '';
+      cards.forEach(function (card) {
+        cardsContainer.appendChild(card);
+      });
+    }
+  </script>
 
 </body>
 
