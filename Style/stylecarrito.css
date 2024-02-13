@@ -275,10 +275,12 @@ hr {
     margin-top: 10px;
 }
 
-.card-text.totalPrice2 {
-    font-size: 19px;
+.card-text.totalPrice2 p{
+    font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
-    margin-left: -10px;
+    margin-right: -40px;
+    margin-top: 10px;
+
 }
 
 .card-text.Resume {
@@ -352,6 +354,16 @@ hr {
     font-family: DIN;
     margin: 2px;
 
+}
+
+
+.cantidad-propina{
+    margin-left: 5px;
+}
+
+.propina h2{
+    font-family: DIN;
+    
 }
 
 

@@ -141,17 +141,36 @@
                         </p>
                     </div>
                 </div>
-                <div class="row finalPrice custom-background">
+                <div class="row">
                     <div class="col-md-10">
-                        <p class="card-text Resume2">
-                            Total (IVA Incluido):
+                        <p class="card-text Resume">
+                            Propina:
                         </p>
                     </div>
-                    <div class="col-md-2">
-                        <p class="card-text totalPrice2">
-                            <?= number_format($precios['precioTotal'], 2, ',', ' ') ?> €
-                        </p>
+                    <div class="col-md-2 totalPrice">
+                        <p class="card-text totalPrice"><span id="cantidad-propina">0</span> €</p>
                     </div>
+                    <div class="row finalPrice custom-background">
+                        <div class="col-md-10">
+                            <p class="card-text Resume2">
+                                Total (IVA Incluido):
+                            </p>
+                        </div>
+                        <div class="col-md-2 card-text totalPrice2">
+                            <p><span id="total-con-propina-valor">0</span> €</p>
+                        </div>
+                    </div>
+
+                    <div class="propina">
+                        <h2>¿Desea dejar propina?</h2>
+                        <input type="checkbox" id="propina-toggle">
+                        <label for="propina-toggle">Seleccionar propina personalizada</label>
+                        <div id="propina-slider" style="display: none;">
+                            <input type="range" id="propina-range" name="propina" min="1" max="100" value="3">
+                            <label for="propina-range" id="propina-value">3%</label>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -295,6 +314,73 @@
                     }
                 });
             });
+
+
+            document.addEventListener('DOMContentLoaded', function () {
+    // Obtener referencias a elementos HTML relevantes
+    var propinaToggle = document.getElementById('propina-toggle');
+    var propinaSlider = document.getElementById('propina-slider');
+    var propinaRange = document.getElementById('propina-range');
+    var propinaValue = document.getElementById('propina-value');
+    var cantidadPropina = document.getElementById('cantidad-propina');
+    var totalConPropinaValor = document.getElementById('total-con-propina-valor');
+    var totalPedido = <?= $precios['precioTotal'] ?>; // Obtener el precio total de la compra desde PHP
+
+    // Función para actualizar el valor del porcentaje de propina y el total con propina
+    function actualizarPropinaYTotal() {
+        var porcentajePropina = propinaRange.value;
+        var propina = (totalPedido * porcentajePropina) / 100;
+        var totalConPropina = totalPedido + propina;
+
+        // Actualizar el valor del porcentaje de propina y el total con propina en los elementos HTML
+        propinaValue.textContent = porcentajePropina + '%';
+        cantidadPropina.textContent = propina.toFixed(2);
+        // Actualizar el valor total del pedido incluyendo la propina
+        totalConPropinaValor.textContent = (totalPedido + propina).toFixed(2);
+    }
+
+    // Función para actualizar el total con propina
+    function actualizarTotalConPropina() {
+        // Obtener el valor de la propina
+        var propina = parseFloat(cantidadPropina.textContent);
+        // Actualizar el total con propina
+        totalConPropinaValor.textContent = (totalPedido + propina).toFixed(2);
+    }
+
+    // Actualizar el precio total al cargar la página
+    actualizarTotalConPropina();
+
+    // Escuchar cambios en el checkbox de propina
+    propinaToggle.addEventListener('change', function () {
+        if (this.checked) {
+            // Mostrar el slider y actualizar el total con propina si se selecciona la propina
+            propinaSlider.style.display = 'block';
+            // Actualizar el precio total considerando la propina
+            actualizarTotalConPropina();
+            document.getElementById('total-con-propina').style.display = 'block';
+        } else {
+            // Ocultar el slider si no se selecciona la propina
+            propinaSlider.style.display = 'none';
+            // Restaurar el precio total sin propina
+            totalConPropinaValor.textContent = <?= $precios['precioTotal'] ?>;
+            document.getElementById('total-con-propina').style.display = 'block'; // Mostrar siempre el precio total
+        }
+    });
+
+
+    // Escuchar cambios en el rango de propina
+    propinaRange.addEventListener('input', function () {
+        // Actualizar el valor del porcentaje de propina y el total con propina
+        actualizarPropinaYTotal();
+    });
+
+    // Escuchar cambios en el rango de propina para actualizar el total con propina
+    propinaRange.addEventListener('input', function () {
+        // Actualizar el total con propina cuando se cambia el rango de propina
+        actualizarTotalConPropina();
+    });
+});
+
         </script>
 </body>
 <footer>
