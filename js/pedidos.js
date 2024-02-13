@@ -43,8 +43,7 @@ function obtenerValoresDelFormulario() {
     };
 }
 
-
-$("#btnAgregarResena").click(function () {
+$("#btnAgregarResena").click(async function () {
     var valoresFormulario = obtenerValoresDelFormulario();
     console.log(valoresFormulario);
 
@@ -55,10 +54,14 @@ $("#btnAgregarResena").click(function () {
         formData.append(key, value);
     }
 
-    insertarResenaApi(formData);
+    const response = await insertarResenaApi(formData);
+
+    // Cierra el modal antes de mostrar el mensaje
+    $('#myModal').modal('hide');
+
+    mostrarMensaje(response); // Muestra el mensaje con Notie.js
 });
 
-// Función para mostrar mensajes con Notie.js
 function mostrarMensaje(response) {
     if (response.exists) {
         // Ya existe una reseña
@@ -67,11 +70,11 @@ function mostrarMensaje(response) {
             text: response.error,
             time: 3 // Duración del mensaje en segundos
         });
-    } else if (response.success) {
+    } else if (response.message) {
         // Reseña añadida con éxito
         notie.alert({
             type: 'success',
-            text: response.success,
+            text: response.message,
             time: 3 // Duración del mensaje en segundos
         });
     } else if (response.error) {
@@ -84,17 +87,15 @@ function mostrarMensaje(response) {
     }
 }
 
-// Llama a la función al recibir la respuesta del servidor
 async function insertarResenaApi(formData) {
     const url = 'http://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api';
 
     try {
         const response = await axios.post(url, formData);
-        console.log(response.data);
-        mostrarMensaje(response.data); // Muestra el mensaje con Notie.js
+        return response.data; // Devuelve la respuesta del servidor
     } catch (error) {
         console.error('Error:', error.message);
-        alert("Error al agregar la reseña");
+        return { error: "Error al agregar la reseña" };
     }
 }
 
