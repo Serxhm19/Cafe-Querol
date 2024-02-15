@@ -299,26 +299,21 @@
                     data: formData,
                     success: function (response) {
                         // Genera el código QR una vez que se haya enviado el formulario
-                        var qrCodeBaseUri = 'https://api.qrserver.com/v1/create-qr-code/?',
-                            params = {
-                                data: 'http://workspace.com/Workspace/Cafe-Querol/?controller=usuario&action=visualizarPedido&ID_PEDIDO=' + response.ID_PEDIDO, // Actualización de la URL
-                                size: '150x150',
-                                margin: 1,
-                                download: 1
-                            };
+                        var qrCodeBaseUri = 'https://api.qrserver.com/v1/create-qr-code/?';
+                        var params = {
+                            data: 'http://workspace.com/Workspace/Cafe-Querol/?controller=usuario&action=QR',
+                            size: '150x150',
+                            margin: 1
+                        };
 
-                        var link = document.createElement('a');
-                        var fileName = 'qr_code_' + new Date().toISOString().slice(0, 10) + '.png'; // Nombre del archivo con la fecha actual
-                        link.download = fileName;
-                        link.href = qrCodeBaseUri + $.param(params);
-                        link.click();
+                        // Construye la URL del código QR
+                        var qrCodeUrl = qrCodeBaseUri + $.param(params);
 
-                        // Redireccionar al dashboard después de 2 segundos
-                        setTimeout(function () {
-                            window.location.href = 'http://workspace.com/Workspace/Cafe-Querol/?controller=usuario&action=mispedidos';
-                        }, 200); 
+                        // Muestra el código QR en un div debajo del botón de "Pagar"
+                        $('#qrCodeContainer').html('<img src="' + qrCodeUrl + '" alt="QR Code">');
 
-
+                        // Muestra el botón para ir a "Mis pedidos"
+                        $('#goToOrders').show();
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.log(textStatus, errorThrown);
@@ -413,6 +408,13 @@
             });
 
         </script>
+
+
+        <!-- Agrega este div para mostrar el código QR -->
+        <div id="qrCodeContainer"></div>
+            
+        <!-- Agrega este botón para ir a "Mis pedidos" -->
+        <a href="?controller=usuario&action=mispedidos" class="btn btn-secondary">Cerrar</a>
 </body>
 <footer>
     <div class="footer-up">

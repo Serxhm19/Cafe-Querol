@@ -71,7 +71,7 @@ class productoController
 
     }
 
-    
+
     public function QR()
     {
 
@@ -243,6 +243,15 @@ class productoController
                 // Guardar el ID del último pedido en una cookie
                 setcookie('ultimo_pedido', $idPedido, time() + 3600, '/'); // La cookie expirará en 1 hora
 
+                // Obtener el valor de la propina desde el formulario
+                $propina = isset($_POST['propina']) ? $_POST['propina'] : 0;
+
+                // Actualizar el pedido con el valor de la propina
+                $sqlActualizarPedido = "UPDATE pedidos SET PROPINA = ? WHERE ID_PEDIDO = ?";
+                $stmtActualizarPedido = $conn->prepare($sqlActualizarPedido);
+                $stmtActualizarPedido->bind_param('di', $propina, $idPedido);
+                $stmtActualizarPedido->execute();
+
                 // Commit de la transacción
                 $conn->commit();
 
@@ -269,18 +278,64 @@ class productoController
         }
     }
 
+
     public static function mostrarUltimoPedido()
     {
         // Verifica si la cookie 'ultimo_pedido' está definida
         if (isset($_COOKIE['ultimo_pedido'])) {
             // Obtiene el valor de la cookie 'ultimo_pedido'
             $ultimoPedidoInfo = $_COOKIE['ultimo_pedido'];
-
             return $ultimoPedidoInfo;
         } else {
-
+            // Manejar el caso en que la cookie no está definida
+            throw new Exception("La cookie 'ultimo_pedido' no está definida.");
         }
     }
+
+
+    public static function obtenerDetallesDelPedido2()
+{
+    // Obtener el último pedido
+    $ultimoPedidoInfo = self::mostrarUltimoPedido();
+
+    // Realizar la conexión a la base de datos (reemplazar los valores según sea necesario)
+    $con = DataBase::connect();
+
+    // Verificar la conexión
+    if ($con->connect_error) {
+        die("Conexión fallida: " . $con->connect_error);
+    }
+
+    // Consulta SQL para obtener los detalles del pedido
+    $sql = "SELECT pa.ID_PRODUCTO, p.NOMBRE_PRODUCTO, p.IMG, pa.CANTIDAD, pa.PRECIO 
+    FROM pedido_articulos pa
+    INNER JOIN productos p ON pa.ID_PRODUCTO = p.ID_PRODUCTO
+    WHERE pa.ID_PEDIDO = $ultimoPedidoInfo";
+
+    // Ejecutar la consulta
+    $result = $con->query($sql);
+
+    // Verificar si hay resultados
+    if ($result->num_rows > 0) {
+        // Crear un array para almacenar los detalles del pedido
+        $detallesPedido = array();
+
+        // Recorrer los resultados y agregar los detalles al array
+        while ($row = $result->fetch_assoc()) {
+            $detallesPedido[] = $row;
+        }
+
+        // Cerrar la conexión y devolver el array de detalles del pedido
+        $con->close();
+        return $detallesPedido;
+    } else {
+        // Si no hay resultados, cerrar la conexión y devolver un array vacío
+        $con->close();
+        return array();
+    }
+}
+
+
 
 
     public static function recuperarPedido($idPedido)
@@ -453,6 +508,8 @@ class productoController
         // Devuelve los detalles del pedido
         return $detallesPedido;
     }
+
+
 
     public function modificarProducto($idProducto)
     {

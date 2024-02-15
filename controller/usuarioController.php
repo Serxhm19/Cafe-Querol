@@ -499,6 +499,7 @@ class usuarioController
         }
     }
 
+
     public static function visualizarPedido($idPedido)
     {
         // Ejemplo de cómo podrías obtener los detalles del pedido (adaptar según tu estructura)
