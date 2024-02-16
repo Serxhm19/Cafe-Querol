@@ -167,7 +167,7 @@
                         echo '<a href="?controller=usuario&action=visualizarPedido&ID_PEDIDO=' . $pedido['ID_PEDIDO'] . '" class="btn btn-info">Visualizar Pedido</a>';
 
                         // Botón para añadir reseña
-                        echo '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" data-idpedido="' . $pedido['ID_PEDIDO'] . '">Añadir Reseña</button>';
+                        echo '<a href="?controller=usuario&action=ponerReseña&ID_PEDIDO=' . $pedido['ID_PEDIDO'] . '" class="btn btn-info">Reseña</a>';
 
                         echo "</td>";
 

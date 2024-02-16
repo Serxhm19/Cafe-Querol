@@ -88,7 +88,7 @@
 
             function getProducts() {
                 $.ajax({
-                    url: 'http://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api',
+                    url: 'https://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api',
                     type: 'POST',
                     data: {
                         accion: 'get_products'

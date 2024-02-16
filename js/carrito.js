@@ -14,7 +14,7 @@ $('#btnPagar').click(function (e) {
             // Genera el código QR una vez que se haya enviado el formulario
             var qrCodeBaseUri = 'https://api.qrserver.com/v1/create-qr-code/?',
                 params = {
-                    data: 'http://workspace.com/Workspace/Cafe-Querol/?controller=usuario&action=visualizarPedido&ID_PEDIDO=' + response.ID_PEDIDO, // Actualización de la URL
+                    data: 'https://workspace.com/Workspace/Cafe-Querol/?controller=usuario&action=visualizarPedido&ID_PEDIDO=' + response.ID_PEDIDO, // Actualización de la URL
                     size: '150x150',
                     margin: 1,
                     download: 1
@@ -28,7 +28,7 @@ $('#btnPagar').click(function (e) {
 
             // Redireccionar al dashboard después de 2 segundos
             setTimeout(function () {
-                window.location.href = 'http://workspace.com/Workspace/Cafe-Querol/?controller=usuario&action=mispedidos';
+                window.location.href = 'https://workspace.com/Workspace/Cafe-Querol/?controller=usuario&action=mispedidos';
             }, 200); 
 
 

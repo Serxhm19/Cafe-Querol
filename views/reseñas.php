@@ -146,7 +146,7 @@
       formData.append('accion', 'get_reviews');
 
       try {
-        const response = await fetch('http://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api', {
+        const response = await fetch('https://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api', {
           method: 'POST',
           body: formData,
         });

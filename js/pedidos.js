@@ -88,7 +88,7 @@ function mostrarMensaje(response) {
 }
 
 async function insertarResenaApi(formData) {
-    const url = 'http://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api';
+    const url = 'https://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api';
 
     try {
         const response = await axios.post(url, formData);
