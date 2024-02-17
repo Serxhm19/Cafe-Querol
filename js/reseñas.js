@@ -7,7 +7,7 @@ window.addEventListener("load", function () {
     formData.append('accion', 'get_reviews');
 
     try {
-      const response = await fetch('https://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api', {
+      const response = await fetch('https://sergihernandez.bernat2024.es/?controller=API&action=api', {
         method: 'POST',
         body: formData,
       });

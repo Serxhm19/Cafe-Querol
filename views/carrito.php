@@ -303,41 +303,33 @@
         </div>
         <script>
             $('#btnPagar').click(function (e) {
-                e.preventDefault(); // Evita que el formulario se envíe de forma normal
+                e.preventDefault(); 
 
                 // Obtén los datos del formulario
                 var formData = $('form').serialize();
 
-                // Realiza una solicitud AJAX al servidor
                 $.ajax({
                     type: 'POST',
                     url: '?controller=producto&action=insertarDetallesPedido',
                     data: formData,
                     success: function (response) {
-                        // Genera el código QR una vez que se haya enviado el formulario
                         var qrCodeBaseUri = 'https://api.qrserver.com/v1/create-qr-code/?';
                         var params = {
                             data: 'https://workspace.com/Workspace/Cafe-Querol/?controller=usuario&action=QR',
                             size: '150x150',
                             margin: 1
                         };
-
-                        // Construye la URL del código QR
                         var qrCodeUrl = qrCodeBaseUri + $.param(params);
-
-                        // Muestra el código QR en un div debajo del botón de "Pagar"
                         $('#qrCodeContainer').html('<img src="' + qrCodeUrl + '" alt="QR Code">');
 
-                        // Muestra el botón para ir a "Mis pedidos"
                         $('#goToOrders').show();
 
-                        // Realiza la llamada AJAX para agregar puntos al usuario
                         $.ajax({
                             type: 'POST',
-                            url: '?controller=API&action=api', // Verifica y actualiza la URL según corresponda
+                            url: '?controller=API&action=api', 
                             data: {
-                                accion: 'add_points_to_user', // Verifica que coincida con el nombre de la acción en el servidor
-                                precio_total_carrito: <?= $precios['precioTotalCarrito'] ?> // Agrega el precio total del carrito como dato
+                                accion: 'add_points_to_user', 
+                                precio_total_carrito: <?= $precios['precioTotalCarrito'] ?> 
                             },
                             success: function (response) {
                                 // Aquí puedes manejar la respuesta del servidor si es necesario
@@ -347,11 +339,8 @@
                                 console.log(textStatus, errorThrown);
                             }
                         });
-                        
-                        // Obtener la cantidad de puntos a utilizar desde el input
-                        var puntosUtilizados = document.getElementById('cantidadPuntos').value;
 
-                        // Crear un objeto con los datos a enviar
+                        var puntosUtilizados = document.getElementById('cantidadPuntos').value;
                         var data = {
                             accion: 'subtract_points_from_user', // Nombre de la acción en la API
                             cantidadPuntos: puntosUtilizados // Cantidad de puntos a utilizar
@@ -359,16 +348,14 @@
 
                         // Realizar una solicitud AJAX al servidor
                         $.ajax({
-                            type: 'POST', // Método HTTP
-                            url: '?controller=API&action=api', // URL del controlador y acción de la API
-                            data: data, // Datos a enviar
-                            dataType: 'json', // Tipo de datos esperados en la respuesta
+                            type: 'POST', 
+                            url: '?controller=API&action=api',
+                            data: data, 
+                            dataType: 'json', 
                             success: function (response) {
-                                // Manejar la respuesta del servidor
-                                console.log(response); // Por ejemplo, imprimir la respuesta en la consola
+                                console.log(response); 
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
-                                // Manejar errores de la solicitud AJAX
                                 console.error(textStatus, errorThrown);
                             }
                         });
@@ -456,15 +443,12 @@
                     }
                 });
 
-                // Escuchar cambios en el rango de propina
                 propinaRange.addEventListener('input', function () {
-                    // Actualizar los valores del porcentaje de propina, la propina y el total con propina
                     actualizarValores();
                 });
 
-                // Escuchar cambios en la cantidad de puntos
+
                 cantidadPuntosInput.addEventListener('input', function () {
-                    // Actualizar los valores considerando el descuento por puntos
                     actualizarValores();
                 });
             });

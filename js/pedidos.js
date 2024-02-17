@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     async function insertarResenaApi(formData) {
         console.log('Enviando solicitud para agregar la reseña al servidor');
-        const url = 'https://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api';
+        const url = 'https://sergihernandez.bernat2024.es/Cafe-Querol/?controller=API&action=api';
 
         try {
             const response = await axios.post(url, formData);
