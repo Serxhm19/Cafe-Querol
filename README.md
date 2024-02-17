@@ -13,8 +13,7 @@ Este proyecto implementa diversas funciones de JavaScript para mejorar la experi
 Se ha implementado la funcionalidad que permite a los clientes realizar reseñas sobre los pedidos realizados. Se utiliza una API para mostrar las reseñas en la página y almacenarlas en la base de datos. Para mostrar las reseñas, se ha creado un archivo HTML que recibe los datos de la API. Para enviar una reseña, se ha creado un formulario HTML que utiliza la API para enviar los datos. Además, se han añadido dos filtros para las reseñas, que permiten filtrar por número de estrellas y por orden ascendente o descendente.
 
 ## Programa de fidelidad
-Instrucciones para usar o ejecutar el proyecto.
-
+Se ha implementado un programa de fidelidad para recibir puntos cada vez que se hace una compra, cada 1€ el usuario recibe 100 puntos, que se guardan en la bbdd, estos puntos pueden ser utilizados para recibir descuentos.
 ## QR
 Se utiliza una API externa para generar códigos QR con los datos necesarios. Una vez escaneado, el código QR redirige a una página HTML con los detalles del último pedido realizado.
 
