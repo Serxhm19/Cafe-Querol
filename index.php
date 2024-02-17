@@ -62,7 +62,19 @@ if (isset($_GET['action']) && method_exists($controller, $_GET['action'])) {
         $idProductoModificar = $_GET['id'];
         $controller->$action($idProductoModificar);
         exit();
+
+    } elseif ($action == 'AñadirReseña') {
+        // Asegúrate de que estás pasando el ID del pedido si está disponible
+        if (!isset($_GET['ID_PEDIDO'])) {
+            echo "Error: ID del pedido no proporcionado.";
+            exit();
+        }
+
+        $idPedido = $_GET['ID_PEDIDO'];
+        $controller->$action($idPedido);
+        exit();
     }
+
 
     // Si no es una acción especial, llama a la acción sin argumentos
     $controller->$action();

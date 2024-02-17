@@ -80,14 +80,6 @@ class productoController
 
     }
 
-    public function AñadirReseña()
-    {
-
-        include_once "views/crearReseña.php";
-
-
-    }
-
 
     public static function sel()
     {

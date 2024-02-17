@@ -272,3 +272,65 @@ hr{
 .order-dropdown li{
   margin-left: 5px;
 }
+
+/*----------------------------------------------------------------*/
+/*                           footer.php                           */
+/*----------------------------------------------------------------*/
+
+footer {
+  background-color: #000000 !important;
+  color: white !important;
+  padding: 20px !important;
+  text-align: center !important;
+}
+
+.footer-up {
+  margin-bottom: 20px;
+}
+
+.footer-up ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.footer-up ul li {
+  margin: 0 10px;
+}
+
+/* Establece estilos para las imágenes normales */
+.footer-up ul li .social-icon {
+  width: 30px;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Establece estilos para las imágenes en hover */
+.footer-up ul li .social-icon-hover {
+  width: 30px;
+  transition: transform 0.3s ease-in-out;
+  display: none;
+}
+
+/* Aplica el efecto de cambio en hover */
+.footer-up ul li:hover .social-icon {
+  display: none;
+}
+
+.footer-up ul li:hover .social-icon-hover {
+  display: inline-block;
+  transform: scale(1.2);
+}
+
+/*----------------------------------------------------------------*/
+/*                        Responsive Styles                        */
+/*----------------------------------------------------------------*/
+
+@media (max-width: 768px) {
+
+  .col-md-3,
+  .col-md-9 {
+    width: 100%;
+    padding: 15px;
+  }
+}

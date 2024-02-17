@@ -36,6 +36,15 @@ class usuarioController
         include_once "views/adminPage.php";
     }
 
+    public static function AñadirReseña($idPedido)
+    {
+
+        $detallesPedido = usuarioController::obtenerDetallesDelPedido($idPedido);
+
+        include_once "views/crearReseña.php";
+
+    }
+
 
     public function verificarCorreo()
     {
