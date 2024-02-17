@@ -33,16 +33,23 @@ class APIController
             $asunto_resena = isset($_POST["asunto_resena"]) ? $_POST["asunto_resena"] : null;
             $comentario_resena = isset($_POST["comentario_resena"]) ? $_POST["comentario_resena"] : null;
             $valoracion_resena = isset($_POST["valoracion_resena"]) ? $_POST["valoracion_resena"] : null;
-
+        
             // Usa date() en lugar de NOW() para obtener la fecha actual
             $fecha_actual = date('Y-m-d H:i:s');
-
-            $resena = new Resena($id_resena, $id_pedido, $asunto_resena, $comentario_resena, $fecha_actual, $valoracion_resena);
-
-            $resena->addResena();
-
-            // Enviar una respuesta JSON válida
-            echo json_encode(["mensaje" => "Reseña añadida correctamente"], JSON_UNESCAPED_UNICODE);
+        
+            // Verifica si ya existe una reseña para el pedido
+            if (Resena::pedidoTieneResena($id_pedido)) {
+                // Ya existe una reseña para este pedido, devuelve un mensaje de error
+                echo json_encode(["error" => "Ya existe una reseña para este pedido"], JSON_UNESCAPED_UNICODE);
+            } else {
+                // No existe una reseña para este pedido, añade la nueva reseña
+                $resena = new Resena($id_resena, $id_pedido, $asunto_resena, $comentario_resena, $fecha_actual, $valoracion_resena);
+                $resena->addResena();
+        
+                // Enviar una respuesta JSON válida
+                echo json_encode(["mensaje" => "Reseña añadida correctamente"], JSON_UNESCAPED_UNICODE);
+            }
+        
 
         } else if ($accion == 'get_products') {
             include_once('model\productoDAO.php');

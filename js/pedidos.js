@@ -54,12 +54,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const response = await insertarResenaApi(formData);
 
         if (response.error) {
-            console.error('Error al agregar la reseña:', response.error);
-            notie.alert({ type: 3, text: 'Error al añadir la reseña', time: 3 });
+            console.warn('Ya existe una reseña para este pedido');
+            notie.alert({ type: 3, text: 'Ya existe una reseña para este pedido', time: 3 });
         } else {
             console.log('Reseña agregada correctamente');
             notie.alert({ type: 1, text: 'Reseña agregada correctamente', time: 3 });
         }
+        
     });
 
     async function insertarResenaApi(formData) {

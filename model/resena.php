@@ -337,11 +337,38 @@ class resena
             return [];
         }
     }
+    public static function pedidoTieneResena($idPedido)
+    {
+        $con = DataBase::connect();
+
+        // Consulta para verificar si existe una reseña para el pedido dado
+        $sql = "SELECT COUNT(*) AS count FROM reseñas WHERE ID_PEDIDO = ?";
+        $stmt = $con->prepare($sql);
+        $stmt->bind_param("s", $idPedido);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result) {
+            $row = $result->fetch_assoc();
+            $count = $row['count'];
+
+            // Si count es mayor que 0, significa que hay al menos una reseña para el pedido
+            if ($count > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            echo "Error al verificar si el pedido tiene reseña: " . $con->error;
+        }
+
+        return false; // En caso de error, retornamos false por defecto
+    }
 
 
     /**
      * Get the value of emailUsuario
-     */ 
+     */
     public function getEmailUsuario()
     {
         return $this->emailUsuario;
@@ -351,7 +378,7 @@ class resena
      * Set the value of emailUsuario
      *
      * @return  self
-     */ 
+     */
     public function setEmailUsuario($emailUsuario)
     {
         $this->emailUsuario = $emailUsuario;
