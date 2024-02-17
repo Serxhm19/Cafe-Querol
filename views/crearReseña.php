@@ -12,6 +12,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Café Querol | Tu cafetería de confianza</title>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css">
+    <style>
+        /* override styles here */
+        .notie-container {
+            box-shadow: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -65,16 +72,6 @@
                                     src="img/icons/icon-account.png" alt="logo"></a>
                             <a class="navbar-cart" href="?controller=producto&action=Carrito">
                                 <img src="img/icons/carrito-de-compras.png" alt="logo">
-                                <?php
-                                include_once("utils/Funciones.php");
-                                // Llamar a la función contarProductosEnCarrito() para obtener el número de productos
-                                $numeroProductos = contarProductosEnCarrito();
-
-                                // Mostrar el número de productos solo si es mayor que cero
-                                if ($numeroProductos > 0) {
-                                    echo '<span class="cart-count">' . $numeroProductos . '</span>';
-                                }
-                                ?>
                             </a>
                         </div>
                     </div>
@@ -86,7 +83,7 @@
     <div class="row">
         <div class="col-md-9">
             <div class="formulario">
-                <h2>Modificar Producto</h2>
+                <h2>Crear Reseña</h2>
                 <form id="formularioResena">
                     <div class="mb-3">
                         <input type="hidden" id="idResena" name="idResena">
@@ -153,6 +150,7 @@
                         </svg>
                     </label>
                     <input id=rating5 type=radio value=5 name=rating />
+                    <div id=texto>sin calificar</div>
 
                     <!-- por último el label del rating 0 ( sin calificar ) -->
                     <label class=reset for=rating0>reset</label>
@@ -185,95 +183,10 @@
     </footer>
     <!-- Aquí comienza el script -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/notie/4.3.1/notie.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            // para todos los radiobutton rating agregar un on change
-            const changeRating = document.querySelectorAll('input[name=rating]');
-            changeRating.forEach((radio) => {
-                radio.addEventListener('change', getRating);
-            });
-
-            // buscar el radiobutton checked y armar el texto con el valor ( 0 - 5 )
-            function getRating() {
-                let estrellas = document.querySelector('input[name=rating]:checked').value;
-                document.getElementById("texto").innerHTML = (
-                    0 < estrellas ?
-                        estrellas + " estrella" + (1 < estrellas ? "s" : "") :
-                        "sin calificar"
-                );
-            }
-
-            function obtenerValoresDelFormulario() {
-                var id_pedido = document.getElementById('idPedidoResena').value;
-                var asunto_resena = document.getElementById('asuntoResena').value;
-                var comentario_resena = document.getElementById('comentarioResena').value;
-                var valoracion_resena = document.querySelector('input[name=rating]:checked').value;
-
-                return {
-                    "id_pedido": id_pedido,
-                    "asunto_resena": asunto_resena,
-                    "comentario_resena": comentario_resena,
-                    "valoracion_resena": valoracion_resena,
-                };
-            }
-
-            document.getElementById("btnAgregarResena").addEventListener("click", async function () {
-                var valoresFormulario = obtenerValoresDelFormulario();
-                console.log(valoresFormulario);
-
-                let formData = new FormData();
-                formData.append('accion', 'add_review');
-
-                for (const [key, value] of Object.entries(valoresFormulario)) {
-                    formData.append(key, value);
-                }
-
-                const response = await insertarResenaApi(formData);
-
-                mostrarMensaje(response); // Muestra el mensaje con Notie.js
-            });
-
-            function mostrarMensaje(response) {
-                if (response.exists) {
-                    // Ya existe una reseña
-                    notie.alert({
-                        type: 'error',
-                        text: response.error,
-                        time: 3 // Duración del mensaje en segundos
-                    });
-                } else if (response.message) {
-                    // Reseña añadida con éxito
-                    notie.alert({
-                        type: 'success',
-                        text: response.message,
-                        time: 3 // Duración del mensaje en segundos
-                    });
-                } else if (response.error) {
-                    // Otro tipo de error
-                    notie.alert({
-                        type: 'error',
-                        text: response.error,
-                        time: 3 // Duración del mensaje en segundos
-                    });
-                }
-            }
-
-            async function insertarResenaApi(formData) {
-                const url = 'https://workspace.com/Workspace/Cafe-Querol/?controller=API&action=api';
-
-                try {
-                    const response = await axios.post(url, formData);
-                    return response.data; // Devuelve la respuesta del servidor
-                } catch (error) {
-                    console.error('Error:', error.message);
-                    return { error: "Error al agregar la reseña" };
-                }
-            }
-        });
+    <script src="https://unpkg.com/notie"></script>
+    <script src="js\pedidos.js"></script>
 
 
-    </script>
 </body>
 
 </html>
