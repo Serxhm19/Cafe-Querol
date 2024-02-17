@@ -156,7 +156,7 @@ class productoController
         }
 
         // Redirigir a la página del carrito 
-        header("Location: " . $url . "?controller=usuario&action=mispedidos");
+        header("Location: " . $url . "?controller=producto&action=carrito");
         exit();
     }
 

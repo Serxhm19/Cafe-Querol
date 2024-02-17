@@ -404,6 +404,72 @@ class usuarioController
     }
 
 
+    public static function obtenerIdUsuario()
+    {
+        session_start();
+        
+        // Verifica si hay una sesión iniciada
+        if (isset($_SESSION['email'])) {
+            // Datos de conexión a la base de datos
+            include_once 'config/db.php';
+
+            // Conecta a la base de datos
+            $con = DataBase::connect();
+
+            // Consulta para obtener el ID del usuario
+            $sql = "SELECT ID_USUARIO FROM usuarios WHERE CORREO = ?";
+            $stmt = $con->prepare($sql);
+            $stmt->bind_param('s', $_SESSION['email']);
+            $stmt->execute();
+
+            // Obtiene el resultado
+            $result = $stmt->get_result();
+
+            // Verifica si se encontraron resultados
+            if ($result->num_rows > 0) {
+                // Obtiene el ID del usuario y lo devuelve
+                $row = $result->fetch_assoc();
+                return $row['ID_USUARIO'];
+            }
+        }
+
+        // Si no hay resultados o no hay una sesión iniciada, devuelve null
+        return null;
+    }
+
+
+    public static function obtenerpuntos()
+    {
+        
+        // Verifica si hay una sesión iniciada
+        if (isset($_SESSION['email'])) {
+            // Datos de conexión a la base de datos
+            include_once 'config/db.php';
+
+            // Conecta a la base de datos
+            $con = DataBase::connect();
+
+            // Consulta para obtener el ID del usuario
+            $sql = "SELECT PUNTOS FROM usuarios WHERE CORREO = ?";
+            $stmt = $con->prepare($sql);
+            $stmt->bind_param('s', $_SESSION['email']);
+            $stmt->execute();
+
+            // Obtiene el resultado
+            $result = $stmt->get_result();
+
+            // Verifica si se encontraron resultados
+            if ($result->num_rows > 0) {
+                // Obtiene el ID del usuario y lo devuelve
+                $row = $result->fetch_assoc();
+                return $row['PUNTOS'];
+            }
+        }
+
+        // Si no hay resultados o no hay una sesión iniciada, devuelve null
+        return null;
+    }
+
     public static function obtenerPedidosUsuario()
     {
         include_once 'config/db.php';

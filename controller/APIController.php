@@ -45,7 +45,7 @@ class APIController
             echo json_encode(["mensaje" => "Reseña añadida correctamente"], JSON_UNESCAPED_UNICODE);
 
         } else if ($accion == 'get_products') {
-            include_once ('model\productoDAO.php');
+            include_once('model\productoDAO.php');
             // Obtener productos desde la base de datos
             $productos = productoDAO::getAllProductoCarta();
             $array_productos = [];
@@ -62,6 +62,70 @@ class APIController
             }
             // Envia la respuesta como JSON
             echo json_encode($array_productos, JSON_UNESCAPED_UNICODE);
+
+        } else if ($accion == 'add_points_to_user') {
+            // Obtener el precio total del carrito desde el formulario
+            $precio_total_carrito = isset($_POST["precio_total_carrito"]) ? $_POST["precio_total_carrito"] : null;
+
+            // Calcular la cantidad de puntos a agregar
+            $puntos_a_agregar = $precio_total_carrito * 100;
+
+            // Aquí necesitarías obtener el ID del usuario que está haciendo el pedido
+            $id_usuario = usuarioController::obtenerIdUsuario(); // Obtener el ID del usuario actual desde la sesión o algún otro método
+
+            if ($id_usuario) {
+                // Actualizar el puntaje de puntos del usuario en la tabla de usuarios
+                $conexion = Database::connect();
+                $sql = "UPDATE usuarios SET puntos = puntos + ? WHERE ID_USUARIO = ?";
+                $consulta = $conexion->prepare($sql);
+                $consulta->bind_param("ii", $puntos_a_agregar, $id_usuario);
+                $consulta->execute();
+                $num_filas_afectadas = $conexion->affected_rows;
+
+
+                // Verificar si la consulta se ejecutó correctamente
+                if ($num_filas_afectadas > 0) {
+                    // Devolver respuesta en formato JSON
+                    echo json_encode(["mensaje" => "Puntos agregados correctamente"]);
+                } else {
+                    // Devolver respuesta en formato JSON
+                    echo json_encode(["error" => "Error al agregar puntos"]);
+                }
+            } else {
+                // Devolver respuesta en formato JSON
+                echo json_encode(["error" => "No se pudo obtener el ID del usuario"]);
+            }
+
+
+        } else if ($accion == 'subtract_points_from_user') {
+            // Obtener la cantidad de puntos a utilizar desde el formulario
+            $puntos_utilizados = isset($_POST["cantidadPuntos"]) ? $_POST["cantidadPuntos"] : null;
+        
+            // Aquí necesitarías obtener el ID del usuario que está haciendo el pedido
+            $id_usuario = usuarioController::obtenerIdUsuario(); // Obtener el ID del usuario actual desde la sesión o algún otro método
+        
+            if ($id_usuario) {
+                // Restar los puntos utilizados del puntaje de puntos del usuario en la tabla de usuarios
+                $conexion = Database::connect();
+                $sql = "UPDATE usuarios SET puntos = puntos - ? WHERE ID_USUARIO = ?";
+                $consulta = $conexion->prepare($sql);
+                $consulta->bind_param("ii", $puntos_utilizados, $id_usuario);
+                $consulta->execute();
+                $num_filas_afectadas = $conexion->affected_rows;
+        
+                // Verificar si la consulta se ejecutó correctamente
+                if ($num_filas_afectadas > 0) {
+                    // Devolver respuesta en formato JSON
+                    echo json_encode(["mensaje" => "Puntos restados correctamente"]);
+                } else {
+                    // Devolver respuesta en formato JSON
+                    echo json_encode(["error" => "Error al restar puntos"]);
+                }
+            } else {
+                // Devolver respuesta en formato JSON
+                echo json_encode(["error" => "No se pudo obtener el ID del usuario"]);
+            }
+                
         } else {
             echo json_encode(["error" => "La clave 'accion' no está definida."], JSON_UNESCAPED_UNICODE);
             exit();

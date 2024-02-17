@@ -150,35 +150,51 @@
                     <div class="col-md-2 totalPrice">
                         <p class="card-text totalPrice"><span id="cantidad-propina">0</span> €</p>
                     </div>
-                    <div class="row finalPrice custom-background">
-                        <div class="col-md-10">
-                            <p class="card-text Resume2">
-                                Total (IVA Incluido):
-                            </p>
-                        </div>
-                        <div class="col-md-2 card-text totalPrice2">
-                            <p><span id="total-con-propina-valor">0</span> €</p>
-                        </div>
-                    </div>
-                    <div class="propina">
-                        <h2>¿Desea dejar propina?</h2>
-                        <label class="toggle-label">
-                            <input type="radio" name="propina-option" id="propina-toggle" class="toggle-input" checked>
-                            <span class="toggle-button">Seleccionar propina personalizada</span>
-                        </label>
-                        <label class="toggle-label">
-                            <input type="radio" name="propina-option" id="omitir-propina" class="toggle-input">
-                            <span class="toggle-button">Omitir propina</span>
-                        </label>
-                        <div id="propina-slider" style="display: block;">
-                            <input type="range" id="propina-range" name="propina" min="1" max="100" value="3">
-                            <label for="propina-range" id="propina-value">3%</label>
-                        </div>
-                    </div>
-
                 </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <p class="card-text Resume">
+                            Descuento:
+                        </p>
+                    </div>
+                    <div class="col-md-2 totalPrice">
+                        <p class="card-text totalPrice"><span id="cantidad-descuento">0</span> €</p>
+                    </div>
+                </div>
+                <div class="row finalPrice custom-background">
+                    <div class="col-md-10">
+                        <p class="card-text Resume2">
+                            Total (IVA Incluido):
+                        </p>
+                    </div>
+                    <div class="col-md-2 card-text totalPrice2">
+                        <p><span id="total-con-propina-valor">0</span> €</p>
+                    </div>
+                </div>
+
+                <div class="propina">
+                    <h2>¿Desea dejar propina?</h2>
+                    <label class="toggle-label">
+                        <input type="radio" name="propina-option" id="propina-toggle" class="toggle-input" checked>
+                        <span class="toggle-button">Seleccionar propina personalizada</span>
+                    </label>
+                    <label class="toggle-label">
+                        <input type="radio" name="propina-option" id="omitir-propina" class="toggle-input">
+                        <span class="toggle-button">Omitir propina</span>
+                    </label>
+                    <div id="propina-slider" style="display: block;">
+                        <input type="range" id="propina-range" name="propina" min="1" max="100" value="3">
+                        <label for="propina-range" id="propina-value">3%</label>
+                    </div>
+                    <h2>¿Desea usar sus puntos?</h2>
+                    <input type="number" id="cantidadPuntos" name="cantidadPuntos"
+                        placeholder="Ingrese la cantidad de puntos a utilizar" min="0"
+                        max="<?php echo usuarioController::obtenerpuntos(); ?>" oninput="actualizarPrecioFinal()">
+                </div>
+
             </div>
         </div>
+    </div>
     </div>
     <div class="col-left-opc">
         <div class="container steps-container">
@@ -314,6 +330,49 @@
 
                         // Muestra el botón para ir a "Mis pedidos"
                         $('#goToOrders').show();
+
+                        // Realiza la llamada AJAX para agregar puntos al usuario
+                        $.ajax({
+                            type: 'POST',
+                            url: '?controller=API&action=api', // Verifica y actualiza la URL según corresponda
+                            data: {
+                                accion: 'add_points_to_user', // Verifica que coincida con el nombre de la acción en el servidor
+                                precio_total_carrito: <?= $precios['precioTotalCarrito'] ?> // Agrega el precio total del carrito como dato
+                            },
+                            success: function (response) {
+                                // Aquí puedes manejar la respuesta del servidor si es necesario
+                                console.log(response);
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus, errorThrown);
+                            }
+                        });
+                        
+                        // Obtener la cantidad de puntos a utilizar desde el input
+                        var puntosUtilizados = document.getElementById('cantidadPuntos').value;
+
+                        // Crear un objeto con los datos a enviar
+                        var data = {
+                            accion: 'subtract_points_from_user', // Nombre de la acción en la API
+                            cantidadPuntos: puntosUtilizados // Cantidad de puntos a utilizar
+                        };
+
+                        // Realizar una solicitud AJAX al servidor
+                        $.ajax({
+                            type: 'POST', // Método HTTP
+                            url: '?controller=API&action=api', // URL del controlador y acción de la API
+                            data: data, // Datos a enviar
+                            dataType: 'json', // Tipo de datos esperados en la respuesta
+                            success: function (response) {
+                                // Manejar la respuesta del servidor
+                                console.log(response); // Por ejemplo, imprimir la respuesta en la consola
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                // Manejar errores de la solicitud AJAX
+                                console.error(textStatus, errorThrown);
+                            }
+                        });
+
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.log(textStatus, errorThrown);
@@ -330,47 +389,48 @@
                 var propinaValue = document.getElementById('propina-value');
                 var cantidadPropina = document.getElementById('cantidad-propina');
                 var totalConPropinaValor = document.getElementById('total-con-propina-valor');
-                var totalPedido = <?= $precios['precioTotal'] ?>; // Obtener el precio total de la compra desde PHP
+                var totalPedidoElement = document.querySelector('.totalPrice'); // Ajusta el selector según la clase o ID del elemento que contiene el precio total
+                var totalPedido = parseFloat(totalPedidoElement.textContent.replace(' €', '').replace(',', '.')); // Elimina el símbolo € y convierte el valor a número
+                var cantidadPuntosInput = document.getElementById('cantidadPuntos');
 
-                // Función para actualizar el valor del porcentaje de propina y el total con propina
-                function actualizarPropinaYTotal() {
+                // Función para actualizar el valor del porcentaje de propina, el total con propina y aplicar el descuento por puntos
+                function actualizarValores() {
+                    // Obtener el valor del descuento por puntos
+                    var puntos = parseInt(cantidadPuntosInput.value);
+                    var descuento = puntos / 100 * 0.2;
+
+                    // Obtener el valor de la propina
                     var porcentajePropina = propinaRange.value;
                     var propina = (totalPedido * porcentajePropina) / 100;
-                    var totalConPropina = totalPedido + propina;
+
+                    // Calcular el total con propina y aplicar el descuento por puntos
+                    var totalConPropina = totalPedido + propina - descuento;
 
                     // Actualizar el valor del porcentaje de propina y el total con propina en los elementos HTML
                     propinaValue.textContent = porcentajePropina + '%';
                     cantidadPropina.textContent = propina.toFixed(2);
-                    // Actualizar el valor total del pedido incluyendo la propina
-                    totalConPropinaValor.textContent = (totalPedido + propina).toFixed(2);
-                }
-
-                // Función para actualizar el total con propina
-                function actualizarTotalConPropina() {
-                    // Obtener el valor de la propina
-                    var propina = parseFloat(cantidadPropina.textContent);
-                    // Actualizar el total con propina
-                    totalConPropinaValor.textContent = (totalPedido + propina).toFixed(2);
+                    // Actualizar el valor total del pedido incluyendo la propina y aplicando el descuento por puntos
+                    totalConPropinaValor.textContent = totalConPropina.toFixed(2);
                 }
 
                 // Actualizar el precio total al cargar la página
-                actualizarTotalConPropina();
+                actualizarValores();
 
                 // Escuchar cambios en los checkboxes de propina
                 propinaToggle.addEventListener('change', function () {
                     if (this.checked) {
                         // Mostrar el slider y actualizar el total con propina si se selecciona la propina
                         propinaSlider.style.display = 'block';
-                        // Actualizar el precio total considerando la propina
-                        actualizarTotalConPropina();
+                        // Actualizar los valores considerando la propina y el descuento por puntos
+                        actualizarValores();
                         document.getElementById('total-con-propina').style.display = 'block';
                         // Desmarcar el checkbox de omitir propina si se selecciona la propina
                         document.getElementById('omitir-propina').checked = false;
                     } else {
                         // Ocultar el slider si no se selecciona la propina
                         propinaSlider.style.display = 'none';
-                        // Restaurar el precio total sin propina
-                        totalConPropinaValor.textContent = <?= $precios['precioTotal'] ?>;
+                        // Restaurar el precio total sin propina y aplicando el descuento por puntos
+                        actualizarValores();
                         document.getElementById('total-con-propina').style.display = 'block'; // Mostrar siempre el precio total
                     }
                 });
@@ -380,7 +440,7 @@
                     if (this.checked) {
                         // Establecer la propina a 0 si se selecciona omitir propina
                         cantidadPropina.textContent = '0.00';
-                        // Actualizar el total con propina a 0
+                        // Actualizar el total con propina a 0 y aplicando el descuento por puntos
                         totalConPropinaValor.textContent = totalPedido.toFixed(2);
                         // Desmarcar el checkbox de propina si se selecciona omitir propina
                         document.getElementById('propina-toggle').checked = false;
@@ -391,30 +451,33 @@
                         if (propinaToggle.checked) {
                             propinaSlider.style.display = 'block';
                         }
+                        // Actualizar los valores considerando la propina y el descuento por puntos
+                        actualizarValores();
                     }
                 });
 
                 // Escuchar cambios en el rango de propina
                 propinaRange.addEventListener('input', function () {
-                    // Actualizar el valor del porcentaje de propina y el total con propina
-                    actualizarPropinaYTotal();
+                    // Actualizar los valores del porcentaje de propina, la propina y el total con propina
+                    actualizarValores();
                 });
 
-                // Escuchar cambios en el rango de propina para actualizar el total con propina
-                propinaRange.addEventListener('input', function () {
-                    // Actualizar el total con propina cuando se cambia el rango de propina
-                    actualizarTotalConPropina();
+                // Escuchar cambios en la cantidad de puntos
+                cantidadPuntosInput.addEventListener('input', function () {
+                    // Actualizar los valores considerando el descuento por puntos
+                    actualizarValores();
                 });
             });
+
 
         </script>
 
 
         <!-- Agrega este div para mostrar el código QR -->
         <div id="qrCodeContainer"></div>
-            
+
         <!-- Agrega este botón para ir a "Mis pedidos" -->
-        <a href="?controller=usuario&action=mispedidos" class="btn btn-secondary">Cerrar</a>
+        <a href="?controller=usuario&action=mispedidos" class="btn btn-secondary">Mis Pedidos</a>
 </body>
 <footer>
     <div class="footer-up">
